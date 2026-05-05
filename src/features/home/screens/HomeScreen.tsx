@@ -1,8 +1,14 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useTheme } from '../../../theme/useTheme';
+import { Button } from '@/components';
 
 export default function Home() {
-  const theme = useTheme()
+  const theme = useTheme();
+
+  const handleAddTransaction = () => {
+    // Lógica para adicionar uma nova transação
+    alert('Adicionar Transação');
+  }
 
   return (
     <View
@@ -28,6 +34,7 @@ export default function Home() {
       >
         R$ 2.450,00
       </Text>
+      <Button title="Adicionar Transação" variant="secondary" onPress={handleAddTransaction} />
     </View>
   )
 }
