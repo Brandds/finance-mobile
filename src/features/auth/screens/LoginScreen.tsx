@@ -8,17 +8,32 @@ import {
 } from "react-native";
 
 import { MaterialIcons } from "@expo/vector-icons";
-
 import Screen from "@/components/Screen/Screen";
 import Typography from "@/components/Typography/Typography";
-
 import { tokens } from "@/theme/tokens";
 import { Card, Icon } from "@/components";
 import { constantsAuth } from "../constants/constantsAuth";
 import { constants } from "@/constants/constants";
+import { useForm } from "react-hook-form";
+import { LoginFormData, loginSchema } from "../form/schema/login.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Input from "@/components/Input";
+
 
 export default function LoginScreen() {
     const [showPassword, setShowPassword] = useState(false);
+
+    const {
+        control,
+        handleSubmit,
+    } = useForm<LoginFormData>({
+        resolver: zodResolver(loginSchema),
+
+        defaultValues: {
+            email: "",
+            password: "",
+        },
+    });
 
     return (
         <Screen centered>
@@ -67,81 +82,33 @@ export default function LoginScreen() {
                         </Typography>
                     </View>
 
-                    {/* Email */}
                     <View style={styles.field}>
+                        {/* Email */}
+                        <Input
+                            control={control}
+                            name="email"
+                            label="E-MAIL"
+                            placeholder="nome@exemplo.com"
+                            icon="mail"
+                        />
+                        {/* Password */}
+                        <Input
+                            control={control}
+                            name="password"
+                            label="SENHA"
+                            placeholder="••••••••"
+                            icon="lock"
+                            secureTextEntry
+                        />
+                    </View>
+                    <Pressable>
                         <Typography
                             variant="body2"
-                            color={tokens.colors.textSecondary}
+                            color={tokens.colors.primary}
                         >
-                            E-MAIL
+                            Esqueceu a senha?
                         </Typography>
-
-                        <View style={styles.inputContainer}>
-                            <MaterialIcons
-                                name="mail"
-                                size={20}
-                                color={tokens.colors.textSecondary}
-                            />
-
-                            <TextInput
-                                placeholder="nome@exemplo.com"
-                                placeholderTextColor={tokens.colors.textSecondary}
-                                style={styles.input}
-                            />
-                        </View>
-                    </View>
-
-                    {/* Password */}
-                    <View style={styles.field}>
-                        <View style={styles.passwordHeader}>
-                            <Typography
-                                variant="body2"
-                                color={tokens.colors.textSecondary}
-                            >
-                                SENHA
-                            </Typography>
-
-                            <Pressable>
-                                <Typography
-                                    variant="body2"
-                                    color={tokens.colors.primary}
-                                >
-                                    Esqueceu a senha?
-                                </Typography>
-                            </Pressable>
-                        </View>
-
-                        <View style={styles.inputContainer}>
-                            <MaterialIcons
-                                name="lock"
-                                size={20}
-                                color={tokens.colors.textSecondary}
-                            />
-
-                            <TextInput
-                                placeholder="••••••••"
-                                placeholderTextColor={tokens.colors.textSecondary}
-                                secureTextEntry={!showPassword}
-                                style={styles.input}
-                            />
-
-                            <Pressable
-                                onPress={() =>
-                                    setShowPassword(!showPassword)
-                                }
-                            >
-                                <MaterialIcons
-                                    name={
-                                        showPassword
-                                            ? "visibility-off"
-                                            : "visibility"
-                                    }
-                                    size={20}
-                                    color={tokens.colors.textSecondary}
-                                />
-                            </Pressable>
-                        </View>
-                    </View>
+                    </Pressable>
 
                     {/* Button */}
                     <Pressable style={styles.loginButton}>
@@ -226,12 +193,12 @@ const styles = StyleSheet.create({
 
     header: {
         alignItems: "center",
-        gap: tokens.spacing.sm,
+        gap: tokens.spacing.sm
     },
 
     logoContainer: {
         width: 56,
-        height: 56,
+        height: 52,
 
         borderRadius: tokens.radius.xl,
 
@@ -254,7 +221,7 @@ const styles = StyleSheet.create({
 
         padding: tokens.spacing.lg,
 
-        gap: tokens.spacing.lg,
+        gap: tokens.spacing.md,
 
         borderWidth: 1,
         borderColor: tokens.colors.border,

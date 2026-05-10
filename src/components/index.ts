@@ -1,5 +1,5 @@
 export * from './Button/Button'
 export * from './Card/Card'
-export * from './Input/Input'
+export * from './Input'
 export * from './SearchBar/SearchBar'
 export * from './Icon/Icon'
