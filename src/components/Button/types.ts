@@ -1,8 +1,16 @@
-type Variant = 'primary' | 'secondary' | 'ghost'
+import { ReactNode } from "react";
+import { GestureResponderEvent, ViewStyle } from "react-native";
 
-export type propsButton = {
-  title: string
-  onPress?: () => void
-  variant?: Variant
-  loading?: boolean
+export interface propsButton {
+  title?: string;
+
+  children?: ReactNode;
+
+  onPress?: (event: GestureResponderEvent) => void;
+
+  variant?: "primary" | "secondary" | "ghost";
+
+  loading?: boolean;
+
+  style?: ViewStyle;
 }

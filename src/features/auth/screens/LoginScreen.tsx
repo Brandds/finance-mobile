@@ -11,13 +11,14 @@ import { MaterialIcons } from "@expo/vector-icons";
 import Screen from "@/components/Screen/Screen";
 import Typography from "@/components/Typography/Typography";
 import { tokens } from "@/theme/tokens";
-import { Card, Icon } from "@/components";
+import { Button, Card, Icon } from "@/components";
 import { constantsAuth } from "../constants/constantsAuth";
 import { constants } from "@/constants/constants";
 import { useForm } from "react-hook-form";
 import { LoginFormData, loginSchema } from "../form/schema/login.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "@/components/Input";
+import { stylesLogin } from "../styles";
 
 
 export default function LoginScreen() {
@@ -37,11 +38,11 @@ export default function LoginScreen() {
 
     return (
         <Screen centered>
-            <View style={styles.container}>
+            <View style={stylesLogin.container}>
                 {/* Header */}
-                <View style={styles.header}>
+                <View style={stylesLogin.header}>
                     <Icon
-                        styleView={styles.logoContainer}
+                        styleView={stylesLogin.logoContainer}
                         name="account-balance-wallet"
                         size={28}
                         color={tokens.colors.onPrimary}
@@ -56,7 +57,7 @@ export default function LoginScreen() {
                     </Typography>
 
 
-                    <View style={styles.headerDescription}>
+                    <View style={stylesLogin.headerDescription}>
                         <Typography
                             variant="body2"
                             color={tokens.colors.textSecondary}
@@ -68,8 +69,8 @@ export default function LoginScreen() {
                 </View>
 
                 {/* Card */}
-                <Card styleCard={styles.card}>
-                    <View style={styles.cardHeader}>
+                <Card styleCard={stylesLogin.card}>
+                    <View style={stylesLogin.cardHeader}>
                         <Typography variant="h1">
                             Boas-vindas
                         </Typography>
@@ -82,7 +83,7 @@ export default function LoginScreen() {
                         </Typography>
                     </View>
 
-                    <View style={styles.field}>
+                    <View style={stylesLogin.field}>
                         {/* Email */}
                         <Input
                             control={control}
@@ -111,7 +112,7 @@ export default function LoginScreen() {
                     </Pressable>
 
                     {/* Button */}
-                    <Pressable style={styles.loginButton}>
+                    <Pressable style={stylesLogin.loginButton}>
                         <Typography
                             variant="h2"
                             color={tokens.colors.onPrimary}
@@ -121,8 +122,8 @@ export default function LoginScreen() {
                     </Pressable>
 
                     {/* Divider */}
-                    <View style={styles.dividerContainer}>
-                        <View style={styles.divider} />
+                    <View style={stylesLogin.dividerContainer}>
+                        <View style={stylesLogin.divider} />
 
                         <Typography
                             variant="body2"
@@ -131,12 +132,15 @@ export default function LoginScreen() {
                             OU ACESSE COM
                         </Typography>
 
-                        <View style={styles.divider} />
+                        <View style={stylesLogin.divider} />
                     </View>
 
                     {/* Social Buttons */}
-                    <View style={styles.socialButtons}>
-                        <Pressable style={styles.socialButton}>
+                    <View style={stylesLogin.socialButtons}>
+                       <Button
+                            variant="secondary"
+                            style={stylesLogin.socialButton}
+                            >
                             <MaterialIcons
                                 name="g-mobiledata"
                                 size={24}
@@ -146,9 +150,12 @@ export default function LoginScreen() {
                             <Typography variant="body2">
                                 Google
                             </Typography>
-                        </Pressable>
+                        </Button>
 
-                        <Pressable style={styles.socialButton}>
+                       <Button
+                            variant="secondary"
+                            style={stylesLogin.socialButton}
+                            >
                             <MaterialIcons
                                 name="apple"
                                 size={24}
@@ -158,12 +165,12 @@ export default function LoginScreen() {
                             <Typography variant="body2">
                                 Apple
                             </Typography>
-                        </Pressable>
+                        </Button>
                     </View>
                 </Card>
 
                 {/* Footer */}
-                <View style={styles.footer}>
+                <View style={stylesLogin.footer}>
                     <Typography
                         variant="body2"
                         color={tokens.colors.textSecondary}
@@ -184,141 +191,3 @@ export default function LoginScreen() {
         </Screen>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        width: "100%",
-        gap: tokens.spacing.xl,
-    },
-
-    header: {
-        alignItems: "center",
-        gap: tokens.spacing.sm
-    },
-
-    logoContainer: {
-        width: 56,
-        height: 52,
-
-        borderRadius: tokens.radius.xl,
-
-        backgroundColor: tokens.colors.primary,
-
-        alignItems: "center",
-        justifyContent: "center",
-
-        ...tokens.shadows.level2,
-    },
-
-    headerDescription: {
-        maxWidth: 300,
-    },
-
-    card: {
-        backgroundColor: "#FFFFFF",
-
-        borderRadius: tokens.radius.xl,
-
-        padding: tokens.spacing.lg,
-
-        gap: tokens.spacing.md,
-
-        borderWidth: 1,
-        borderColor: tokens.colors.border,
-
-        ...tokens.shadows.level1,
-    },
-
-    cardHeader: {
-        gap: tokens.spacing.xs,
-    },
-
-    field: {
-        gap: tokens.spacing.sm,
-    },
-
-    passwordHeader: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-    },
-
-    inputContainer: {
-        height: 56,
-
-        borderRadius: tokens.radius.md,
-
-        backgroundColor: tokens.colors.surfaceContainer,
-
-        paddingHorizontal: tokens.spacing.md,
-
-        flexDirection: "row",
-        alignItems: "center",
-
-        gap: tokens.spacing.sm,
-    },
-
-    input: {
-        flex: 1,
-
-        color: tokens.colors.text,
-
-        fontSize: tokens.typography.bodyLg.fontSize,
-    },
-
-    loginButton: {
-        height: 56,
-
-        borderRadius: tokens.radius.xl,
-
-        backgroundColor: tokens.colors.primary,
-
-        justifyContent: "center",
-        alignItems: "center",
-
-        ...tokens.shadows.level2,
-    },
-
-    dividerContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-
-        gap: tokens.spacing.md,
-    },
-
-    divider: {
-        flex: 1,
-        height: 1,
-        backgroundColor: tokens.colors.border,
-    },
-
-    socialButtons: {
-        flexDirection: "row",
-        gap: tokens.spacing.md,
-    },
-
-    socialButton: {
-        flex: 1,
-
-        height: 52,
-
-        borderRadius: tokens.radius.xl,
-
-        borderWidth: 1,
-        borderColor: tokens.colors.border,
-
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-
-        gap: tokens.spacing.sm,
-    },
-
-    footer: {
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-
-        gap: tokens.spacing.xs,
-    },
-});
