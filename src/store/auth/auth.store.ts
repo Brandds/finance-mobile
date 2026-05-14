@@ -1,32 +1,66 @@
-import { AuthData } from "@/features/auth/types/authType";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AuthData, User } from "@/features/auth/types/authType";
+import { getAuth, removeAuth, saveAuth } from "@/storage/auth/auth.storage";
+import { create } from "zustand";
 
 
-const AUTH_STORAGE_KEY = "@finance:user";
 
-export async function saveAuth(
-  data: AuthData
-) {
-  await AsyncStorage.setItem(
-    AUTH_STORAGE_KEY,
-    JSON.stringify(data)
-  );
+interface AuthStore {
+  user: User | null;
+  token: string | null;
+
+  loading: boolean;
+  authenticated: boolean;
+
+  signIn: (data: AuthData) => Promise<void>;
+
+  signOut: () => Promise<void>;
+
+  loadUserStorage: () => Promise<void>;
 }
 
-export async function getAuth() {
-  const response = await AsyncStorage.getItem(
-    AUTH_STORAGE_KEY
-  );
+export const useAuthStore =
+  create<AuthStore>((set) => ({
+    user: null,
+    token: null,
 
-  if (!response) {
-    return null;
-  }
+    loading: true,
+    authenticated: false,
 
-  return JSON.parse(response) as AuthData;
-}
+    async signIn(data) {
+      await saveAuth(data);
 
-export async function removeAuth() {
-  await AsyncStorage.removeItem(
-    AUTH_STORAGE_KEY
-  );
-}
+      set({
+        user: data.user,
+        token: data.token,
+        authenticated: true,
+      });
+    },
+
+    async signOut() {
+      await removeAuth();
+
+      set({
+        user: null,
+        token: null,
+        authenticated: false,
+      });
+    },
+
+    async loadUserStorage() {
+      try {
+        const auth = await getAuth();
+
+        if (auth) {
+          set({
+            user: auth.user,
+            token: auth.token,
+            authenticated: true,
+          });
+        }
+      } finally {
+        set({
+          loading: false,
+        });
+      }
+    },
+  }));

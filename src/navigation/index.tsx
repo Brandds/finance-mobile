@@ -1,20 +1,56 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from '../features/home/screens/HomeScreen';
-import { ThemeProvider } from '../theme/ThemeProvider';
-import homeOptions from './options/homeOptions';
-import LoginScreen from '@/features/auth/screens/LoginScreen';
+import {
+  NavigationContainer,
+} from "@react-navigation/native";
 
-const Stack = createNativeStackNavigator();
+import { useEffect } from "react";
+
+import { ThemeProvider }
+from "@/theme/ThemeProvider";
+
+import AppRoutes
+from "./app.routes";
+
+import AuthRoutes
+from "./auth.routes";
+import { useAuthStore } from "@/store/auth/auth.store";
+
+
 
 export default function Routes() {
+
+  const authenticated =
+    useAuthStore(
+      (state) => state.authenticated
+    );
+
+  const loading =
+    useAuthStore(
+      (state) => state.loading
+    );
+
+  const loadUserStorage =
+    useAuthStore(
+      (state) => state.loadUserStorage
+    );
+
+  useEffect(() => {
+    loadUserStorage();
+  }, []);
+
+  if (loading) {
+    return null;
+  }
+
   return (
     <ThemeProvider>
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="Home" component={HomeScreen} options={homeOptions} />
-        </Stack.Navigator>
+
+        {authenticated ? (
+          <AppRoutes />
+        ) : (
+          <AuthRoutes />
+        )}
+
       </NavigationContainer>
     </ThemeProvider>
   );
