@@ -12,6 +12,7 @@ import Input from "@/components/Input";
 import { Button, Card } from "@/components";
 
 import { tokens } from "@/theme/tokens";
+import { useNavigation } from "@react-navigation/native";
 
 import {
   LoginFormData,
@@ -20,6 +21,10 @@ import {
 
 import { stylesLogin } from "../styles";
 import { useLogin } from "../hooks/useLogin";
+import { NavigationProps } from "./types";
+import { useAuthStore } from "@/store/auth/auth.store";
+
+
 
 export default function LoginForm() {
   const {
@@ -35,6 +40,10 @@ export default function LoginForm() {
   });
 
   const { loading, handleLogin } =  useLogin();
+
+  async function onSubmit(data: LoginFormData) {
+    await handleLogin(data);
+  }
 
   return (
     <Card styleCard={stylesLogin.card}>
@@ -85,7 +94,7 @@ export default function LoginForm() {
       {/* Submit */}
       <Button
         title="Entrar"
-        onPress={handleSubmit(handleLogin)}
+        onPress={handleSubmit(onSubmit)}
         loading={loading}
       />
 

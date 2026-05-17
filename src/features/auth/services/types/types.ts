@@ -3,6 +3,10 @@ type LoginRequest = {
   password: string;
 };
 
+type LoginResponse = {
+  token:string;
+}
 
 
-export { LoginRequest };
+
+export { LoginRequest, LoginResponse};

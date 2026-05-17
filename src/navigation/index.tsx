@@ -14,8 +14,6 @@ import AuthRoutes
 from "./auth.routes";
 import { useAuthStore } from "@/store/auth/auth.store";
 
-
-
 export default function Routes() {
 
   const authenticated =

@@ -6,9 +6,10 @@ from "@/features/home/screens/HomeScreen";
 
 import homeOptions
 from "./options/homeOptions";
+import { RootStackParamList } from "./types";
 
 const Stack =
-  createNativeStackNavigator();
+  createNativeStackNavigator<RootStackParamList>();
 
 export default function AppRoutes() {
   return (

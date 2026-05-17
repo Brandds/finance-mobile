@@ -3,9 +3,10 @@ from "@react-navigation/native-stack";
 
 import LoginScreen
 from "@/features/auth/screens/LoginScreen";
+import { RootStackParamList } from "./types";
 
 const Stack =
-  createNativeStackNavigator();
+  createNativeStackNavigator<RootStackParamList>();
 
 export default function AuthRoutes() {
   return (

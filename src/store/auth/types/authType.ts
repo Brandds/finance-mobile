@@ -1,4 +1,4 @@
-import { User } from "@/features/user/types/userTypes";
+import { User } from "@/features/auth/types/authType";
 
 type AuthState = {
   token: string | null;

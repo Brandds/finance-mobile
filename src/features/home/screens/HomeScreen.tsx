@@ -14,7 +14,7 @@ export default function Home() {
 
   return (
     <SafeAreaView>
-      
+      <Text>Tesxt</Text>
     </SafeAreaView>
   )
 }
