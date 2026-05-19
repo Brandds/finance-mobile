@@ -11,9 +11,15 @@ import { constants } from "@/constants/constants";
 import { constantsAuth } from "../constants/constantsAuth";
 import { stylesLogin } from "../styles";
 import LoginForm from "../form/LoginForm";
+import { useNavigation } from "@react-navigation/native";
+import { NavigationProps } from "../form/types";
+import { ROUTES } from "@/navigation/routes";
 
 
 export default function LoginScreen() {
+
+  const navigation = useNavigation<NavigationProps>();
+
   return (
     <Screen centered>
       <View style={stylesLogin.container}>
@@ -57,7 +63,9 @@ export default function LoginScreen() {
             Não tem uma conta?
           </Typography>
 
-          <Pressable>
+          <Pressable
+            onPress={() => navigation.navigate(ROUTES.REGISTER)}
+          >
             <Typography
               variant="body2"
               color={tokens.colors.primary}
