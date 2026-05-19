@@ -12,7 +12,6 @@ import Input from "@/components/Input";
 import { Button, Card } from "@/components";
 
 import { tokens } from "@/theme/tokens";
-import { useNavigation } from "@react-navigation/native";
 
 import {
   LoginFormData,
@@ -21,8 +20,6 @@ import {
 
 import { stylesLogin } from "../styles";
 import { useLogin } from "../hooks/useLogin";
-import { NavigationProps } from "./types";
-import { useAuthStore } from "@/store/auth/auth.store";
 
 
 
