@@ -144,4 +144,16 @@ const stylesLogin = StyleSheet.create({
     },
 });
 
-export { stylesLogin };
+
+
+const stylesRegister = StyleSheet.create({
+    checkboxContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+
+        gap: tokens.spacing.sm,
+    }
+}
+)
+
+export { stylesLogin, stylesRegister };
