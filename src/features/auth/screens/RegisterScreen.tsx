@@ -14,7 +14,10 @@ import RegisterForm from "../form/RegisterForm";
 
 export default function RegisterScreen() {
   return (
-    <Screen centered>
+    <Screen
+      scrollable
+      centered
+    >
       <View style={stylesLogin.container}>
         {/* Header */}
         <View style={stylesLogin.header}>
