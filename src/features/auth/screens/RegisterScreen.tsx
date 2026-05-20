@@ -11,8 +11,14 @@ import { constants } from "@/constants/constants";
 import { stylesLogin } from "../styles";
 
 import RegisterForm from "../form/RegisterForm";
+import { useNavigation } from "@react-navigation/native";
+import { NavigationProps } from "../form/types";
+import { ROUTES } from "@/navigation/routes";
 
 export default function RegisterScreen() {
+
+  const navigation = useNavigation<NavigationProps>();
+
   return (
     <Screen
       scrollable
@@ -57,7 +63,9 @@ export default function RegisterScreen() {
             Já possui uma conta?
           </Typography>
 
-          <Pressable>
+          <Pressable
+            onPress={() => navigation.navigate(ROUTES.LOGIN)}
+          >
             <Typography
               variant="body2"
               color={tokens.colors.primary}
