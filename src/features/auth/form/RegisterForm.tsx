@@ -27,6 +27,7 @@ export default function RegisterForm() {
   const {
     control,
     handleSubmit,
+    formState: { errors },
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
 
@@ -73,9 +74,7 @@ export default function RegisterForm() {
         render={({ field }) => (
           <Pressable
             style={stylesRegister.checkboxContainer}
-            onPress={() =>
-              field.onChange(!field.value)
-            }
+            onPress={() => field.onChange(!field.value)}
           >
             <MaterialIcons
               name={
@@ -96,6 +95,14 @@ export default function RegisterForm() {
           </Pressable>
         )}
       />
+      {errors.acceptTerms && (
+        <Typography
+          variant="body2"
+          color={tokens.colors.error}
+        >
+          {errors.acceptTerms.message}
+        </Typography>
+      )}
 
       {/* Submit */}
       <Button
