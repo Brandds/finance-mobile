@@ -2,14 +2,21 @@ import React from "react";
 
 import {
   View,
-  ScrollView
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 
-import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  SafeAreaView,
+} from "react-native-safe-area-context";
 
 import { ScreenProps } from "./types";
 
 import { tokens } from "@/theme/tokens";
+
 import stylesScreen from "./styles";
 
 const Screen = ({
@@ -19,12 +26,17 @@ const Screen = ({
   centered = false,
   backgroundColor = tokens.colors.background,
 }: ScreenProps) => {
+
   const content = (
     <View
       style={[
         stylesScreen.container,
-        padding && stylesScreen.padding,
-        centered && stylesScreen.centered,
+
+        padding &&
+          stylesScreen.padding,
+
+        centered &&
+          stylesScreen.centered,
       ]}
     >
       {children}
@@ -41,19 +53,39 @@ const Screen = ({
         },
       ]}
     >
-      {scrollable ? (
-        <ScrollView
-          contentContainerStyle={{ flexGrow: 1 }}
-          showsVerticalScrollIndicator={false}
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+
+        behavior={
+          Platform.OS === "ios"
+            ? "padding"
+            : "height"
+        }
+      >
+        <TouchableWithoutFeedback
+          onPress={Keyboard.dismiss}
         >
-          {content}
-        </ScrollView>
-      ) : (
-        content
-      )}
+          {scrollable ? (
+            <ScrollView
+              keyboardShouldPersistTaps="handled"
+
+              contentContainerStyle={{
+                flexGrow: 1,
+              }}
+
+              showsVerticalScrollIndicator={
+                false
+              }
+            >
+              {content}
+            </ScrollView>
+          ) : (
+            content
+          )}
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
-
 
 export default Screen;

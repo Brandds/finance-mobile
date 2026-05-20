@@ -16,7 +16,6 @@ export default function RegisterScreen() {
   return (
     <Screen
       scrollable
-      centered
     >
       <View style={stylesLogin.container}>
         {/* Header */}
