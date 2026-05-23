@@ -1,24 +1,38 @@
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaViewBase } from 'react-native';
-import { useTheme } from '../../../theme/useTheme';
-import { SafeAreaView } from "react-native-safe-area-context";
+import { View } from "react-native";
 
-import { Button } from '@/components';
-import { useLogout } from '@/features/auth/hooks/useLogout';
+import Screen from "@/components/Screen/Screen";
+import { stylesHome } from "../styles/home.styles";
+import HomeHeader from "../sections/HomeHeader";
+import SummaryCard from "../sections/SummaryCard";
+import CategoriesSection from "../sections/CategoriesSection";
+import RecentExpensesSection from "../sections/RecentExpensesSection";
+import FloatingButton from "../sections/FloatingButton";
+import BottomTabBar from "../sections";
 
-export default function Home() {
-  const { handleLogout } = useLogout();
 
+
+export default function HomeScreen() {
   return (
-    <SafeAreaView>
-      <Text>Tesxt</Text>
-      <Button title="Sair" onPress={handleLogout} />
-    </SafeAreaView>
-  )
-}
+    <Screen scrollable>
+      <View style={stylesHome.container}>
+        {/* Header */}
+        <HomeHeader />
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
-})
+        {/* Summary */}
+        <SummaryCard />
+
+        {/* Categories */}
+        <CategoriesSection />
+
+        {/* Recent Expenses */}
+        <RecentExpensesSection />
+      </View>
+
+      {/* Floating Action Button */}
+      <FloatingButton />
+
+      {/* Bottom Navigation */}
+      <BottomTabBar />
+    </Screen>
+  );
+}

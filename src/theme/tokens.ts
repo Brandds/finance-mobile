@@ -17,6 +17,7 @@ export const tokens = {
     onError: '#ffffff',
 
     border: '#e2e8f0',
+    surfaceSecondary: "#F1F5F9",
   },
 
   spacing: {

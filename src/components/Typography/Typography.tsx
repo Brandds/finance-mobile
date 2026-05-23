@@ -1,13 +1,19 @@
 import { Text } from "react-native";
-import { TypographyProps } from "./types";
-import { tokens } from "@/theme/tokens";
+
+import { TypographyProps }
+from "./types";
+
+import { tokens }
+from "@/theme/tokens";
 
 const Typography = ({
   variant = "body1",
   color = tokens.colors.text,
   align = "left",
   children,
+  style,
 }: TypographyProps) => {
+
   const variants = {
     h1: tokens.typography.h1,
     h2: tokens.typography.h2,
@@ -23,6 +29,7 @@ const Typography = ({
           color,
           textAlign: align,
         },
+        style,
       ]}
     >
       {children}

@@ -1,10 +1,21 @@
-import React from "react";
+import {
+  TextStyle,
+  StyleProp,
+} from "react-native";
 
-interface TypographyProps {
-  variant?: "h1" | "h2" | "body1" | "body2";
-  color?: string;
-  align?: "left" | "center" | "right";
+export interface TypographyProps {
   children: React.ReactNode;
-}
 
-export type { TypographyProps };
+  variant?: "h1"
+    | "h2"
+    | "body1"
+    | "body2";
+
+  color?: string;
+
+  align?: "left"
+    | "center"
+    | "right";
+
+  style?: StyleProp<TextStyle>;
+}
