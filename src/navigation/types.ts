@@ -1,5 +1,15 @@
+import { ROUTES } from "./routes";
+
 export type RootStackParamList = {
-  Login: undefined;
-  Register: undefined;
-  Home: undefined;
+  [ROUTES.LOGIN]: undefined;
+  [ROUTES.REGISTER]: undefined;
+  [ROUTES.HOME]: undefined;
+};
+
+
+export type RootTabParamList = {
+  [ROUTES.HOME]: undefined;
+  [ROUTES.EXPENSES]: undefined;
+  [ROUTES.CATEGORIES]: undefined;
+  [ROUTES.SUMMARY]: undefined;
 };
