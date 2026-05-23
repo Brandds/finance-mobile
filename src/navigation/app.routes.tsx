@@ -1,23 +1,26 @@
 import { createNativeStackNavigator }
-from "@react-navigation/native-stack";
+from '@react-navigation/native-stack';
 
-import HomeScreen
-from "@/features/home/screens/HomeScreen";
+import BottomTabsRoutes
+from './tabs/bottom-tabs.routes';
 
-import homeOptions
-from "./options/homeOptions";
-import { RootStackParamList } from "./types";
+import { RootStackParamList }
+from './types/root-stack';
+import { ROUTES } from './routes';
 
 const Stack =
   createNativeStackNavigator<RootStackParamList>();
 
 export default function AppRoutes() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
       <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={homeOptions}
+        name={ROUTES.MAIN_TABS}
+        component={BottomTabsRoutes}
       />
     </Stack.Navigator>
   );

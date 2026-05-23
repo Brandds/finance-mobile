@@ -7,8 +7,6 @@ import SummaryCard from "../sections/SummaryCard";
 import CategoriesSection from "../sections/CategoriesSection";
 import RecentExpensesSection from "../sections/RecentExpensesSection";
 import FloatingButton from "../sections/FloatingButton";
-import BottomTabBar from "../sections";
-
 
 
 export default function HomeScreen() {
@@ -31,8 +29,6 @@ export default function HomeScreen() {
       {/* Floating Action Button */}
       <FloatingButton />
 
-      {/* Bottom Navigation */}
-      <BottomTabBar />
     </Screen>
   );
 }

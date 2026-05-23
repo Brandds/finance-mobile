@@ -1,18 +1,38 @@
 import {
   NavigationContainer,
-} from "@react-navigation/native";
+  DefaultTheme,
+} from '@react-navigation/native';
 
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
 import { ThemeProvider }
-from "@/theme/ThemeProvider";
+from '@/theme/ThemeProvider';
 
 import AppRoutes
-from "./app.routes";
+from './app.routes';
 
 import AuthRoutes
-from "./auth.routes";
-import { useAuthStore } from "@/store/auth/auth.store";
+from './auth.routes';
+
+import { useAuthStore }
+from '@/store/auth/auth.store';
+
+import { tokens }
+from '@/theme/tokens';
+
+const navigationTheme = {
+  ...DefaultTheme,
+
+  colors: {
+    ...DefaultTheme.colors,
+
+    background:
+      tokens.colors.background,
+
+    primary:
+      tokens.colors.primary,
+  },
+};
 
 export default function Routes() {
 
@@ -41,14 +61,14 @@ export default function Routes() {
 
   return (
     <ThemeProvider>
-      <NavigationContainer>
-
+      <NavigationContainer
+        theme={navigationTheme}
+      >
         {authenticated ? (
           <AppRoutes />
         ) : (
           <AuthRoutes />
         )}
-
       </NavigationContainer>
     </ThemeProvider>
   );

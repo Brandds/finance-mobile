@@ -5,4 +5,5 @@ export const ROUTES = {
   EXPENSES: "Expenses",
   CATEGORIES: "Categories",
   SUMMARY: "Summary",
+  MAIN_TABS:'MAIN_TABS',
 } as const;
