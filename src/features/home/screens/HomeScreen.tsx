@@ -7,6 +7,7 @@ import SummaryCard from "../sections/SummaryCard";
 import CategoriesSection from "../sections/CategoriesSection";
 import RecentExpensesSection from "../sections/RecentExpensesSection";
 import FloatingButton from "../sections/FloatingButton";
+import { MaterialIcons } from "@expo/vector-icons";
 
 
 export default function HomeScreen() {
@@ -17,7 +18,17 @@ export default function HomeScreen() {
         <HomeHeader />
 
         {/* Summary */}
-        <SummaryCard />
+        <SummaryCard
+          title="Total gasto no mês"
+          subTitle="R$ 3.450,00"
+          info="8% menor que mês passado"            
+        >
+          <MaterialIcons
+            name="trending-down"
+            size={16}
+            color="#FFFFFF"
+          />
+        </SummaryCard>
 
         {/* Categories */}
         <CategoriesSection />

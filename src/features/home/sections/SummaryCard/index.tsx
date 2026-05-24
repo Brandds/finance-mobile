@@ -7,9 +7,10 @@ from "@expo/vector-icons";
 import Typography
 from "@/components/Typography/Typography";
 import { styles } from "./styles";
+import { SummaryCardProps } from "./types";
 
 
-export default function SummaryCard() {
+export default function SummaryCard(props: SummaryCardProps) {
 
   return (
     <View style={styles.container}>
@@ -18,29 +19,25 @@ export default function SummaryCard() {
         variant="h2"
         color="#B8D4DC"
       >
-        Total gasto no mês
+        {props.title}
       </Typography>
 
       <Typography
         variant="body1"
         color="#FFFFFF"
       >
-        R$ 3.450,00
+        {props.subTitle}
       </Typography>
 
       <View style={styles.badge}>
 
-        <MaterialIcons
-          name="trending-down"
-          size={16}
-          color="#FFFFFF"
-        />
+        {props.children}
 
         <Typography
           variant="body1"
           color="#FFFFFF"
         >
-          8% menor que mês passado
+          {props.info}
         </Typography>
 
       </View>
