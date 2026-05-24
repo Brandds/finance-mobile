@@ -15,14 +15,14 @@ export default function SummaryCard() {
     <View style={styles.container}>
 
       <Typography
-        variant="h1"
+        variant="h2"
         color="#B8D4DC"
       >
         Total gasto no mês
       </Typography>
 
       <Typography
-        variant="h2"
+        variant="body1"
         color="#FFFFFF"
       >
         R$ 3.450,00
@@ -37,7 +37,7 @@ export default function SummaryCard() {
         />
 
         <Typography
-          variant="h1"
+          variant="body1"
           color="#FFFFFF"
         >
           8% menor que mês passado
