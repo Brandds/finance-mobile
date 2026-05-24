@@ -32,7 +32,7 @@ export default function CategoryItem({
         />
       </View>
 
-      <Typography variant="h1">
+      <Typography variant="body1">
         {item.title}
       </Typography>
 

@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
 
     paddingHorizontal: 20,
 
-    flexDirection: "row",
+    flexDirection: "column",
 
     alignItems: "center",
 
@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
       "#EEF2F5",
   },
   iconContainer: {
-    width: 40,
+    width: 60,
     height: 40,
 
     borderRadius: 8,
