@@ -7,11 +7,11 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
-  StatusBar
+  StatusBar,
 } from "react-native";
 
 import {
-  SafeAreaView,
+  useSafeAreaInsets,
 } from "react-native-safe-area-context";
 
 import { ScreenProps } from "./types";
@@ -28,16 +28,23 @@ const Screen = ({
   backgroundColor = tokens.colors.background,
 }: ScreenProps) => {
 
+  const insets = useSafeAreaInsets();
+
   const content = (
     <View
       style={[
         stylesScreen.container,
 
+        {
+          paddingTop: insets.top,
+          paddingBottom: insets.bottom,
+        },
+
         padding &&
-        stylesScreen.padding,
+          stylesScreen.padding,
 
         centered &&
-        stylesScreen.centered,
+          stylesScreen.centered,
       ]}
     >
       {children}
@@ -47,52 +54,44 @@ const Screen = ({
   return (
     <>
       <StatusBar
-        translucent={false}
-        backgroundColor={tokens.colors.primary}
+        translucent
+        backgroundColor="transparent"
         barStyle="dark-content"
       />
 
-      <SafeAreaView
-        edges={["top", "bottom"]}
+      <KeyboardAvoidingView
         style={[
           stylesScreen.container,
           {
-            backgroundColor
+            backgroundColor,
           },
         ]}
+        behavior={
+          Platform.OS === "ios"
+            ? "padding"
+            : undefined
+        }
       >
-        <KeyboardAvoidingView
-          style={{ flex: 1 }}
-
-          behavior={
-            Platform.OS === "ios"
-              ? "padding"
-              : "height"
-          }
+        <TouchableWithoutFeedback
+          onPress={Keyboard.dismiss}
         >
-          <TouchableWithoutFeedback
-            onPress={Keyboard.dismiss}
-          >
-            {scrollable ? (
-              <ScrollView
-                keyboardShouldPersistTaps="handled"
-
-                contentContainerStyle={{
-                  flexGrow: 1,
-                }}
-
-                showsVerticalScrollIndicator={
-                  false
-                }
-              >
-                {content}
-              </ScrollView>
-            ) : (
-              content
-            )}
-          </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
-      </SafeAreaView>
+          {scrollable ? (
+            <ScrollView
+              keyboardShouldPersistTaps="handled"
+              contentInsetAdjustmentBehavior="never"
+              automaticallyAdjustContentInsets={false}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{
+                flexGrow: 1,
+              }}
+            >
+              {content}
+            </ScrollView>
+          ) : (
+            content
+          )}
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     </>
   );
 };
