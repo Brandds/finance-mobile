@@ -7,6 +7,7 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
+  StatusBar
 } from "react-native";
 
 import {
@@ -33,10 +34,10 @@ const Screen = ({
         stylesScreen.container,
 
         padding &&
-          stylesScreen.padding,
+        stylesScreen.padding,
 
         centered &&
-          stylesScreen.centered,
+        stylesScreen.centered,
       ]}
     >
       {children}
@@ -44,47 +45,55 @@ const Screen = ({
   );
 
   return (
-    <SafeAreaView
-      edges={["top", "bottom"]}
-      style={[
-        stylesScreen.container,
-        {
-          backgroundColor,
-        },
-      ]}
-    >
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
+    <>
+      <StatusBar
+        translucent={false}
+        backgroundColor={tokens.colors.primary}
+        barStyle="dark-content"
+      />
 
-        behavior={
-          Platform.OS === "ios"
-            ? "padding"
-            : "height"
-        }
+      <SafeAreaView
+        edges={["top", "bottom"]}
+        style={[
+          stylesScreen.container,
+          {
+            backgroundColor
+          },
+        ]}
       >
-        <TouchableWithoutFeedback
-          onPress={Keyboard.dismiss}
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+
+          behavior={
+            Platform.OS === "ios"
+              ? "padding"
+              : "height"
+          }
         >
-          {scrollable ? (
-            <ScrollView
-              keyboardShouldPersistTaps="handled"
+          <TouchableWithoutFeedback
+            onPress={Keyboard.dismiss}
+          >
+            {scrollable ? (
+              <ScrollView
+                keyboardShouldPersistTaps="handled"
 
-              contentContainerStyle={{
-                flexGrow: 1,
-              }}
+                contentContainerStyle={{
+                  flexGrow: 1,
+                }}
 
-              showsVerticalScrollIndicator={
-                false
-              }
-            >
-              {content}
-            </ScrollView>
-          ) : (
-            content
-          )}
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+                showsVerticalScrollIndicator={
+                  false
+                }
+              >
+                {content}
+              </ScrollView>
+            ) : (
+              content
+            )}
+          </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </>
   );
 };
 
