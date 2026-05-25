@@ -3,7 +3,7 @@ import { View } from "react-native";
 import Screen from "@/components/Screen/Screen";
 import { stylesHome } from "../styles/home.styles";
 import HomeHeader from "../sections/HomeHeader";
-import SummaryCard from "../sections/SummaryCard";
+import SummaryCard from "../../../components/SummaryCard";
 import CategoriesSection from "../sections/CategoriesSection";
 import RecentExpensesSection from "../sections/RecentExpensesSection";
 import FloatingButton from "../sections/FloatingButton";
