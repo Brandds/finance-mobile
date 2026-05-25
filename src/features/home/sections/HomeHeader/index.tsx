@@ -11,8 +11,17 @@ import { tokens }
 from "@/theme/tokens";
 import { styles } from "./styles";
 
+import { useNavigation } from "@react-navigation/native";
+import { NavigationProps } from "@/features/auth/form/types";
+
 
 export default function HomeHeader() {
+
+    const navigation = useNavigation<NavigationProps>();
+
+  const handlerNotificationPress = () => {
+    navigation.navigate("Notifications");
+  }
 
   return (
     <View style={styles.container}>
@@ -36,6 +45,7 @@ export default function HomeHeader() {
       </View>
 
       <Pressable 
+        onPress={handlerNotificationPress}
         android_ripple={{ color: "#D1D5DB", borderless: true }}
         style={({ pressed }) => [
           styles.button,

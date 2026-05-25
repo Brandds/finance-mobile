@@ -4,6 +4,7 @@ export const ROUTES = {
   HOME: "Home",
   EXPENSES: "Expenses",
   CATEGORIES: "Categories",
+  NOTIFICATIONS: "Notifications",
   SUMMARY: "Summary",
   MAIN_TABS:'MAIN_TABS',
 } as const;

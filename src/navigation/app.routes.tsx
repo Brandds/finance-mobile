@@ -7,6 +7,7 @@ from './tabs/bottom-tabs.routes';
 import { RootStackParamList }
 from './types/root-stack';
 import { ROUTES } from './routes';
+import NotificationScreen from '@/features/notification/screen';
 
 const Stack =
   createNativeStackNavigator<RootStackParamList>();
@@ -21,6 +22,10 @@ export default function AppRoutes() {
       <Stack.Screen
         name={ROUTES.MAIN_TABS}
         component={BottomTabsRoutes}
+      />
+      <Stack.Screen
+        name={ROUTES.NOTIFICATIONS}
+        component={NotificationScreen}
       />
     </Stack.Navigator>
   );
