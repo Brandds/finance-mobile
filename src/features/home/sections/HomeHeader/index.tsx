@@ -35,7 +35,13 @@ export default function HomeHeader() {
 
       </View>
 
-      <Pressable style={styles.button}>
+      <Pressable 
+        android_ripple={{ color: "#D1D5DB", borderless: true }}
+        style={({ pressed }) => [
+          styles.button,
+          pressed && styles.buttonPressed,
+        ]}
+      >
         <MaterialIcons
           name="notifications-none"
           size={24}

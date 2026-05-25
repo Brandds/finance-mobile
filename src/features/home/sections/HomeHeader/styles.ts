@@ -38,4 +38,9 @@ export const styles = StyleSheet.create({
 
     backgroundColor:  tokens.colors.surfaceSecondary,
   },
+   buttonPressed: {
+    backgroundColor: "#E5E7EB",
+    opacity: 0.8,
+    transform: [{ scale: 0.95 }],
+  },
 });
