@@ -15,12 +15,14 @@ export default function SummaryCard(props: SummaryCardProps) {
   return (
     <View style={styles.container}>
 
-      <Typography
-        variant="h2"
-        color="#B8D4DC"
-      >
-        {props.title}
-      </Typography>
+      {props.title && (
+        <Typography
+          variant="h2"
+          color="#FFFFFF"
+        >
+          {props.title}
+        </Typography>
+      )}
 
       <Typography
         variant="body1"

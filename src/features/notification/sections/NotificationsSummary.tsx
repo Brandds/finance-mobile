@@ -6,7 +6,6 @@ import { tokens } from "@/theme/tokens";
 export default function NotificationsSummary() {
   return (
     <SummaryCard
-      title="Notificações"
       subTitle="Você possui 2 notificações não lidas"
       info="Atualizado agora"
     >

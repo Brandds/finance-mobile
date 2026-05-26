@@ -8,6 +8,7 @@ import NotificationsSummary from "../sections/NotificationsSummary";
 
 import { styles } from "../styles";
 import { notifications } from "../mocks/notifications";
+import AppHeader from "@/components/AppHeader";
 
 export default function NotificationsScreen() {
   return (
@@ -16,6 +17,7 @@ export default function NotificationsScreen() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.content}
       >
+        <AppHeader title="Notificações" />
         <NotificationsSummary />
 
         {notifications.map((section) => (
