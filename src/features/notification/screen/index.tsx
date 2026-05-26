@@ -13,11 +13,11 @@ import AppHeader from "@/components/AppHeader";
 export default function NotificationsScreen() {
   return (
     <Screen>
+      <AppHeader title="Notificações" />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.content}
       >
-        <AppHeader title="Notificações" />
         <NotificationsSummary />
 
         {notifications.map((section) => (
