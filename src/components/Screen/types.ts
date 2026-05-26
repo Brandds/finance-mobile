@@ -1,13 +1,14 @@
-import React from "react";
+import { ReactNode } from "react";
 
-export interface ScreenProps {
-  children: React.ReactNode;
+export type ScreenProps = {
+  children: ReactNode;
 
   scrollable?: boolean;
-
   padding?: boolean;
-
   centered?: boolean;
 
   backgroundColor?: string;
-}
+
+  headerTitle?: string;
+  showBackButton?: boolean;
+};

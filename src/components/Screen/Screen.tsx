@@ -14,6 +14,8 @@ import {
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 
+import AppHeader from "../AppHeader";
+
 import { ScreenProps } from "./types";
 
 import { tokens } from "@/theme/tokens";
@@ -25,9 +27,12 @@ const Screen = ({
   scrollable = false,
   padding = true,
   centered = false,
-  backgroundColor = tokens.colors.background,
-}: ScreenProps) => {
 
+  backgroundColor = tokens.colors.background,
+
+  headerTitle,
+  showBackButton = false,
+}: ScreenProps) => {
   const insets = useSafeAreaInsets();
 
   const content = (
@@ -36,15 +41,14 @@ const Screen = ({
         stylesScreen.container,
 
         {
-          paddingTop: insets.top,
           paddingBottom: insets.bottom,
         },
 
         padding &&
-          stylesScreen.padding,
+        stylesScreen.padding,
 
         centered &&
-          stylesScreen.centered,
+        stylesScreen.centered,
       ]}
     >
       {children}
@@ -64,6 +68,7 @@ const Screen = ({
           stylesScreen.container,
           {
             backgroundColor,
+            paddingTop: insets.top,
           },
         ]}
         behavior={
@@ -75,21 +80,32 @@ const Screen = ({
         <TouchableWithoutFeedback
           onPress={Keyboard.dismiss}
         >
-          {scrollable ? (
-            <ScrollView
-              keyboardShouldPersistTaps="handled"
-              contentInsetAdjustmentBehavior="never"
-              automaticallyAdjustContentInsets={false}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{
-                flexGrow: 1,
-              }}
-            >
-              {content}
-            </ScrollView>
-          ) : (
-            content
-          )}
+          <View style={{ flex: 1 }}>
+            {(headerTitle || showBackButton) && (
+              <View style={stylesScreen.headerContainer}>
+                <AppHeader
+                  title={headerTitle}
+                  showBackButton={showBackButton}
+                />
+              </View>
+            )}
+
+            {scrollable ? (
+              <ScrollView
+                keyboardShouldPersistTaps="handled"
+                contentInsetAdjustmentBehavior="never"
+                automaticallyAdjustContentInsets={false}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{
+                  flexGrow: 1,
+                }}
+              >
+                {content}
+              </ScrollView>
+            ) : (
+              content
+            )}
+          </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
     </>

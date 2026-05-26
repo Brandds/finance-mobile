@@ -14,6 +14,9 @@ const stylesScreen = StyleSheet.create({
   centered: {
     justifyContent: "center",
   },
+  headerContainer: {
+    paddingHorizontal: 20,
+  },
 });
 
 export default stylesScreen;
