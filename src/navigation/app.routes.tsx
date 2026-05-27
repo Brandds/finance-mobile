@@ -8,6 +8,7 @@ import { RootStackParamList }
 from './types/root-stack';
 import { ROUTES } from './routes';
 import NotificationScreen from '@/features/notification/screen';
+import UserScreen from '@/features/user/screen';
 
 const Stack =
   createNativeStackNavigator<RootStackParamList>();
@@ -26,6 +27,10 @@ export default function AppRoutes() {
       <Stack.Screen
         name={ROUTES.NOTIFICATIONS}
         component={NotificationScreen}
+      />
+      <Stack.Screen
+        name={ROUTES.USER}
+        component={UserScreen}
       />
     </Stack.Navigator>
   );

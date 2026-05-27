@@ -13,14 +13,19 @@ import { styles } from "./styles";
 
 import { useNavigation } from "@react-navigation/native";
 import { NavigationProps } from "@/features/auth/form/types";
+import { ROUTES } from "@/navigation/routes";
 
 
 export default function HomeHeader() {
 
-    const navigation = useNavigation<NavigationProps>();
+  const navigation = useNavigation<NavigationProps>();
 
   const handlerNotificationPress = () => {
-    navigation.navigate("Notifications");
+    navigation.navigate(ROUTES.NOTIFICATIONS);
+  }
+
+  const handlerUserPress = () => {
+    navigation.navigate(ROUTES.USER);
   }
 
   return (
@@ -38,6 +43,7 @@ export default function HomeHeader() {
         <Typography
           variant="h2"
           color={tokens.colors.primary}
+          onPress={handlerUserPress}
         >
           Financial Clarity
         </Typography>
