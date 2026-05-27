@@ -12,6 +12,7 @@ const Typography = ({
   align = "left",
   children,
   style,
+  onPress,
 }: TypographyProps) => {
 
   const variants = {
@@ -31,6 +32,7 @@ const Typography = ({
         },
         style,
       ]}
+      onPress={onPress}
     >
       {children}
     </Text>

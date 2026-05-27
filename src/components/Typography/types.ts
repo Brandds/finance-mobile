@@ -18,4 +18,6 @@ export interface TypographyProps {
     | "right";
 
   style?: StyleProp<TextStyle>;
+
+  onPress?: () => void;
 }
