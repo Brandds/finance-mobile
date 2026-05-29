@@ -8,7 +8,7 @@ import { RootStackParamList }
 from './types/root-stack';
 import { ROUTES } from './routes';
 import NotificationScreen from '@/features/notification/screen';
-import UserScreen from '@/features/profileScreen/screen';
+import ProfileScreen from '@/features/profileScreen/screen';
 
 const Stack =
   createNativeStackNavigator<RootStackParamList>();
@@ -29,8 +29,8 @@ export default function AppRoutes() {
         component={NotificationScreen}
       />
       <Stack.Screen
-        name={ROUTES.USER}
-        component={UserScreen}
+        name={ROUTES.PROFILE}
+        component={ProfileScreen}
       />
     </Stack.Navigator>
   );

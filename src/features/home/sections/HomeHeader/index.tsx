@@ -27,7 +27,7 @@ export default function HomeHeader() {
   }
 
   const handlerUserPress = () => {
-    navigation.navigate(ROUTES.USER);
+    navigation.navigate(ROUTES.PROFILE);
   }
 
   return (

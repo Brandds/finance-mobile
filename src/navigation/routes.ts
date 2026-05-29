@@ -7,5 +7,5 @@ export const ROUTES = {
   NOTIFICATIONS: "Notifications",
   SUMMARY: "Summary",
   MAIN_TABS:'MAIN_TABS',
-  USER: "User",
+  PROFILE: "Profile",
 } as const;
