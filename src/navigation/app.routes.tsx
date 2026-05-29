@@ -8,7 +8,7 @@ import { RootStackParamList }
 from './types/root-stack';
 import { ROUTES } from './routes';
 import NotificationScreen from '@/features/notification/screen';
-import UserScreen from '@/features/user/screen';
+import UserScreen from '@/features/profileScreen/screen';
 
 const Stack =
   createNativeStackNavigator<RootStackParamList>();

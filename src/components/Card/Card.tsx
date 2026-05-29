@@ -1,15 +1,26 @@
-import React from 'react'
-import { View } from 'react-native'
-import { useTheme } from '@/theme/useTheme'
+import React from "react";
 
-export const Card = ({ children, styleCard }: { children: React.ReactNode; styleCard: object }) => {
-  const theme = useTheme()
+import {
+  View,
+  ViewStyle,
+  StyleProp,
+} from "react-native";
+import { styles } from "./styles";
 
+
+type CardProps = {
+  children: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+};
+
+export function Card({
+  children,
+  style,
+}: CardProps) {
   return (
-    <View
-      style={styleCard}
-    >
+    <View style={[styles.container, style]}>
       {children}
     </View>
-  )
+  );
 }
+
