@@ -50,12 +50,7 @@ export function useLogin() {
 
       await signIn({
         token: response.data.token,
-
-        user: {
-          id: 1,
-          name: "Brandon",
-          email: data.email,
-        },
+        user: response.data.user,
       });
 
       Alert.alert(

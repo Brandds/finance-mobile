@@ -7,14 +7,19 @@ import { View } from "react-native";
 export default function UserScreen() {
 
   const logout = useAuthStore((state) => state.signOut);
+  const user = useAuthStore(state => state.userResponse);
   
   const handlerLogout = () => {
-    logout();
+    console.log(user)
+    // logout();
   }
   return (
     <Screen>
       <Typography variant="h1">
         User Screen
+      </Typography>
+      <Typography variant="body2">
+        {user?.email}
       </Typography>
       <Typography variant="h2" onPress={handlerLogout}>
         Sair

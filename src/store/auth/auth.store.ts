@@ -1,11 +1,11 @@
-import { AuthData, User } from "@/features/auth/types/authType";
+import { AuthData, UserResponse } from "@/features/auth/types/authType";
 import { getAuth, removeAuth, saveAuth } from "@/storage/auth/auth.storage";
 import { create } from "zustand";
 
 
 
 interface AuthStore {
-  user: User | null;
+  userResponse: UserResponse | null;
   token: string | null;
 
   loading: boolean;
@@ -20,7 +20,7 @@ interface AuthStore {
 
 export const useAuthStore =
   create<AuthStore>((set) => ({
-    user: null,
+    userResponse: null,
     token: null,
 
     loading: true,
@@ -29,8 +29,9 @@ export const useAuthStore =
     async signIn(data) {
       await saveAuth(data);
 
+      console.log("Sign In Data:", data);
       set({
-        user: data.user,
+        userResponse: data.user,
         token: data.token,
         authenticated: true,
       });
@@ -40,7 +41,7 @@ export const useAuthStore =
       await removeAuth();
 
       set({
-        user: null,
+        userResponse: null,
         token: null,
         authenticated: false,
       });
@@ -52,7 +53,7 @@ export const useAuthStore =
 
         if (auth) {
           set({
-            user: auth.user,
+            userResponse: auth.user,
             token: auth.token,
             authenticated: true,
           });
