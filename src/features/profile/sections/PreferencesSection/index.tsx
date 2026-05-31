@@ -3,6 +3,7 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { PreferencesSectionProps } from "./types";
 import SettingsSection from "@/components/Settings/SettingsSection";
 import SettingsItem from "@/components/Settings/SettingsItem";
+import { titleScreen } from "@/constants/titleScreen";
 
 export default function PreferencesSection({
     language,
@@ -20,7 +21,7 @@ export default function PreferencesSection({
                 size={20}
             />
             }
-            title="Notificações"
+            title={titleScreen.notifications}
             onPress={onNotificationsPress}
         />
         <SettingsItem

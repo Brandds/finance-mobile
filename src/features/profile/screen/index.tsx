@@ -9,8 +9,13 @@ import PreferencesSection from "../sections/PreferencesSection";
 import SecuritySection from "../sections/SecuritySection";
 import SupportSection from "../sections/SupportSection";
 import LogoutSection from "../sections/LogoutSection";
+import { useAuthStore } from "@/store/auth/auth.store";
+import { titleScreen } from "@/constants/titleScreen";
 
 export default function ProfileScreen() {
+
+  const user = useAuthStore(state => state.userResponse);
+
   const handleEditAvatar = () => {
     console.log("Editar avatar");
   };
@@ -62,17 +67,20 @@ export default function ProfileScreen() {
   };
 
   return (
-    <Screen>
-      <AppHeader title="Perfil" />
+    <Screen
+      scrollable
+      headerTitle={titleScreen.profile}
+      showBackButton
+    >
 
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.content}
       >
         <ProfileHeaderSection
-          name="Brandon"
-          email="brandon@email.com"
-          initials="BB"
+          name={user?.name || "Brandon Brown"}
+          email={user?.email || "brandon@email.com"}
+          initials={"BB"}
           onEditAvatar={handleEditAvatar}
           onEditProfile={handleEditProfile}
         />
