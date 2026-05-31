@@ -1,4 +1,4 @@
-import { Role, User } from "@/features/profileScreen/types/user.Type";
+import { Role, User } from "@/features/profile/types/user.Type";
 
 export interface UserResponse {
   id: number;
