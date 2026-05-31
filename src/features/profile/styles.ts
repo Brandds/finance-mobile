@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
   },
 
   sectionsContainer: {
-    gap: 24,
     marginTop: 32,
+    gap: 24,
   },
 });

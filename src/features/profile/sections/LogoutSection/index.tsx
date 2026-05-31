@@ -1,46 +1,35 @@
-import {
-    Pressable,
-    View,
-} from "react-native";
+import { Pressable, View } from "react-native";
 
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 import Typography from "@/components/Typography/Typography";
+import { tokens } from "@/theme/tokens";
 
 import { LogoutSectionProps } from "./types";
-
 import { styles } from "./styles";
 
 export default function LogoutSection({
-    onLogoutPress,
+  onLogoutPress,
 }: LogoutSectionProps) {
-    return (
+  return (
     <Pressable
-        onPress={onLogoutPress}
-        style={styles.container}
+      onPress={onLogoutPress}
+      style={styles.container}
     >
-        <View
-            style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: 8,
-            }}
-        > <MaterialIcons
-                name="logout"
-                size={20}
-                color="#DC2626"
-            />
+      <View style={styles.content}>
+        <MaterialIcons
+          name="logout"
+          size={20}
+          color={tokens.colors.error}
+        />
 
-            <Typography
-                variant="body1"
-                color="error"
-            >
-                Sair da conta
-            </Typography>
-        </View>
+        <Typography
+          variant="body1"
+          color={tokens.colors.error}
+        >
+          Sair da conta
+        </Typography>
+      </View>
     </Pressable>
-
-
-    );
+  );
 }

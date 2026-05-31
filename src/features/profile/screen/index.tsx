@@ -1,92 +1,121 @@
-import Screen from "@/components/Screen/Screen";
-import SettingsBadge from "@/components/Settings/SettingsBadge";
-import SettingsItem from "@/components/Settings/SettingsItem";
-import SettingsSection from "@/components/Settings/SettingsSection";
-import SettingsToggle from "@/components/Settings/SettingsToggle";
-import Typography from "@/components/Typography/Typography";
-import { useAuthStore } from "@/store/auth/auth.store";
-import { MaterialIcons } from "@expo/vector-icons";
-import React from "react";
-import { View } from "react-native";
-import ProfileAvatar from "../components/ProfileAvatar";
+import { ScrollView, View } from "react-native";
 
+import Screen from "@/components/Screen/Screen";
+import AppHeader from "@/components/AppHeader";
+import { styles } from "../styles";
+import ProfileHeaderSection from "../sections/ProfileHeaderSection";
+import AccountSection from "../sections/AccountSection";
+import PreferencesSection from "../sections/PreferencesSection";
+import SecuritySection from "../sections/SecuritySection";
+import SupportSection from "../sections/SupportSection";
+import LogoutSection from "../sections/LogoutSection";
 
 export default function ProfileScreen() {
-
-  const logout = useAuthStore((state) => state.signOut);
-  const user = useAuthStore(state => state.userResponse);
-
-  const [biometricEnabled, setBiometricEnabled] = React.useState<boolean>(false);
-
-  const handlerLogout = () => {
-    console.log(user)
-    // logout();
-  }
-
   const handleEditAvatar = () => {
-    console.log("Edit avatar pressed");
-  }
+    console.log("Editar avatar");
+  };
+
+  const handleEditProfile = () => {
+    console.log("Editar perfil");
+  };
+
+  const handlePersonalData = () => {
+    console.log("Dados pessoais");
+  };
+
+  const handlePremium = () => {
+    console.log("Premium");
+  };
+
+  const handleNotifications = () => {
+    console.log("Notificações");
+  };
+
+  const handleLanguage = () => {
+    console.log("Idioma");
+  };
+
+  const handleTheme = () => {
+    console.log("Tema");
+  };
+
+  const handleChangePassword = () => {
+    console.log("Alterar senha");
+  };
+
+  const handleBiometricChange = (
+    value: boolean
+  ) => {
+    console.log("Biometria:", value);
+  };
+
+  const handleHelp = () => {
+    console.log("Ajuda");
+  };
+
+  const handleTerms = () => {
+    console.log("Termos");
+  };
+
+  const handleLogout = () => {
+    console.log("Logout");
+  };
 
   return (
     <Screen>
-      <SettingsSection title="Preferências">
-        <SettingsItem
-          icon={
-            <MaterialIcons
-              name="language"
-              size={20}
-              color="#2563EB"
-            />
-          }
-          title="Idioma"
-          value="Português"
-          onPress={() => { }}
+      <AppHeader title="Perfil" />
+
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.content}
+      >
+        <ProfileHeaderSection
+          name="Brandon"
+          email="brandon@email.com"
+          initials="BB"
+          onEditAvatar={handleEditAvatar}
+          onEditProfile={handleEditProfile}
         />
 
-        <SettingsItem
-          icon={
-            <MaterialIcons
-              name="light-mode"
-              size={20}
-              color="#2563EB"
-            />
-          }
-          title="Tema"
-          value="Claro"
-          divider={false}
-          onPress={() => { }}
-        />
-      </SettingsSection>
-
-      <SettingsToggle
-        icon={
-          <MaterialIcons
-            name="fingerprint"
-            size={20}
-            color="#2563EB"
+        <View style={styles.sectionsContainer}>
+          <AccountSection
+            onPersonalDataPress={
+              handlePersonalData
+            }
+            onPremiumPress={handlePremium}
           />
-        }
-        title="Biometria"
-        value={biometricEnabled}
-        onValueChange={setBiometricEnabled}
-        divider={false}
-      />
-      <SettingsItem
-        icon={<MaterialIcons
-          name="workspace-premium"
-          size={20}
-          color="#2563EB"
-        />}
-        title="Idioma"
-        rightContent={
-          <SettingsBadge label="Português" />
-        }
-      />
-      <ProfileAvatar
-  initials="BB"
-  editable
-  onEditPress={handleEditAvatar}
-/>
+
+          <PreferencesSection
+            language="Português"
+            theme="Claro"
+            onNotificationsPress={
+              handleNotifications
+            }
+            onLanguagePress={handleLanguage}
+            onThemePress={handleTheme}
+          />
+
+          <SecuritySection
+            biometricEnabled={true}
+            onChangePasswordPress={
+              handleChangePassword
+            }
+            onBiometricChange={
+              handleBiometricChange
+            }
+          />
+
+          <SupportSection
+            onHelpPress={handleHelp}
+            onTermsPress={handleTerms}
+          />
+
+          <LogoutSection
+            onLogoutPress={handleLogout}
+          />
+        </View>
+      </ScrollView>
     </Screen>
+
   );
 }

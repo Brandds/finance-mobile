@@ -1,11 +1,18 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-    container: {
-        marginTop: 24,
-    },
+  container: {
+    marginTop: 24,
+  },
 
-    button: {
-        alignSelf: "center",
-    },
+  content: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+  },
+
+  button: {
+    alignSelf: "center",
+  },
 });
