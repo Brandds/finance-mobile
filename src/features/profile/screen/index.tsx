@@ -1,7 +1,6 @@
 import { ScrollView, View } from "react-native";
 
 import Screen from "@/components/Screen/Screen";
-import AppHeader from "@/components/AppHeader";
 import { styles } from "../styles";
 import ProfileHeaderSection from "../sections/ProfileHeaderSection";
 import AccountSection from "../sections/AccountSection";
@@ -11,10 +10,13 @@ import SupportSection from "../sections/SupportSection";
 import LogoutSection from "../sections/LogoutSection";
 import { useAuthStore } from "@/store/auth/auth.store";
 import { titleScreen } from "@/constants/titleScreen";
+import { useLogout } from "@/features/auth/hooks/useLogout";
+import { useProfile } from "../hooks/useProfile";
 
 export default function ProfileScreen() {
 
   const user = useAuthStore(state => state.userResponse);
+  const { handleLogout } = useProfile();
 
   const handleEditAvatar = () => {
     console.log("Editar avatar");
@@ -60,10 +62,6 @@ export default function ProfileScreen() {
 
   const handleTerms = () => {
     console.log("Termos");
-  };
-
-  const handleLogout = () => {
-    console.log("Logout");
   };
 
   return (
