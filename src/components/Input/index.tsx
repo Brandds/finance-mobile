@@ -1,22 +1,21 @@
 import { useState } from "react";
 
 import {
-  View,
-  TextInput,
   Pressable,
-  StyleSheet,
+  TextInput,
+  View
 } from "react-native";
 
 import { Controller, FieldValues } from "react-hook-form";
 
-import { MaterialIcons } from "@expo/vector-icons";
 
 import Typography from "@/components/Typography/Typography";
 
 import { tokens } from "@/theme/tokens";
 
-import { InputProps } from "./types";
+import { Icon } from "../Icon/Icon";
 import { stylesIInput } from "./styles";
+import { InputProps } from "./types";
 
 function Input<T extends FieldValues>({
   control,
@@ -52,7 +51,7 @@ function Input<T extends FieldValues>({
             ]}
           >
             {icon && (
-              <MaterialIcons
+              <Icon
                 name={icon as any}
                 size={20}
                 color={tokens.colors.textSecondary}
@@ -78,7 +77,7 @@ function Input<T extends FieldValues>({
                   setShowPassword(!showPassword)
                 }
               >
-                <MaterialIcons
+                <Icon
                   name={
                     showPassword
                       ? "visibility-off"

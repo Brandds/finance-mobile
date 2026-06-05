@@ -1,13 +1,13 @@
 import { Pressable, View } from "react-native";
 
-import { MaterialIcons } from "@expo/vector-icons";
 
 import { useNavigation } from "@react-navigation/native";
 
 import Typography from "../Typography/Typography";
 
-import { styles } from "./styles";
 import { tokens } from "@/theme/tokens";
+import { Icon } from "../Icon/Icon";
+import { styles } from "./styles";
 
 type Props = {
   title?: string;
@@ -31,7 +31,7 @@ export default function AppHeader({
             pressed && styles.buttonPressed,
           ]}
         >
-          <MaterialIcons
+          <Icon
             name="arrow-back"
             size={24}
             color={tokens.colors.textSecondary}

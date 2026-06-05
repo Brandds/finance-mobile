@@ -1,15 +1,14 @@
 import { Pressable, View } from "react-native";
 
-import { MaterialIcons } from "@expo/vector-icons";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useForm } from "react-hook-form";
 
-import Typography from "@/components/Typography/Typography";
 import Input from "@/components/Input";
+import Typography from "@/components/Typography/Typography";
 
-import { Button, Card } from "@/components";
+import { Button, Card, Icon } from "@/components";
 
 import { tokens } from "@/theme/tokens";
 
@@ -18,8 +17,8 @@ import {
   loginSchema,
 } from "./schema/login.schema";
 
-import { stylesLogin } from "../styles";
 import { useLogin } from "../hooks/useLogin";
+import { stylesLogin } from "../styles";
 
 
 
@@ -43,7 +42,7 @@ export default function LoginForm() {
   }
 
   return (
-    <Card styleCard={stylesLogin.card}>
+    <Card style={stylesLogin.card}>
       {/* Header */}
       <View style={stylesLogin.cardHeader}>
         <Typography variant="h1">
@@ -115,7 +114,7 @@ export default function LoginForm() {
           variant="secondary"
           style={stylesLogin.socialButton}
         >
-          <MaterialIcons
+          <Icon
             name="g-mobiledata"
             size={24}
             color={tokens.colors.text}
@@ -130,7 +129,7 @@ export default function LoginForm() {
           variant="secondary"
           style={stylesLogin.socialButton}
         >
-          <MaterialIcons
+          <Icon
             name="apple"
             size={24}
             color={tokens.colors.text}

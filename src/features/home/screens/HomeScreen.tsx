@@ -1,13 +1,13 @@
 import { View } from "react-native";
 
+import { Icon } from "@/components";
 import Screen from "@/components/Screen/Screen";
-import { stylesHome } from "../styles/home.styles";
-import HomeHeader from "../sections/HomeHeader";
 import SummaryCard from "../../../components/SummaryCard";
 import CategoriesSection from "../sections/CategoriesSection";
-import RecentExpensesSection from "../sections/RecentExpensesSection";
 import FloatingButton from "../sections/FloatingButton";
-import { MaterialIcons } from "@expo/vector-icons";
+import HomeHeader from "../sections/HomeHeader";
+import RecentExpensesSection from "../sections/RecentExpensesSection";
+import { stylesHome } from "../styles/home.styles";
 
 
 export default function HomeScreen() {
@@ -23,7 +23,7 @@ export default function HomeScreen() {
           subTitle="R$ 3.450,00"
           info="8% menor que mês passado"            
         >
-          <MaterialIcons
+          <Icon
             name="trending-down"
             size={16}
             color="#FFFFFF"

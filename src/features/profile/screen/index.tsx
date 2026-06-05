@@ -1,21 +1,25 @@
 import { ScrollView, View } from "react-native";
 
 import Screen from "@/components/Screen/Screen";
-import { styles } from "../styles";
-import ProfileHeaderSection from "../sections/ProfileHeaderSection";
+import { titleScreen } from "@/constants/titleScreen";
+import { useAuthStore } from "@/store/auth/auth.store";
+import { useProfile } from "../hooks/useProfile";
 import AccountSection from "../sections/AccountSection";
+import LogoutSection from "../sections/LogoutSection";
 import PreferencesSection from "../sections/PreferencesSection";
+import ProfileHeaderSection from "../sections/ProfileHeaderSection";
 import SecuritySection from "../sections/SecuritySection";
 import SupportSection from "../sections/SupportSection";
-import LogoutSection from "../sections/LogoutSection";
-import { useAuthStore } from "@/store/auth/auth.store";
-import { titleScreen } from "@/constants/titleScreen";
-import { useLogout } from "@/features/auth/hooks/useLogout";
-import { useProfile } from "../hooks/useProfile";
+import { useNavigation } from "@react-navigation/native";
+import { styles } from "../styles/styles";
+import { NavigationProps } from "@/features/auth/form/types";
+import { ROUTES } from "@/navigation/routes";
 
 export default function ProfileScreen() {
 
   const user = useAuthStore(state => state.userResponse);
+  const navigation = useNavigation<NavigationProps>();
+  
   const { handleLogout } = useProfile();
 
   const handleEditAvatar = () => {
@@ -23,7 +27,9 @@ export default function ProfileScreen() {
   };
 
   const handleEditProfile = () => {
+
     console.log("Editar perfil");
+    navigation.navigate(ROUTES.EDIT_PROFILE);
   };
 
   const handlePersonalData = () => {

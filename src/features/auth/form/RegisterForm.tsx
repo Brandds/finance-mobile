@@ -1,15 +1,13 @@
-import { View, Pressable } from "react-native";
+import { Pressable, View } from "react-native";
 
-import { MaterialIcons } from "@expo/vector-icons";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useForm, Controller } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 import Typography from "@/components/Typography/Typography";
-import Input from "@/components/Input";
 
-import { Button, Card } from "@/components";
+import { Button, Card, Icon } from "@/components";
 
 import { tokens } from "@/theme/tokens";
 
@@ -18,9 +16,8 @@ import {
   registerSchema,
 } from "./schema/register.schema";
 
-import { stylesLogin, stylesRegister } from "../styles";
 import FormFields from "@/components/FormFields/FormFields";
-import { fields } from "@hookform/resolvers/ajv/src/__tests__/__fixtures__/data.js";
+import { stylesLogin, stylesRegister } from "../styles";
 import { fieldsRegister } from "./fields/fields";
 
 export default function RegisterForm() {
@@ -46,7 +43,7 @@ export default function RegisterForm() {
   }
 
   return (
-    <Card styleCard={stylesLogin.card}>
+    <Card style={stylesLogin.card}>
       {/* Header */}
       <View style={stylesLogin.cardHeader}>
         <Typography variant="h1">
@@ -76,7 +73,7 @@ export default function RegisterForm() {
             style={stylesRegister.checkboxContainer}
             onPress={() => field.onChange(!field.value)}
           >
-            <MaterialIcons
+            <Icon
               name={
                 field.value
                   ? "check-box"
@@ -129,7 +126,7 @@ export default function RegisterForm() {
         variant="secondary"
         style={stylesLogin.socialButton}
       >
-        <MaterialIcons
+        <Icon
           name="g-mobiledata"
           size={24}
           color={tokens.colors.text}

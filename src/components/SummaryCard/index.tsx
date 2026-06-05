@@ -1,11 +1,7 @@
-import { View }
-from "react-native";
+import { View } from "react-native";
 
-import { MaterialIcons }
-from "@expo/vector-icons";
 
-import Typography
-from "@/components/Typography/Typography";
+import Typography from "@/components/Typography/Typography";
 import { styles } from "./styles";
 import { SummaryCardProps } from "./types";
 

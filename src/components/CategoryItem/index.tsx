@@ -1,11 +1,8 @@
-import { View }
-from "react-native";
+import { View } from "react-native";
 
-import { MaterialIcons }
-from "@expo/vector-icons";
 
-import Typography
-from "@/components/Typography/Typography";
+import Typography from "@/components/Typography/Typography";
+import { Icon } from "../Icon/Icon";
 import { styles } from "./styles";
 
 
@@ -25,7 +22,7 @@ export default function CategoryItem({
           },
         ]}
       >
-        <MaterialIcons
+        <Icon
           name={item.icon}
           size={24}
           color={item.color}

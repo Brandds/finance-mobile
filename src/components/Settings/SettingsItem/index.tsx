@@ -1,15 +1,15 @@
 import React from "react";
 
 import {
-  View,
   Pressable,
+  View,
 } from "react-native";
 
 import Typography from "@/components/Typography/Typography";
 
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { SettingsItemProps } from "./types";
+import { Icon } from "@/components/Icon/Icon";
 import { styles } from "./styles";
+import { SettingsItemProps } from "./types";
 
 
 export default function SettingsItem({
@@ -50,7 +50,7 @@ export default function SettingsItem({
           )}
 
           {showChevron && (
-            <MaterialIcons
+            <Icon
               name="chevron-right"
               size={20}
               color="#9CA3AF"
