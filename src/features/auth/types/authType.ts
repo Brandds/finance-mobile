@@ -5,6 +5,7 @@ export interface UserResponse {
   name: string;
   email: string;
   role: Role;
+  cpf: string;
 }
 
 export interface AuthData {

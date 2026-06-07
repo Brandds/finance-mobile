@@ -4,6 +4,7 @@ import PersonalInfoList from "../sections/DadosPessoais/PersonalInfoList";
 import { Button } from "@/components";
 import { dadosPessoaisStyle } from "../styles/dadosPessoais.styles";
 import { PersonalInfo } from "../sections/DadosPessoais/PersonalInfoList/types";
+import { useDadosPessoais } from "../hooks/useDadosPessoais";
 
 
 const personalInfo: PersonalInfo[] = [
@@ -25,7 +26,25 @@ const personalInfo: PersonalInfo[] = [
 ];
 
 export default function DadosPessoaisScreen() {
- 
+  const {user, loading} = useDadosPessoais();
+
+  const personalInfo: PersonalInfo[] = [
+  {
+    label: "Nome Completo",
+    value: user?.name || "",
+    icon: "person",
+  },
+  {
+    label: "E-mail",
+    value: user?.email || "",
+    icon: "mail",
+  },
+  {
+    label: "CPF",
+    value: user?.cpf || "",
+    icon: "assignment-ind",
+  },
+];
 
   return (
     <Screen
@@ -34,7 +53,7 @@ export default function DadosPessoaisScreen() {
       scrollable
     >
       <ProfileHeader
-        name="Rodrigo Oliveira"
+        name={user?.name || ""}
         subtitle="Cliente desde 2021"
         imageUrl="https://i.pravatar.cc/300"
       />
