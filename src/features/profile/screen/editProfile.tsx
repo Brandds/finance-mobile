@@ -7,8 +7,7 @@ import {
 import Screen from "@/components/Screen/Screen";
 import AppHeader from "@/components/AppHeader";
 
-import ProfilePhotoSection from "../sections/ProfilePhotoSection";
-import PersonalInfoForm from "../sections/PersonalInfoForm";
+import ProfilePhotoSection from "../sections/Profile/ProfilePhotoSection";
 
 import {
   zodResolver,
@@ -20,6 +19,7 @@ import {
 import { EditProfileFormData } from "../types/edit-profile.types";
 import { editProfileSchema } from "../schema/edit-profileSchema";
 import { Button } from "@/components";
+import PersonalInfoForm from "../sections/Profile/PersonalInfoForm";
 
 export default function EditProfileScreen() {
 

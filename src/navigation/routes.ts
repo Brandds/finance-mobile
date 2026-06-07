@@ -9,4 +9,5 @@ export const ROUTES = {
   MAIN_TABS:'MAIN_TABS',
   PROFILE: "Profile",
   EDIT_PROFILE: "EDIT_PROFILE",
+  DAADOS_PESSOAIS: "DADOS_PESSOAIS",
 } as const;

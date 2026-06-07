@@ -10,6 +10,7 @@ import { ROUTES } from './routes';
 import NotificationScreen from '@/features/notification/screen';
 import ProfileScreen from '@/features/profile/screen';
 import EditProfileScreen from '@/features/profile/screen/editProfile';
+import DadosPessoaisScreen from '@/features/profile/screen/dadosPessoaisScreen';
 
 const Stack =
   createNativeStackNavigator<RootStackParamList>();
@@ -36,9 +37,14 @@ export default function AppRoutes() {
         component={ProfileScreen}
       />
 
-       <Stack.Screen
+      <Stack.Screen
         name={ROUTES.EDIT_PROFILE}
         component={EditProfileScreen}
+      />
+
+      <Stack.Screen
+        name={ROUTES.DAADOS_PESSOAIS}
+        component={DadosPessoaisScreen}
       />
     </Stack.Navigator>
   );

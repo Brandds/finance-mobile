@@ -6,8 +6,8 @@ import Typography from "@/components/Typography/Typography";
 import { ProfileHeaderSectionProps } from "./types";
 
 import { styles } from "./styles";
-import ProfileAvatar from "../../components/ProfileAvatar";
 import { Button } from "@/components";
+import ProfileAvatar from "@/features/profile/components/Profile/ProfileAvatar";
 
 export default function ProfileHeaderSection({
     name,

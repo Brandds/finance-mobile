@@ -3,8 +3,9 @@ import { Control } from "react-hook-form";
 import { View } from "react-native";
 
 import Input from "@/components/Input";
-import { EditProfileFormData } from "../../types/edit-profile.types";
-import { stylesEditProfile } from "../../styles/edit-profile.styles";
+import { EditProfileFormData } from "@/features/profile/schema/edit-profileSchema";
+import { stylesEditProfile } from "@/features/profile/styles/edit-profile.styles";
+
 
 
 interface PersonalInfoFormProps {

@@ -7,6 +7,7 @@ export type RootStackParamList = {
   [ROUTES.NOTIFICATIONS]: undefined;
   [ROUTES.PROFILE]: undefined;
   [ROUTES.EDIT_PROFILE]: undefined;
+  [ROUTES.DAADOS_PESSOAIS]: undefined;
 };
 
 

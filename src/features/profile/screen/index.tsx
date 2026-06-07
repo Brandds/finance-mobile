@@ -4,16 +4,16 @@ import Screen from "@/components/Screen/Screen";
 import { titleScreen } from "@/constants/titleScreen";
 import { useAuthStore } from "@/store/auth/auth.store";
 import { useProfile } from "../hooks/useProfile";
-import AccountSection from "../sections/AccountSection";
-import LogoutSection from "../sections/LogoutSection";
-import PreferencesSection from "../sections/PreferencesSection";
-import ProfileHeaderSection from "../sections/ProfileHeaderSection";
-import SecuritySection from "../sections/SecuritySection";
-import SupportSection from "../sections/SupportSection";
+import AccountSection from "../sections/Profile/AccountSection";
+import LogoutSection from "../sections/Profile/LogoutSection";
+import PreferencesSection from "../sections/Profile/PreferencesSection";
+import SecuritySection from "../sections/Profile/SecuritySection";
+import SupportSection from "../sections/Profile/SupportSection";
 import { useNavigation } from "@react-navigation/native";
 import { styles } from "../styles/styles";
 import { NavigationProps } from "@/features/auth/form/types";
 import { ROUTES } from "@/navigation/routes";
+import ProfileHeaderSection from "../sections/Profile/ProfileHeaderSection";
 
 export default function ProfileScreen() {
 
@@ -25,7 +25,7 @@ export default function ProfileScreen() {
   const handleEditAvatar = () => {
     console.log("Editar avatar");
   };
-
+  
   const handleEditProfile = () => {
 
     console.log("Editar perfil");
@@ -34,6 +34,7 @@ export default function ProfileScreen() {
 
   const handlePersonalData = () => {
     console.log("Dados pessoais");
+    navigation.navigate(ROUTES.DAADOS_PESSOAIS);
   };
 
   const handlePremium = () => {
