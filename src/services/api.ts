@@ -47,9 +47,9 @@ api.interceptors.response.use(
     const isAuthenticationError =
       status === 401 &&
       [
-        "TOKEN_EXPIRED",
-        "INVALID_TOKEN",
-        "UNAUTHORIZED"
+        errorCodes.TOKEN_EXPIRED,
+        errorCodes.INVALID_TOKEN,
+        errorCodes.UNAUTHORIZED
       ].includes(errorCode);
 
     if (isAuthenticationError) {
