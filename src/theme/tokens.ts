@@ -19,6 +19,7 @@ export const tokens = {
     border: '#e2e8f0',
     borderOnSecondary: '#076b5a',
     surfaceSecondary: "#F1F5F9",
+    surfaceVariant:"#E5E7EB",
   },
 
   spacing: {
