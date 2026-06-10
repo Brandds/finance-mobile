@@ -24,6 +24,7 @@ function Input<T extends FieldValues>({
   placeholder,
   icon,
   secureTextEntry = false,
+  library,
 }: InputProps<T>) {
   const [showPassword, setShowPassword] =
     useState(false);
@@ -53,6 +54,7 @@ function Input<T extends FieldValues>({
             {icon && (
               <Icon
                 name={icon as any}
+                library={library}
                 size={20}
                 color={tokens.colors.textSecondary}
               />
@@ -83,6 +85,7 @@ function Input<T extends FieldValues>({
                       ? "visibility-off"
                       : "visibility"
                   }
+                  library={library}
                   size={20}
                   color={tokens.colors.textSecondary}
                 />

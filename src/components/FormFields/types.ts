@@ -7,5 +7,7 @@ export interface FieldConfig {
 
   icon?: string;
 
+  library?: "material" | "fontAwesome";
+
   secureTextEntry?: boolean;
 }

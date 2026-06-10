@@ -11,5 +11,7 @@ export interface InputProps<T extends FieldValues> {
 
   icon?: string;
 
+  library?: "material" | "fontAwesome";
+
   secureTextEntry?: boolean;
 }

@@ -30,6 +30,7 @@ export default function FormFields({
           secureTextEntry={
             field.secureTextEntry
           }
+          library={field.library}
         />
       ))}
     </View>

@@ -12,6 +12,10 @@ from "../ExpenseItem";
 
 import { styles }
 from "./styles";
+import { useEffect, useState } from "react";
+import SkeletonBlock from "@/components/Skeleton/SkeletonBlock";
+import SkeletonExpenseItem from "@/components/Skeleton/SkeletonExpenseItem";
+import { SkeletonExpenseList, SkeletonSummaryCard } from "@/components/Skeleton";
 
 type Expense = {
   id: number;
@@ -47,7 +51,15 @@ const expenses: Expense[] = [
 ];
 
 export default function RecentExpensesSection() {
+  const [loading , setLoading] = useState(true);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <View style={styles.container}>
 
@@ -56,8 +68,11 @@ export default function RecentExpensesSection() {
       </Typography>
 
       <View style={styles.list}>
+      {loading ? (
+      <SkeletonSummaryCard />
 
-        {expenses.map((item) => (
+      ) : (
+        expenses.map((item) => (
           <ExpenseItem
             key={item.id}
             description={item.description}
@@ -65,7 +80,8 @@ export default function RecentExpensesSection() {
             date={item.date}
             icon={item.icon}
           />
-        ))}
+        ))
+      )}
 
       </View>
 
