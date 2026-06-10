@@ -19,8 +19,11 @@ import {
 import FormFields from "@/components/FormFields/FormFields";
 import { stylesLogin, stylesRegister } from "../styles";
 import { fieldsRegister } from "./fields/fields";
+import { useRegister } from "../hooks/useRegister";
 
 export default function RegisterForm() {
+
+  const {loading, handleRegister } = useRegister();
   const {
     control,
     handleSubmit,
@@ -33,13 +36,20 @@ export default function RegisterForm() {
       email: "",
       password: "",
       acceptTerms: false,
+      cpf: "",
     },
   });
 
   async function onSubmit(
     data: RegisterFormData
   ) {
-    console.log(data);
+    const newUser = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      cpf: data.cpf,
+    };
+    await handleRegister(newUser);
   }
 
   return (
@@ -104,7 +114,8 @@ export default function RegisterForm() {
       {/* Submit */}
       <Button
         title="Criar Conta"
-        onPress={handleSubmit(onSubmit)}
+        loading={loading}
+        onPress={() => handleSubmit(onSubmit)}
       />
 
       {/* Divider */}

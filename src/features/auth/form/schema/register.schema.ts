@@ -19,6 +19,7 @@ export const registerSchema = z.object({
       message: "Aceite os termos",
     }
   ),
+  cpf: z.string().min(11, "CPF deve conter 11 dígitos"),
 });
 
 export type RegisterFormData =
