@@ -1,10 +1,11 @@
 import { tokens } from "@/theme/tokens";
 import { StyleSheet } from "react-native";
+import { skeletonTheme } from "../SkeletonTheme";
 
 export const styles = StyleSheet.create({
   container: {
     overflow: "hidden",
-    backgroundColor: tokens.colors.surfaceVariant,
+    backgroundColor:   skeletonTheme.background,
   },
 
   shimmer: {

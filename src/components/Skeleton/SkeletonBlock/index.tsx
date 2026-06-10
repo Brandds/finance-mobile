@@ -17,6 +17,7 @@ import { styles } from "./styles";
 import {
   SkeletonBlockProps,
 } from "./types";
+import { skeletonTheme } from "../SkeletonTheme";
 
 export default function SkeletonBlock({
   width,
@@ -37,7 +38,7 @@ export default function SkeletonBlock({
         translateX,
         {
           toValue: 200,
-          duration: 1200,
+          duration: skeletonTheme.duration,
           useNativeDriver: true,
         }
       )
@@ -69,9 +70,7 @@ export default function SkeletonBlock({
       >
         <LinearGradient
           colors={[
-            "transparent",
-            "rgba(255,255,255,0.4)",
-            "transparent",
+            ...skeletonTheme.shimmer
           ]}
           start={{
             x: 0,
