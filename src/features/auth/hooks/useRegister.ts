@@ -5,6 +5,7 @@ import { Alert } from "react-native";
 import { NavigationProps } from "../form/types";
 import { useNavigation } from "@react-navigation/native";
 import { ROUTES } from "@/navigation/routes";
+import { getApiErrorMessage } from "@/shared/utils/error.util";
 
 export function useRegister() {
     const [loading, setLoading] = useState(false);
@@ -20,8 +21,13 @@ export function useRegister() {
                 navigation.navigate(ROUTES.LOGIN);
             }
         } catch (error) {
-            console.error("Registration failed:", error);
-            Alert.alert("Error", "Falha no registro. Por favor, tente novamente.");
+            const message =
+                getApiErrorMessage(error);
+
+            Alert.alert(
+                "Cadastro",
+                message
+            );
         } finally {
             setLoading(false);
         }
