@@ -19,6 +19,7 @@ from '@/store/auth/auth.store';
 
 import { tokens }
 from '@/theme/tokens';
+import { ToastProvider } from '@/providers/ToastProvider';
 
 const navigationTheme = {
   ...DefaultTheme,
@@ -61,15 +62,17 @@ export default function Routes() {
 
   return (
     <ThemeProvider>
-      <NavigationContainer
-        theme={navigationTheme}
-      >
-        {authenticated ? (
-          <AppRoutes />
-        ) : (
-          <AuthRoutes />
-        )}
-      </NavigationContainer>
+      <ToastProvider>
+        <NavigationContainer
+          theme={navigationTheme}
+        >
+          {authenticated ? (
+            <AppRoutes />
+          ) : (
+            <AuthRoutes />
+          )}
+        </NavigationContainer>
+      </ToastProvider>
     </ThemeProvider>
   );
 }

@@ -6,6 +6,7 @@ import { LoginFormData } from "../form/schema/login.schema";
 import { login } from "../services/auth.service";
 
 import { useAuthStore } from "@/store/auth/auth.store";
+import { useToast } from "@/hooks/useToasts";
 
 function getLoginErrorMessage(
   status?: number
@@ -32,10 +33,14 @@ export function useLogin() {
   const [loading, setLoading] =
     useState(false);
 
+  const { showToast } = useToast();
+    
+
   const signIn =
     useAuthStore(
       (state) => state.signIn
     );
+
 
   async function handleLogin(
     data: LoginFormData
@@ -53,10 +58,11 @@ export function useLogin() {
         user: response.data.user,
       });
 
-      Alert.alert(
-        "Sucesso",
-        response.message
-      );
+      showToast({
+        title: "Sucesso",
+        message: "Login realizado com sucesso",
+        type: "success",
+      });
 
     } catch (error) {
 
@@ -72,10 +78,11 @@ export function useLogin() {
           apiMessage ||
           getLoginErrorMessage(status);
 
-        Alert.alert(
-          "Erro",
-          message
-        );
+        showToast({
+          title: "Erro",
+          message: message,
+          type: "error",
+        });
 
         console.log(
           error.response?.data
@@ -83,10 +90,11 @@ export function useLogin() {
 
       } else {
 
-        Alert.alert(
-          "Erro",
-          "Erro inesperado"
-        );
+        showToast({
+          title: "Erro",
+          message: "Erro inesperado",
+          type: "error",
+        });
 
         console.log(error);
       }
