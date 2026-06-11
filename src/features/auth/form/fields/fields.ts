@@ -31,3 +31,22 @@ export const fieldsRegister: FieldConfig[] = [
     secureTextEntry: true,
   }
 ];
+
+
+export const fieldsLogin: FieldConfig[] = [
+  {
+    name: "email",
+    label: "EMAIL",
+    placeholder: "Digite seu email",
+    icon: "mail",
+    library: "material",
+  },
+  {
+    name: "password",
+    label: "SENHA",
+    placeholder: "Digite sua senha",
+    icon: "lock",
+    library: "material",
+    secureTextEntry: true,
+  }
+];

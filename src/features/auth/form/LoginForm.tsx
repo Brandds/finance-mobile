@@ -19,6 +19,8 @@ import {
 
 import { useLogin } from "../hooks/useLogin";
 import { stylesLogin } from "../styles";
+import FormFields from "@/components/FormFields/FormFields";
+import { fieldsLogin } from "./fields/fields";
 
 
 
@@ -59,22 +61,10 @@ export default function LoginForm() {
 
       {/* Fields */}
       <View style={stylesLogin.field}>
-        <Input
+        <FormFields 
+          fields={fieldsLogin} 
           control={control}
-          name="email"
-          label="E-MAIL"
-          placeholder="nome@exemplo.com"
-          icon="mail"
-        />
-
-        <Input
-          control={control}
-          name="password"
-          label="SENHA"
-          placeholder="••••••••"
-          icon="lock"
-          secureTextEntry
-        />
+        />         
       </View>
 
       {/* Forgot password */}
