@@ -1,9 +1,4 @@
-export interface EditProfileFormData {
-  fullName: string;
-  email: string;
-  phone: string;
-  cpf: string;
-}
+export interface EditProfileFormData extends UserEditResponse {}
 
 export interface PersonalInfoFormProps {
   form: EditProfileFormData;
@@ -12,4 +7,9 @@ export interface PersonalInfoFormProps {
     field: keyof EditProfileFormData,
     value: string
   ) => void;
+}
+
+export interface UserEditResponse {
+  name: string;
+  email: string;
 }

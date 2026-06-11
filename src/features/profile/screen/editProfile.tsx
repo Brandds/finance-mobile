@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
   useForm,
@@ -20,22 +20,33 @@ import { EditProfileFormData } from "../types/edit-profile.types";
 import { editProfileSchema } from "../schema/edit-profileSchema";
 import { Button } from "@/components";
 import PersonalInfoForm from "../sections/Profile/PersonalInfoForm";
+import { useDadosPessoais } from "../hooks/useDadosPessoais";
 
 export default function EditProfileScreen() {
+  const {user, loading} = useDadosPessoais();
 
   const {
     control,
     handleSubmit,
+    reset,
   } = useForm<EditProfileFormData>({
     resolver:
       zodResolver(editProfileSchema),
 
     defaultValues: {
-      fullName: "",
-      email: "",
-      phone: "",
+      name: user?.name || "",
+      email: user?.email || "",
     },
   });
+
+  useEffect(() => {
+    if (user) {
+      reset({
+        name: user.name,
+        email: user.email,
+      });
+    }
+  }, [user, reset]);
 
   async function onSubmit(
     data: EditProfileFormData,

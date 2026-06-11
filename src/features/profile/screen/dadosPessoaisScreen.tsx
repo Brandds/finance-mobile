@@ -7,23 +7,6 @@ import { PersonalInfo } from "../sections/DadosPessoais/PersonalInfoList/types";
 import { useDadosPessoais } from "../hooks/useDadosPessoais";
 
 
-const personalInfo: PersonalInfo[] = [
-  {
-    label: "Nome Completo",
-    value: "Rodrigo Oliveira",
-    icon: "person",
-  },
-  {
-    label: "E-mail",
-    value: "rodrigo@email.com",
-    icon: "mail",
-  },
-  {
-    label: "Telefone",
-    value: "(31) 99999-9999",
-    icon: "smartphone",
-  },
-];
 
 export default function DadosPessoaisScreen() {
   const {user, loading} = useDadosPessoais();

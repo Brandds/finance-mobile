@@ -10,7 +10,8 @@ import { useToast } from "@/hooks/useToasts";
 export function useDadosPessoais() {
   const [user, setUser] =
     useState<UserResponse | null>(null);
-    const { showToast } = useToast();
+  
+  const { showToast } = useToast();
 
   const [loading, setLoading] =
     useState(false);
@@ -22,7 +23,7 @@ export function useDadosPessoais() {
       const response = await getProfile();
       showToast({
         title: "Sucesso",
-        message: "Dados do usuário carregados com sucesso",
+        message: `Dados do usuário ${response.name} carregados com sucesso`,
         type: "success",
       });
 
