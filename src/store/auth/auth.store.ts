@@ -14,6 +14,10 @@ interface AuthStore {
   signIn: (data: AuthData) => Promise<void>;
 
   signOut: () => Promise<void>;
+  
+  updateUser: (
+    user: UserResponse
+  ) => Promise<void>;
 
   loadUserStorage: () => Promise<void>;
 }
@@ -29,7 +33,6 @@ export const useAuthStore =
     async signIn(data) {
       await saveAuth(data);
 
-      console.log("Sign In Data:", data);
       set({
         userResponse: data.user,
         token: data.token,
@@ -64,4 +67,21 @@ export const useAuthStore =
         });
       }
     },
-  }));
+
+    async updateUser(user) {
+      const auth = await getAuth();
+
+      if (!auth) return;
+
+      const updatedAuth = {
+        ...auth,
+        user,
+      };
+
+      await saveAuth(updatedAuth);
+
+      set({
+        userResponse: user,
+      });
+    }
+}));

@@ -27,13 +27,10 @@ export default function ProfileScreen() {
   };
   
   const handleEditProfile = () => {
-
-    console.log("Editar perfil");
     navigation.navigate(ROUTES.EDIT_PROFILE);
   };
 
   const handlePersonalData = () => {
-    console.log("Dados pessoais");
     navigation.navigate(ROUTES.DAADOS_PESSOAIS);
   };
 

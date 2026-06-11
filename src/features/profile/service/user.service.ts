@@ -2,6 +2,7 @@ import { UserResponse } from "@/features/auth/types/authType";
 import { api } from "@/services/api";
 import { ApiResponse } from "@/shared/types/apiResponse";
 import { CreateUserRequest } from "../types/user.Type";
+import { UserEditResponse } from "../types/edit-profile.types";
 
 export async function getProfile() {
 
@@ -18,4 +19,16 @@ export async function createUser(newUser: CreateUserRequest) {
     "/users/register",
     newUser
   );
+}
+
+export async function updateUser(updatedData: Partial<UserEditResponse>)
+  : Promise<ApiResponse<UserResponse>>
+{
+
+  const response = await api.put<ApiResponse<UserResponse>>(
+    "/users/me",
+    updatedData
+  );
+
+  return response.data;
 }
