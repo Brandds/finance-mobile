@@ -2,11 +2,14 @@ import { useState } from "react";
 
 import { useAuthStore }
 from "@/store/auth/auth.store";
+import { useToast } from "@/hooks/useToasts";
 
 export function useLogout() {
 
   const [loading, setLoading] =
     useState(false);
+
+  const { showToast } = useToast();
 
   const signOut =
     useAuthStore(
@@ -19,11 +22,19 @@ export function useLogout() {
       setLoading(true);
 
       await signOut();
+      showToast({
+        title: "Sucesso",
+        message: "Logout realizado com sucesso",
+        type: "success",
+      });
 
     } catch (error) {
 
-      console.log(error);
-
+      showToast({
+        title: "Erro",
+        message: "Erro ao realizar logout",
+        type: "error",
+      });
     } finally {
 
       setLoading(false);
