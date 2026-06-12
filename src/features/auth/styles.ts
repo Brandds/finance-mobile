@@ -1,159 +1,161 @@
-import { tokens } from "@/theme/tokens";
+import { Theme } from "@/theme/theme";
 import { StyleSheet } from "react-native";
 
-const stylesLogin = StyleSheet.create({
-    container: {
-        width: "100%",
-        gap: tokens.spacing.xl,
-    },
+const stylesLogin = (theme: Theme) =>
+    StyleSheet.create({
+        container: {
+            width: "100%",
+            gap: theme.spacing.xl,
+        },
 
-    header: {
-        alignItems: "center",
-        gap: tokens.spacing.sm
-    },
+        header: {
+            alignItems: "center",
+            gap: theme.spacing.sm
+        },
 
-    logoContainer: {
-        width: 56,
-        height: 52,
+        logoContainer: {
+            width: 56,
+            height: 52,
 
-        borderRadius: tokens.radius.xl,
+            borderRadius: theme.radius.xl,
 
-        backgroundColor: tokens.colors.primary,
+            backgroundColor: theme.colors.primary,
 
-        alignItems: "center",
-        justifyContent: "center",
+            alignItems: "center",
+            justifyContent: "center",
 
-        ...tokens.shadows.level2,
-    },
+            ...theme.shadows.level2,
+        },
 
-    headerDescription: {
-        maxWidth: 300,
-    },
+        headerDescription: {
+            maxWidth: 300,
+        },
 
-    card: {
-        backgroundColor: "#FFFFFF",
+        card: {
+            backgroundColor: "#FFFFFF",
 
-        borderRadius: tokens.radius.xl,
+            borderRadius: theme.radius.xl,
 
-        padding: tokens.spacing.lg,
+            padding: theme.spacing.lg,
 
-        gap: tokens.spacing.md,
+            gap: theme.spacing.md,
 
-        borderWidth: 1,
-        borderColor: tokens.colors.border,
+            borderWidth: 1,
+            borderColor: theme.colors.border,
 
-        ...tokens.shadows.level1,
-    },
+            ...theme.shadows.level1,
+        },
 
-    cardHeader: {
-        gap: tokens.spacing.xs,
-    },
+        cardHeader: {
+            gap: theme.spacing.xs,
+        },
 
-    field: {
-        gap: tokens.spacing.sm,
-    },
+        field: {
+            gap: theme.spacing.sm,
+        },
 
-    passwordHeader: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-    },
+        passwordHeader: {
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+        },
 
-    inputContainer: {
-        height: 56,
+        inputContainer: {
+            height: 56,
 
-        borderRadius: tokens.radius.md,
+            borderRadius: theme.radius.md,
 
-        backgroundColor: tokens.colors.surfaceContainer,
+            backgroundColor: theme.colors.surfaceContainer,
 
-        paddingHorizontal: tokens.spacing.md,
+            paddingHorizontal: theme.spacing.md,
 
-        flexDirection: "row",
-        alignItems: "center",
+            flexDirection: "row",
+            alignItems: "center",
 
-        gap: tokens.spacing.sm,
-    },
+            gap: theme.spacing.sm,
+        },
 
-    input: {
-        flex: 1,
+        input: {
+            flex: 1,
 
-        color: tokens.colors.text,
+            color: theme.colors.text,
 
-        fontSize: tokens.typography.bodyLg.fontSize,
-    },
+            fontSize: theme.typography.bodyLg.fontSize,
+        },
 
-    loginButton: {
-        height: 56,
+        loginButton: {
+            height: 56,
 
-        borderRadius: tokens.radius.xl,
+            borderRadius: theme.radius.xl,
 
-        backgroundColor: tokens.colors.primary,
+            backgroundColor: theme.colors.primary,
 
-        justifyContent: "center",
-        alignItems: "center",
+            justifyContent: "center",
+            alignItems: "center",
 
-        ...tokens.shadows.level2,
-    },
+            ...theme.shadows.level2,
+        },
 
-    dividerContainer: {
-        flexDirection: "row",
-        alignItems: "center",
+        dividerContainer: {
+            flexDirection: "row",
+            alignItems: "center",
 
-        gap: tokens.spacing.md,
-    },
+            gap: theme.spacing.md,
+        },
 
-    divider: {
-        flex: 1,
-        height: 1,
-        backgroundColor: tokens.colors.border,
-    },
+        divider: {
+            flex: 1,
+            height: 1,
+            backgroundColor: theme.colors.border,
+        },
 
-    socialButtons: {
-        flexDirection: "row",
-        gap: tokens.spacing.md,
-    },
+        socialButtons: {
+            flexDirection: "row",
+            gap: theme.spacing.md,
+        },
 
-    socialButton: {
-        flex: 1,
+        socialButton: {
+            flex: 1,
 
-        height: 52,
+            height: 52,
 
-        borderRadius: tokens.radius.xl,
+            borderRadius: theme.radius.xl,
 
-        borderWidth: 1,
-        borderColor: tokens.colors.border,
+            borderWidth: 1,
+            borderColor: theme.colors.border,
 
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
 
-        gap: tokens.spacing.sm,
-    },
+            gap: theme.spacing.sm,
+        },
 
-    footer: {
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
+        footer: {
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
 
-        gap: tokens.spacing.xs,
-    },
+            gap: theme.spacing.xs,
+        },
 
-    socialButtonPressed: {
-        opacity: 0.7,
-        transform: [{ scale: 0.97 }],
-    },
-});
+        socialButtonPressed: {
+            opacity: 0.7,
+            transform: [{ scale: 0.97 }],
+        },
+    });
 
 
 
-const stylesRegister = StyleSheet.create({
-    checkboxContainer: {
-        flexDirection: "row",
-        alignItems: "center",
+const stylesRegister = (theme: Theme) =>
+    StyleSheet.create({
+        checkboxContainer: {
+            flexDirection: "row",
+            alignItems: "center",
 
-        gap: tokens.spacing.sm,
+            gap: theme.spacing.sm,
+        }
     }
-}
-)
+    )
 
 export { stylesLogin, stylesRegister };

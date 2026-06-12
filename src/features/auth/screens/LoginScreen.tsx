@@ -1,49 +1,50 @@
-import { View, Pressable } from "react-native";
+import { Pressable, View } from "react-native";
 
+import { Icon } from "@/components";
 import Screen from "@/components/Screen/Screen";
 import Typography from "@/components/Typography/Typography";
-import { Icon } from "@/components";
 
-import { tokens } from "@/theme/tokens";
 
 import { constants } from "@/constants/constants";
 
-import { constantsAuth } from "../constants/constantsAuth";
-import { stylesLogin } from "../styles";
-import LoginForm from "../form/LoginForm";
-import { useNavigation } from "@react-navigation/native";
-import { NavigationProps } from "../form/types";
 import { ROUTES } from "@/navigation/routes";
+import { useTheme } from "@/theme/ThemeProvider";
+import { useNavigation } from "@react-navigation/native";
+import { constantsAuth } from "../constants/constantsAuth";
+import LoginForm from "../form/LoginForm";
+import { NavigationProps } from "../form/types";
+import { stylesLogin } from "../styles";
 
 
 export default function LoginScreen() {
 
   const navigation = useNavigation<NavigationProps>();
+  const theme = useTheme();
+  const stylesLOGIN = stylesLogin(theme);
 
   return (
     <Screen centered>
-      <View style={stylesLogin.container}>
+      <View style={stylesLOGIN.container}>
         {/* Header */}
-        <View style={stylesLogin.header}>
+        <View style={stylesLOGIN.header}>
           <Icon
-            styleView={stylesLogin.logoContainer}
             name="account-balance-wallet"
             size={28}
-            color={tokens.colors.onPrimary}
+            color={theme.colors.onPrimary}
           />
 
           <Typography
             variant="h1"
-            color={tokens.colors.primary}
+            color={theme.colors.primary}
             align="center"
           >
             {constants.titleApp}
           </Typography>
 
-          <View style={stylesLogin.headerDescription}>
+          <View style={stylesLOGIN.headerDescription}>
             <Typography
               variant="body2"
-              color={tokens.colors.textSecondary}
+              color={theme.colors.textSecondary}
               align="center"
             >
               {constantsAuth.title}
@@ -55,10 +56,10 @@ export default function LoginScreen() {
         <LoginForm />
 
         {/* Footer */}
-        <View style={stylesLogin.footer}>
+        <View style={stylesLOGIN.footer}>
           <Typography
             variant="body2"
-            color={tokens.colors.textSecondary}
+            color={theme.colors.textSecondary}
           >
             Não tem uma conta?
           </Typography>
@@ -68,7 +69,7 @@ export default function LoginScreen() {
           >
             <Typography
               variant="body2"
-              color={tokens.colors.primary}
+              color={theme.colors.primary}
             >
               Cadastre-se
             </Typography>

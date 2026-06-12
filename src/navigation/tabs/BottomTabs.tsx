@@ -2,76 +2,41 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { TabBarIcon } from './TabBarIcon';
 
-import { tokens } from '@/theme/tokens';
+import { useTheme } from '@/theme/ThemeProvider';
+import { useMemo } from 'react';
+import { createTabNavigatorBottonTabsOptions } from '../options/tabNavigatorBottomTabs';
 import { RootTabParamList } from '../types';
-import HomeScreen from '@/features/home/screens/HomeScreen';
-import { ROUTES } from '../routes';
+import { tabs } from './config/tabs';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
 export function BottomTabs() {
+   const theme = useTheme();
+
+  const screenOptions = useMemo(
+    () => createTabNavigatorBottonTabsOptions(theme),
+    [theme]
+  );
   return (
     <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-
-        tabBarShowLabel: true,
-
-        tabBarActiveTintColor: tokens.colors.primary,
-
-        tabBarInactiveTintColor:
-          tokens.colors.textSecondary,
-
-        tabBarStyle: {
-          position: 'absolute',
-
-          height: 74,
-
-          backgroundColor: '#FFFFFF',
-
-          borderTopWidth: 1,
-
-          borderTopColor: '#ECECEC',
-
-          borderTopLeftRadius: 24,
-          borderTopRightRadius: 24,
-
-          paddingTop: 10,
-          paddingBottom: 12,
-
-          shadowColor: '#000',
-
-          shadowOffset: {
-            width: 0,
-            height: -2,
-          },
-
-          shadowOpacity: 0.08,
-          shadowRadius: 10,
-
-          elevation: 10,
-        },
-
-        tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: '600',
-        },
-      }}
+      screenOptions={screenOptions}
     >
-      <Tab.Screen
-        name={ROUTES.HOME}
-        component={HomeScreen}
-        options={{
-          title: 'Home',
-
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon
-              name="home"
-              color={color}
-            />
-          ),
-        }}
-      />
+      {tabs.map((tab) => (
+        <Tab.Screen
+          key={tab.name}
+          name={tab.name}
+          component={tab.component}
+          options={{
+            title: tab.title,
+            tabBarIcon: ({ color }) => (
+              <TabBarIcon
+                name={tab.icon}
+                color={color}
+              />
+            ),
+          }}
+        />
+      ))}
 {/* 
       <Tab.Screen
         name={ROUTES.EXPENSES}

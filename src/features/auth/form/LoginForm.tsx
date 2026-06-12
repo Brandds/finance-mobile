@@ -5,21 +5,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useForm } from "react-hook-form";
 
-import Input from "@/components/Input";
 import Typography from "@/components/Typography/Typography";
 
 import { Button, Card, Icon } from "@/components";
 
-import { tokens } from "@/theme/tokens";
 
 import {
   LoginFormData,
   loginSchema,
 } from "./schema/login.schema";
 
+import FormFields from "@/components/FormFields/FormFields";
+import { useTheme } from "@/theme/ThemeProvider";
 import { useLogin } from "../hooks/useLogin";
 import { stylesLogin } from "../styles";
-import FormFields from "@/components/FormFields/FormFields";
 import { fieldsLogin } from "./fields/fields";
 
 
@@ -38,29 +37,32 @@ export default function LoginForm() {
   });
 
   const { loading, handleLogin } =  useLogin();
+  const theme = useTheme();
+  const styles = stylesLogin(theme);
 
   async function onSubmit(data: LoginFormData) {
     await handleLogin(data);
   }
 
+
   return (
-    <Card style={stylesLogin.card}>
+    <Card style={styles.card}>
       {/* Header */}
-      <View style={stylesLogin.cardHeader}>
+      <View style={styles.cardHeader}>
         <Typography variant="h1">
           Boas-vindas
         </Typography>
 
         <Typography
           variant="body2"
-          color={tokens.colors.textSecondary}
+          color={theme.colors.textSecondary}
         >
           Acesse sua conta para continuar.
         </Typography>
       </View>
 
       {/* Fields */}
-      <View style={stylesLogin.field}>
+      <View style={styles.field}>
         <FormFields 
           fields={fieldsLogin} 
           control={control}
@@ -71,7 +73,7 @@ export default function LoginForm() {
       <Pressable>
         <Typography
           variant="body2"
-          color={tokens.colors.primary}
+          color={theme.colors.primary}
         >
           Esqueceu a senha?
         </Typography>
@@ -85,29 +87,29 @@ export default function LoginForm() {
       />
 
       {/* Divider */}
-      <View style={stylesLogin.dividerContainer}>
-        <View style={stylesLogin.divider} />
+      <View style={styles.dividerContainer}>
+        <View style={styles.divider} />
 
         <Typography
           variant="body2"
-          color={tokens.colors.textSecondary}
+          color={theme.colors.textSecondary}
         >
           OU ACESSE COM
         </Typography>
 
-        <View style={stylesLogin.divider} />
+        <View style={styles.divider} />
       </View>
 
       {/* Social buttons */}
-      <View style={stylesLogin.socialButtons}>
+      <View style={styles.socialButtons}>
         <Button
           variant="secondary"
-          style={stylesLogin.socialButton}
+          style={styles.socialButton}
         >
           <Icon
             name="g-mobiledata"
             size={24}
-            color={tokens.colors.text}
+            color={theme.colors.text}
           />
 
           <Typography variant="body2">
@@ -117,12 +119,12 @@ export default function LoginForm() {
 
         <Button
           variant="secondary"
-          style={stylesLogin.socialButton}
+          style={styles.socialButton}
         >
           <Icon
             name="apple"
             size={24}
-            color={tokens.colors.text}
+            color={theme.colors.text}
           />
 
           <Typography variant="body2">

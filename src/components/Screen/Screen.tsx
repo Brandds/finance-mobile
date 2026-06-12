@@ -18,9 +18,8 @@ import AppHeader from "../AppHeader";
 
 import { ScreenProps } from "./types";
 
-import { tokens } from "@/theme/tokens";
-
 import stylesScreen from "./styles";
+import { useTheme } from "@/theme/ThemeProvider";
 
 const Screen = ({
   children,
@@ -28,27 +27,31 @@ const Screen = ({
   padding = true,
   centered = false,
 
-  backgroundColor = tokens.colors.background,
+  backgroundColor,
 
   headerTitle,
   showBackButton = false,
 }: ScreenProps) => {
   const insets = useSafeAreaInsets();
+  const theme = useTheme();
+  const styles = stylesScreen(theme);
 
+  const screenBackground =
+    backgroundColor ?? theme.colors.background;
   const content = (
     <View
       style={[
-        stylesScreen.container,
+        styles.container,
 
         {
           paddingBottom: insets.bottom,
         },
 
         padding &&
-        stylesScreen.padding,
+        styles.padding,
 
         centered &&
-        stylesScreen.centered,
+        styles.centered,
       ]}
     >
       {children}
@@ -65,9 +68,9 @@ const Screen = ({
 
       <KeyboardAvoidingView
         style={[
-          stylesScreen.container,
+          styles.container,
           {
-            backgroundColor,
+            backgroundColor: screenBackground,
             paddingTop: insets.top,
           },
         ]}
@@ -82,7 +85,7 @@ const Screen = ({
         >
           <View style={{ flex: 1 }}>
             {(headerTitle || showBackButton) && (
-              <View style={stylesScreen.headerContainer}>
+              <View style={styles.headerContainer}>
                 <AppHeader
                   title={headerTitle}
                   showBackButton={showBackButton}

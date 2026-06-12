@@ -1,35 +1,36 @@
 import { StyleSheet } from "react-native";
 
-import { tokens } from "@/theme/tokens";
+import { Theme } from "@/theme/theme";
 
-export const styles = StyleSheet.create({
-  container: {
-    position: "absolute",
+export const styles = (theme: Theme) =>
+  StyleSheet.create({
+    container: {
+      position: "absolute",
 
-    right: 24,
-    bottom: 96,
+      right: 24,
+      bottom: 96,
 
-    width: 64,
-    height: 64,
+      width: 64,
+      height: 64,
 
-    borderRadius: 999,
+      borderRadius: 999,
 
-    alignItems: "center",
-    justifyContent: "center",
+      alignItems: "center",
+      justifyContent: "center",
 
-    backgroundColor:
-      tokens.colors.primary,
+      backgroundColor:
+        theme.colors.primary,
 
-    shadowColor: "#000",
+      shadowColor: "#000",
 
-    shadowOffset: {
-      width: 0,
-      height: 8,
+      shadowOffset: {
+        width: 0,
+        height: 8,
+      },
+
+      shadowOpacity: 0.2,
+      shadowRadius: 12,
+
+      elevation: 8,
     },
-
-    shadowOpacity: 0.2,
-    shadowRadius: 12,
-
-    elevation: 8,
-  },
-});
+  });

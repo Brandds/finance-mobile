@@ -1,24 +1,25 @@
 import { StyleSheet } from "react-native";
 
-import { tokens } from "@/theme/tokens";
+import { Theme } from "@/theme/theme";
 
-export const styles = StyleSheet.create({
-  container: {
-    gap: tokens.spacing.md,
-  },
+export const styles = (theme: Theme) =>
+  StyleSheet.create({
+    container: {
+      gap: theme.spacing.md,
+    },
 
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
+    header: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
 
-  seeAllText: {
-    color: tokens.colors.secondary,
-  },
+    seeAllText: {
+      color: theme.colors.secondary,
+    },
 
-  listContent: {
-    paddingRight: tokens.spacing.md,
-    gap: tokens.spacing.md,
-  },
-});
+    listContent: {
+      paddingRight: theme.spacing.md,
+      gap: theme.spacing.md,
+    },
+  });

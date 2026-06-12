@@ -1,25 +1,26 @@
 import { Text } from "react-native";
 
-import { TypographyProps }
-from "./types";
+import { TypographyProps } from "./types";
 
-import { tokens }
-from "@/theme/tokens";
+import { useTheme } from "@/theme/ThemeProvider";
 
 const Typography = ({
   variant = "body1",
-  color = tokens.colors.text,
+  color,
   align = "left",
   children,
   style,
   onPress,
 }: TypographyProps) => {
+  const theme =  useTheme();
+
+  const colorTeheme = color || theme.colors.text;
 
   const variants = {
-    h1: tokens.typography.h1,
-    h2: tokens.typography.h2,
-    body1: tokens.typography.bodyLg,
-    body2: tokens.typography.bodyMd,
+    h1: theme.typography.h1,
+    h2: theme.typography.h2,
+    body1: theme.typography.bodyLg,
+    body2: theme.typography.bodyMd,
   };
 
   return (
@@ -27,7 +28,7 @@ const Typography = ({
       style={[
         variants[variant],
         {
-          color,
+          color: colorTeheme,
           textAlign: align,
         },
         style,

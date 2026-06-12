@@ -1,37 +1,36 @@
-import { StyleSheet }
-from "react-native";
+import { StyleSheet } from "react-native";
 
-import { tokens }
-from "@/theme/tokens";
+import { Theme } from "@/theme/theme";
 
-export const styles = StyleSheet.create({
+export const styles = (theme: Theme) =>
+  StyleSheet.create({
 
-  container: {
-    height: 72,
+    container: {
+      height: 72,
 
-    paddingHorizontal: 20,
+      paddingHorizontal: 20,
 
-    flexDirection: "column",
+      flexDirection: "column",
 
-    alignItems: "center",
+      alignItems: "center",
 
-    justifyContent: "space-between",
+      justifyContent: "space-between",
 
-    backgroundColor:
-      tokens.colors.surface,
+      backgroundColor:
+        theme.colors.surface,
 
-    borderBottomWidth: 1,
+      borderBottomWidth: 1,
 
-    borderBottomColor:
-      "#EEF2F5",
-  },
-  iconContainer: {
-    width: 60,
-    height: 40,
+      borderBottomColor:
+        "#EEF2F5",
+    },
+    iconContainer: {
+      width: 60,
+      height: 40,
 
-    borderRadius: 8,
+      borderRadius: 8,
 
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+      alignItems: "center",
+      justifyContent: "center",
+    },
+  });

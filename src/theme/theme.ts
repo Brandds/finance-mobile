@@ -1,8 +1,19 @@
-// theme.ts
-import { tokens } from './tokens'
+import { darkColors } from "./colors/dark";
+import { lightColors } from "./colors/light";
+import { radius } from "./radius";
+import { shadows } from "./shadows";
+import { spacing } from "./spacing";
+import { typography } from "./typography";
 
-export type Theme = typeof tokens
+const createTheme = (colors: typeof lightColors) => ({
+  colors,
+  spacing,
+  typography,
+  radius,
+  shadows,
+});
 
-export const theme: Theme = tokens
+export const lightTheme = createTheme(lightColors);
+export const darkTheme = createTheme(darkColors);
 
-export const useTheme = () => theme
+export type Theme = typeof lightTheme;

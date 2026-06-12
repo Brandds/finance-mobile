@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native";
 
-import { tokens } from "@/theme/tokens";
+import { Theme } from "@/theme/theme";
 
-export const styles = StyleSheet.create({
-  card: {
-    gap: tokens.spacing.lg,
-  },
-});
+export const styles = (theme: Theme) =>
+  StyleSheet.create({
+    card: {
+      gap: theme.spacing.lg,
+    },
+  });

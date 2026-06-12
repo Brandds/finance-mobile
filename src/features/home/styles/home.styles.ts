@@ -1,15 +1,14 @@
-import { StyleSheet }
-from "react-native";
+import { StyleSheet } from "react-native";
 
-import { tokens }
-from "@/theme/tokens";
+import { Theme } from "@/theme/theme";
 
-export const stylesHome = StyleSheet.create({
+export const stylesHome = (theme: Theme) =>
+  StyleSheet.create({
 
-  container: {
-    flex: 1,
+    container: {
+      flex: 1,
 
-    backgroundColor:
-      tokens.colors.background,
-  },
-});
+      backgroundColor:
+        theme.colors.background,
+    },
+  });

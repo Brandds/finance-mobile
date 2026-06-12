@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native";
 
-import { tokens } from "@/theme/tokens";
+import { Theme } from "@/theme/theme";
 
-export const dadosPessoaisStyle = StyleSheet.create({
-  button: {
-    marginTop: tokens.spacing.xl,
-  },
-});
+export const dadosPessoaisStyle = (theme: Theme) =>
+  StyleSheet.create({
+    button: {
+      marginTop: theme.spacing.xl,
+    },
+  });

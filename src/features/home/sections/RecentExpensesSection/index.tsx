@@ -1,21 +1,15 @@
-import { View }
-from "react-native";
+import { View } from "react-native";
 
-import { MaterialIcons }
-from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
-import Typography
-from "@/components/Typography/Typography";
+import Typography from "@/components/Typography/Typography";
 
-import ExpenseItem
-from "../ExpenseItem";
+import ExpenseItem from "../ExpenseItem";
 
-import { styles }
-from "./styles";
+import { SkeletonSummaryCard } from "@/components/Skeleton";
+import { useTheme } from "@/theme/ThemeProvider";
 import { useEffect, useState } from "react";
-import SkeletonBlock from "@/components/Skeleton/SkeletonBlock";
-import SkeletonExpenseItem from "@/components/Skeleton/SkeletonExpenseItem";
-import { SkeletonExpenseList, SkeletonSummaryCard } from "@/components/Skeleton";
+import { styles as stylesRecentExpensesSection } from "./styles";
 
 type Expense = {
   id: number;
@@ -52,7 +46,9 @@ const expenses: Expense[] = [
 
 export default function RecentExpensesSection() {
   const [loading , setLoading] = useState(true);
-
+  const theme = useTheme();
+  const styles = stylesRecentExpensesSection(theme);
+  
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);

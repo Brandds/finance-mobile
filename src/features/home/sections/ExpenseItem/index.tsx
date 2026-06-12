@@ -1,15 +1,13 @@
 import { View } from "react-native";
 
-import { MaterialIcons }
-from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
-import Typography
-from "@/components/Typography/Typography";
+import Typography from "@/components/Typography/Typography";
 
-import { tokens }
-from "@/theme/tokens";
 
-import { styles } from "./styles";
+import { useTheme } from "@/theme/ThemeProvider";
+import { styles as stylesExpense } from "./styles";
+import { Icon } from "@/components";
 
 interface ExpenseItemProps {
   description: string;
@@ -25,16 +23,18 @@ export default function ExpenseItem({
   icon,
 }: ExpenseItemProps) {
 
+  const theme = useTheme();
+  const styles = stylesExpense(theme);
   return (
     <View style={styles.container}>
 
       <View style={styles.left}>
 
         <View style={styles.iconContainer}>
-          <MaterialIcons
+          <Icon
             name={icon}
             size={20}
-            color={tokens.colors.textSecondary}
+            color={theme.colors.textSecondary}
           />
         </View>
 
@@ -42,14 +42,14 @@ export default function ExpenseItem({
 
           <Typography
             variant="body1"
-            color={tokens.colors.primary}
+            color={theme.colors.text}
           >
             {description}
           </Typography>
 
           <Typography
             variant="body2"
-            color={tokens.colors.textSecondary}
+            color={theme.colors.textSecondary}
           >
             {date}
           </Typography>
@@ -60,7 +60,7 @@ export default function ExpenseItem({
 
       <Typography
         variant="body1"
-        color={tokens.colors.primary}
+        color={theme.colors.text}
       >
         {amount}
       </Typography>

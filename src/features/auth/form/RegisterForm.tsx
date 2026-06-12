@@ -9,7 +9,6 @@ import Typography from "@/components/Typography/Typography";
 
 import { Button, Card, Icon } from "@/components";
 
-import { tokens } from "@/theme/tokens";
 
 import {
   RegisterFormData,
@@ -17,9 +16,10 @@ import {
 } from "./schema/register.schema";
 
 import FormFields from "@/components/FormFields/FormFields";
+import { useTheme } from "@/theme/ThemeProvider";
+import { useRegister } from "../hooks/useRegister";
 import { stylesLogin, stylesRegister } from "../styles";
 import { fieldsRegister } from "./fields/fields";
-import { useRegister } from "../hooks/useRegister";
 
 export default function RegisterForm() {
 
@@ -39,6 +39,9 @@ export default function RegisterForm() {
       cpf: "",
     },
   });
+  const theme = useTheme();
+  const stylesLOGIN = stylesLogin(theme);
+  const stylesREGISTER = stylesRegister(theme);
 
   async function onSubmit(
     data: RegisterFormData
@@ -53,16 +56,16 @@ export default function RegisterForm() {
   }
 
   return (
-    <Card style={stylesLogin.card}>
+    <Card style={stylesLOGIN.card}>
       {/* Header */}
-      <View style={stylesLogin.cardHeader}>
+      <View style={stylesLOGIN.cardHeader}>
         <Typography variant="h1">
           Criar Conta
         </Typography>
 
         <Typography
           variant="body2"
-          color={tokens.colors.textSecondary}
+          color={theme.colors.textSecondary}
         >
           Organize sua vida financeira.
         </Typography>
@@ -80,7 +83,7 @@ export default function RegisterForm() {
         name="acceptTerms"
         render={({ field }) => (
           <Pressable
-            style={stylesRegister.checkboxContainer}
+            style={stylesREGISTER.checkboxContainer}
             onPress={() => field.onChange(!field.value)}
           >
             <Icon
@@ -90,12 +93,12 @@ export default function RegisterForm() {
                   : "check-box-outline-blank"
               }
               size={22}
-              color={tokens.colors.primary}
+              color={theme.colors.primary}
             />
 
             <Typography
               variant="body2"
-              color={tokens.colors.textSecondary}
+              color={theme.colors.textSecondary}
             >
               Aceito os termos de uso
             </Typography>
@@ -105,7 +108,7 @@ export default function RegisterForm() {
       {errors.acceptTerms && (
         <Typography
           variant="body2"
-          color={tokens.colors.error}
+          color={theme.colors.error}
         >
           {errors.acceptTerms.message}
         </Typography>
@@ -119,28 +122,28 @@ export default function RegisterForm() {
       />
 
       {/* Divider */}
-      <View style={stylesLogin.dividerContainer}>
-        <View style={stylesLogin.divider} />
+      <View style={stylesLOGIN.dividerContainer}>
+        <View style={stylesLOGIN.divider} />
 
         <Typography
           variant="body2"
-          color={tokens.colors.textSecondary}
+          color={theme.colors.textSecondary}
         >
           OU
         </Typography>
 
-        <View style={stylesLogin.divider} />
+        <View style={stylesLOGIN.divider} />
       </View>
 
       {/* Social */}
       <Button
         variant="secondary"
-        style={stylesLogin.socialButton}
+        style={stylesLOGIN.socialButton}
       >
         <Icon
           name="g-mobiledata"
           size={24}
-          color={tokens.colors.text}
+          color={theme.colors.text}
         />
 
         <Typography variant="body2">

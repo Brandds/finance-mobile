@@ -1,56 +1,49 @@
-import {
-  NavigationContainer,
-  DefaultTheme,
-} from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
+import { useEffect } from "react";
 
-import { useEffect } from 'react';
+import { ThemeProvider } from "@/theme/ThemeProvider";
+import { ToastProvider } from "@/providers/ToastProvider";
 
-import { ThemeProvider }
-from '@/theme/ThemeProvider';
+import AppRoutes from "./app.routes";
+import AuthRoutes from "./auth.routes";
 
-import AppRoutes
-from './app.routes';
+import { useAuthStore } from "@/store/auth/auth.store";
+import { useTheme } from "@/theme/useTheme";
 
-import AuthRoutes
-from './auth.routes';
+function Navigation() {
+  const theme = useTheme();
 
-import { useAuthStore }
-from '@/store/auth/auth.store';
+  const authenticated = useAuthStore(
+    (state) => state.authenticated
+  );
 
-import { tokens }
-from '@/theme/tokens';
-import { ToastProvider } from '@/providers/ToastProvider';
+  const navigationTheme = {
+    ...DefaultTheme,
 
-const navigationTheme = {
-  ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
 
-  colors: {
-    ...DefaultTheme.colors,
+      background: theme.colors.background,
+      primary: theme.colors.primary,
+      card: theme.colors.surface,
+      text: theme.colors.text,
+      border: theme.colors.border,
+    },
+  };
 
-    background:
-      tokens.colors.background,
-
-    primary:
-      tokens.colors.primary,
-  },
-};
+  return (
+    <NavigationContainer theme={navigationTheme}>
+      {authenticated ? <AppRoutes /> : <AuthRoutes />}
+    </NavigationContainer>
+  );
+}
 
 export default function Routes() {
+  const loading = useAuthStore((state) => state.loading);
 
-  const authenticated =
-    useAuthStore(
-      (state) => state.authenticated
-    );
-
-  const loading =
-    useAuthStore(
-      (state) => state.loading
-    );
-
-  const loadUserStorage =
-    useAuthStore(
-      (state) => state.loadUserStorage
-    );
+  const loadUserStorage = useAuthStore(
+    (state) => state.loadUserStorage
+  );
 
   useEffect(() => {
     loadUserStorage();
@@ -63,15 +56,7 @@ export default function Routes() {
   return (
     <ThemeProvider>
       <ToastProvider>
-        <NavigationContainer
-          theme={navigationTheme}
-        >
-          {authenticated ? (
-            <AppRoutes />
-          ) : (
-            <AuthRoutes />
-          )}
-        </NavigationContainer>
+        <Navigation />
       </ToastProvider>
     </ThemeProvider>
   );

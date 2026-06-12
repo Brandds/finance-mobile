@@ -11,11 +11,11 @@ import { Controller, FieldValues } from "react-hook-form";
 
 import Typography from "@/components/Typography/Typography";
 
-import { tokens } from "@/theme/tokens";
 
+import { useTheme } from "@/theme/ThemeProvider";
 import { Icon } from "../Icon/Icon";
-import { stylesIInput } from "./styles";
 import { InputProps } from "./types";
+import { stylesIInput } from "./styles";
 
 function Input<T extends FieldValues>({
   control,
@@ -29,7 +29,8 @@ function Input<T extends FieldValues>({
   const [showPassword, setShowPassword] =
     useState(false);
 
-  return (
+  const theme = useTheme();
+  const styles = stylesIInput(theme);  return (
     <Controller
       control={control}
       name={name}
@@ -37,18 +38,18 @@ function Input<T extends FieldValues>({
         field: { onChange, value },
         fieldState: { error },
       }) => (
-        <View style={stylesIInput.field}>
+        <View style={styles.field}>
           <Typography
             variant="body2"
-            color={tokens.colors.textSecondary}
+            color={theme.colors.textSecondary}
           >
             {label}
           </Typography>
 
           <View
             style={[
-              stylesIInput.inputContainer,
-              error && stylesIInput.inputError,
+              styles.inputContainer,
+              error && styles.inputError,
             ]}
           >
             {icon && (
@@ -56,7 +57,7 @@ function Input<T extends FieldValues>({
                 name={icon as any}
                 library={library}
                 size={20}
-                color={tokens.colors.textSecondary}
+                color={theme.colors.textSecondary}
               />
             )}
 
@@ -65,12 +66,12 @@ function Input<T extends FieldValues>({
               onChangeText={onChange}
               placeholder={placeholder}
               placeholderTextColor={
-                tokens.colors.textSecondary
+                theme.colors.textSecondary
               }
               secureTextEntry={
                 secureTextEntry && !showPassword
               }
-              style={stylesIInput.input}
+              style={styles.input}
             />
 
             {secureTextEntry && (
@@ -87,7 +88,7 @@ function Input<T extends FieldValues>({
                   }
                   library={library}
                   size={20}
-                  color={tokens.colors.textSecondary}
+                  color={theme.colors.textSecondary}
                 />
               </Pressable>
             )}
@@ -96,7 +97,7 @@ function Input<T extends FieldValues>({
           {error && (
             <Typography
               variant="body2"
-              color={tokens.colors.error}
+              color={theme.colors.error}
             >
               {error.message}
             </Typography>

@@ -1,9 +1,9 @@
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
-import { SecuritySectionProps } from "./types";
-import SettingsSection from "@/components/Settings/SettingsSection";
+import { Icon } from "@/components";
 import SettingsItem from "@/components/Settings/SettingsItem";
+import SettingsSection from "@/components/Settings/SettingsSection";
 import SettingsToggle from "@/components/Settings/SettingsToggle";
+import { SecuritySectionProps } from "./types";
 
 export default function SecuritySection({
     biometricEnabled,
@@ -14,7 +14,7 @@ export default function SecuritySection({
     <SettingsSection title="Segurança">
         <SettingsItem
             icon={
-            <MaterialIcons
+            <Icon
                 name="lock"
                 size={20}
             />
@@ -25,7 +25,7 @@ export default function SecuritySection({
 
         <SettingsToggle
             icon={
-                <MaterialIcons
+                <Icon
                     name="fingerprint"
                     size={20}
                 />

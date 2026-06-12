@@ -1,46 +1,47 @@
 import { StyleSheet } from "react-native";
 
-import { tokens } from "@/theme/tokens";
+import { Theme } from "@/theme/theme";
 
-export const styles = StyleSheet.create({
-  container: {
-    backgroundColor:
-      tokens.colors.primary,
+export const styles = (theme: Theme) =>
+  StyleSheet.create({
+    container: {
+      backgroundColor:
+        theme.colors.primary,
 
-    borderRadius: tokens.radius.xl,
+      borderRadius: theme.radius.xl,
 
-    padding: tokens.spacing.lg,
+      padding: theme.spacing.lg,
 
-    gap: tokens.spacing.md,
+      gap: theme.spacing.md,
 
-    overflow: "hidden",
+      overflow: "hidden",
 
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 8,
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 8,
+      },
+      shadowOpacity: 0.12,
+      shadowRadius: 24,
+
+      elevation: 6,
     },
-    shadowOpacity: 0.12,
-    shadowRadius: 24,
 
-    elevation: 6,
-  },
+    badge: {
+      flexDirection: "row",
+      alignItems: "center",
+      alignSelf: "flex-start",
 
-  badge: {
-    flexDirection: "row",
-    alignItems: "center",
-    alignSelf: "flex-start",
+      gap: theme.spacing.xs,
 
-    gap: tokens.spacing.xs,
+      paddingHorizontal:
+        theme.spacing.sm,
 
-    paddingHorizontal:
-      tokens.spacing.sm,
+      paddingVertical: 6,
 
-    paddingVertical: 6,
+      borderRadius: 999,
 
-    borderRadius: 999,
-
-    backgroundColor:
-      "rgba(255,255,255,0.12)",
-  },
-});
+      backgroundColor:
+        "rgba(255,255,255,0.12)",
+    },
+  });

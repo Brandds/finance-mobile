@@ -1,5 +1,6 @@
-import MaterialIcons
-from '@expo/vector-icons/MaterialIcons';
+import { Icon } from '@/components';
+import { useTheme } from '@/theme/ThemeProvider';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 type Props = {
   name: keyof typeof MaterialIcons.glyphMap;
@@ -12,10 +13,12 @@ export function TabBarIcon({
   color,
   size = 24,
 }: Props) {
+  const theme = useTheme();
+  const colorCustom = color || theme.colors.onSecondary
   return (
-    <MaterialIcons
+    <Icon
       name={name}
-      color={color}
+      color={colorCustom}
       size={size}
     />
   );

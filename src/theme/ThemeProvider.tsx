@@ -1,18 +1,25 @@
-import React, { createContext, useContext } from 'react'
-import { theme, Theme } from './theme'
+import React, { createContext, useContext } from "react";
 
-const ThemeContext = createContext<Theme>(theme)
+import { darkTheme, lightTheme, Theme } from "./theme";
+
+import { useThemeStore } from "@/store/theme/theme.store";
+
+const ThemeContext = createContext<Theme>(lightTheme);
 
 type Props = {
-  children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
 export const ThemeProvider = ({ children }: Props) => {
+  const { isDark } = useThemeStore();
+
+  const currentTheme = isDark ? darkTheme : lightTheme;
+
   return (
-    <ThemeContext.Provider value={theme}>
+    <ThemeContext.Provider value={currentTheme}>
       {children}
     </ThemeContext.Provider>
-  )
-}
+  );
+};
 
-export const useTheme = () => useContext(ThemeContext)
+export const useTheme = () => useContext(ThemeContext);

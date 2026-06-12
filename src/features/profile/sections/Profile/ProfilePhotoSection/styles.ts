@@ -1,45 +1,46 @@
 import { StyleSheet } from "react-native";
 
-import { tokens } from "@/theme/tokens";
+import { Theme } from "@/theme/theme";
 
-export const styles = StyleSheet.create({
-  photoContainer: {
-    alignItems: "center",
+export const styles = (theme: Theme) =>
+  StyleSheet.create({
+    photoContainer: {
+      alignItems: "center",
 
-    marginBottom:
-      tokens.spacing.xl,
-  },
+      marginBottom:
+        theme.spacing.xl,
+    },
 
-  avatarContainer: {
-    position: "relative",
-  },
+    avatarContainer: {
+      position: "relative",
+    },
 
-  avatar: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-  },
+    avatar: {
+      width: 120,
+      height: 120,
+      borderRadius: 60,
+    },
 
-  editPhotoButton: {
-    position: "absolute",
+    editPhotoButton: {
+      position: "absolute",
 
-    right: 0,
-    bottom: 0,
+      right: 0,
+      bottom: 0,
 
-    width: 36,
-    height: 36,
+      width: 36,
+      height: 36,
 
-    borderRadius: 18,
+      borderRadius: 18,
 
-    alignItems: "center",
-    justifyContent: "center",
+      alignItems: "center",
+      justifyContent: "center",
 
-    backgroundColor:
-      tokens.colors.primary,
-  },
+      backgroundColor:
+        theme.colors.primary,
+    },
 
-  photoLabel: {
-    marginTop:
-      tokens.spacing.sm,
-  },
-});
+    photoLabel: {
+      marginTop:
+        theme.spacing.sm,
+    },
+  });

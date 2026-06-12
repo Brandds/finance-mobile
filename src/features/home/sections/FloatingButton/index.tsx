@@ -1,10 +1,10 @@
 import { Pressable } from "react-native";
 
-import { MaterialIcons } from "@expo/vector-icons";
 
-import { tokens } from "@/theme/tokens";
 
-import { styles } from "./styles";
+import { Icon } from "@/components";
+import { useTheme } from "@/theme/ThemeProvider";
+import { styles as stylesFloatingButton } from "./styles";
 
 type FloatingButtonProps = {
   onPress?: () => void;
@@ -13,15 +13,18 @@ type FloatingButtonProps = {
 export default function FloatingButton({
   onPress,
 }: FloatingButtonProps) {
+  const theme = useTheme();
+  const styles = stylesFloatingButton(theme);
+
   return (
     <Pressable
       style={styles.container}
       onPress={onPress}
     >
-      <MaterialIcons
+      <Icon
         name="add"
         size={32}
-        color={tokens.colors.onPrimary}
+        color={theme.colors.onPrimary}
       />
     </Pressable>
   );

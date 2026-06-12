@@ -1,69 +1,30 @@
-import { createBottomTabNavigator }
-from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { BottomTabParamList }
-from '../types/bottom-tabs';
+import { BottomTabParamList } from '../types/bottom-tabs';
 
-import { tokens }
-from '@/theme/tokens';
 
-import { TabBarIcon }
-from './TabBarIcon';
+import { TabBarIcon } from './TabBarIcon';
 
-import HomeScreen
-from '@/features/home/screens/HomeScreen';
+import HomeScreen from '@/features/home/screens/HomeScreen';
+import { useTheme } from '@/theme/ThemeProvider';
+import { useMemo } from 'react';
+import { createTabNavigatorOptions } from '../options/tabNavigatorOptions';
 import { ROUTES } from '../routes';
 
 const Tab =
   createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabsRoutes() {
+  const theme = useTheme();
+
+  const screenOptions = useMemo(
+    () => createTabNavigatorOptions(theme),
+    [theme]
+  );
+  
   return (
     <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-
-        tabBarActiveTintColor:
-          tokens.colors.primary,
-
-        tabBarInactiveTintColor:
-          tokens.colors.textSecondary,
-
-        tabBarStyle: {
-          position: 'absolute',
-
-          height: 74,
-
-          backgroundColor: '#FFFFFF',
-
-          borderTopWidth: 1,
-
-          borderTopColor: '#ECECEC',
-
-          borderTopLeftRadius: 24,
-          borderTopRightRadius: 24,
-
-          paddingTop: 10,
-          paddingBottom: 12,
-
-          shadowColor: '#000',
-
-          shadowOffset: {
-            width: 0,
-            height: -2,
-          },
-
-          shadowOpacity: 0.08,
-          shadowRadius: 10,
-
-          elevation: 10,
-        },
-
-        tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: '600',
-        },
-      }}
+      screenOptions={screenOptions}
     >
       <Tab.Screen
         name={ROUTES.HOME}

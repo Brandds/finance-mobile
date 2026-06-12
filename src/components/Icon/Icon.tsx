@@ -3,6 +3,7 @@ import {
   MaterialIcons,
   FontAwesome,
 } from "@expo/vector-icons";
+import { useTheme } from "@/theme/ThemeProvider";
 
 type Props = {
   library?: "material" | "fontAwesome";
@@ -17,12 +18,15 @@ export const Icon = ({
   size = 24,
   color,
 }: Props) => {
+
+  const theme = useTheme();
+  const colorCustom = color || theme.colors.onSecondary;
   if (library === "fontAwesome") {
     return (
       <FontAwesome
         name={name as any}
         size={size}
-        color={color}
+        color={colorCustom}
       />
     );
   }
@@ -31,7 +35,7 @@ export const Icon = ({
     <MaterialIcons
       name={name as any}
       size={size}
-      color={color}
+      color={colorCustom}
     />
   );
 };

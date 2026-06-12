@@ -8,12 +8,15 @@ import FloatingButton from "../sections/FloatingButton";
 import HomeHeader from "../sections/HomeHeader";
 import RecentExpensesSection from "../sections/RecentExpensesSection";
 import { stylesHome } from "../styles/home.styles";
+import { useTheme } from "@/theme/ThemeProvider";
 
 
 export default function HomeScreen() {
+  const theme = useTheme();
+  const styles = stylesHome(theme);
   return (
     <Screen scrollable>
-      <View style={stylesHome.container}>
+      <View style={styles.container}>
         {/* Header */}
         <HomeHeader />
 

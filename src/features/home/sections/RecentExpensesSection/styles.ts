@@ -1,15 +1,14 @@
-import { StyleSheet }
-from "react-native";
+import { StyleSheet } from "react-native";
 
-import { tokens }
-from "@/theme/tokens";
+import { Theme } from "@/theme/theme";
 
-export const styles = StyleSheet.create({
-  container: {
-    gap: tokens.spacing.md,
-  },
+export const styles = (theme: Theme) =>
+  StyleSheet.create({
+    container: {
+      gap: theme.spacing.md,
+    },
 
-  list: {
-    gap: tokens.spacing.sm,
-  },
-});
+    list: {
+      gap: theme.spacing.sm,
+    },
+  });

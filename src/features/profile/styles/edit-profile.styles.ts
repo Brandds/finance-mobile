@@ -1,19 +1,19 @@
 import { StyleSheet } from "react-native";
 
-import { tokens } from "@/theme/tokens";
+import { Theme } from "@/theme/theme";
 
-export const stylesEditProfile =
+export const stylesEditProfile = (theme: Theme) =>
   StyleSheet.create({
 
     content: {
-      padding: tokens.spacing.lg,
+      padding: theme.spacing.lg,
     },
 
     photoContainer: {
       alignItems: "center",
 
       marginBottom:
-        tokens.spacing.xl,
+        theme.spacing.xl,
     },
 
     avatar: {
@@ -24,22 +24,22 @@ export const stylesEditProfile =
 
     photoLabel: {
       marginTop:
-        tokens.spacing.sm,
+        theme.spacing.sm,
     },
 
     formContainer: {
-      gap: tokens.spacing.md,
+      gap: theme.spacing.md,
     },
 
     cpfContainer: {
       marginTop:
-        tokens.spacing.lg,
+        theme.spacing.lg,
 
-      gap: tokens.spacing.xs,
+      gap: theme.spacing.xs,
     },
 
     actionsContainer: {
       marginTop:
-        tokens.spacing.xl,
+        theme.spacing.xl,
     },
-});
+  });

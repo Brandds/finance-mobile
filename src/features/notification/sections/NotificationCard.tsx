@@ -1,9 +1,9 @@
-import { View, Pressable } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Pressable, View } from "react-native";
 
 import Typography from "@/components/Typography/Typography";
-import { styles } from "../styles";
-import { tokens } from "@/theme/tokens";
+import { useTheme } from "@/theme/ThemeProvider";
+import { styles as stylesNotificationCard } from "../styles";
 
 
 type Props = {
@@ -19,6 +19,10 @@ type Props = {
 };
 
 export default function NotificationCard(props: Props) {
+
+  const theme = useTheme();
+  const styles = stylesNotificationCard(theme);
+
   return (
     <Pressable
       style={({ pressed }) => [
@@ -45,14 +49,14 @@ export default function NotificationCard(props: Props) {
         <View style={styles.header}>
           <Typography
             variant="body1"
-            color={tokens.colors.text}
+            color={theme.colors.text}
           >
             {props.title}
           </Typography>
 
           <Typography
             variant="body2"
-            color={tokens.colors.text}
+            color={theme.colors.text}
           >
             {props.time}
           </Typography>
@@ -60,7 +64,7 @@ export default function NotificationCard(props: Props) {
 
         <Typography
           variant="body2"
-          color={tokens.colors.text}
+          color={theme.colors.text}
         >
           {props.description}
         </Typography>

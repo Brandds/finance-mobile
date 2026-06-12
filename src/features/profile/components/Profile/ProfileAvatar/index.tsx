@@ -13,6 +13,7 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Typography from "@/components/Typography/Typography";
 import { ProfileAvatarProps } from "./types";
 import { styles } from "./styles";
+import { Icon } from "@/components";
 
 
 export default function ProfileAvatar({
@@ -57,7 +58,7 @@ export default function ProfileAvatar({
           style={styles.editButton}
           onPress={onEditPress}
         >
-          <MaterialIcons
+          <Icon
             name="edit"
             size={16}
             color="#FFF"

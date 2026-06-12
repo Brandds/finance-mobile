@@ -2,12 +2,15 @@ import { View } from "react-native";
 
 
 import Typography from "@/components/Typography/Typography";
-import { styles } from "./styles";
+import { styles as stylesSummaryCard} from "./styles";
 import { SummaryCardProps } from "./types";
+import { useTheme } from "@/theme/ThemeProvider";
 
 
 export default function SummaryCard(props: SummaryCardProps) {
 
+  const theme = useTheme()
+  const styles = stylesSummaryCard(theme);
   return (
     <View style={styles.container}>
 

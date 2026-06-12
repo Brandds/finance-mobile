@@ -1,9 +1,9 @@
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
-import { PreferencesSectionProps } from "./types";
-import SettingsSection from "@/components/Settings/SettingsSection";
+import { Icon } from "@/components";
 import SettingsItem from "@/components/Settings/SettingsItem";
+import SettingsSection from "@/components/Settings/SettingsSection";
 import { titleScreen } from "@/constants/titleScreen";
+import { PreferencesSectionProps } from "./types";
 
 export default function PreferencesSection({
     language,
@@ -16,7 +16,7 @@ export default function PreferencesSection({
     <SettingsSection title="Preferências">
         <SettingsItem
             icon={
-            <MaterialIcons
+            <Icon
                 name="notifications"
                 size={20}
             />
@@ -26,7 +26,7 @@ export default function PreferencesSection({
         />
         <SettingsItem
             icon={
-                <MaterialIcons
+                <Icon
                     name="language"
                     size={20}
                 />
@@ -38,7 +38,7 @@ export default function PreferencesSection({
 
         <SettingsItem
             icon={
-                <MaterialIcons
+                <Icon
                     name="light-mode"
                     size={20}
                 />

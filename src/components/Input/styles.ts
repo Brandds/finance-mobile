@@ -1,39 +1,41 @@
-import { tokens } from "@/theme/tokens";
+import { Theme } from "@/theme/theme";
 import { StyleSheet } from "react-native";
 
-const stylesIInput = StyleSheet.create({
-  field: {
-    gap: tokens.spacing.sm,
-  },
+const stylesIInput = (theme: Theme) =>
+  StyleSheet.create({
+    field: {
+      gap: theme.spacing.sm,
+    },
 
-  inputContainer: {
-    height: 56,
+    inputContainer: {
+      height: 56,
 
-    borderRadius: tokens.radius.md,
+      borderRadius: theme.radius.md,
 
-    backgroundColor: tokens.colors.surfaceContainer,
+      backgroundColor: theme.colors.surfaceContainer,
 
-    paddingHorizontal: tokens.spacing.md,
+      paddingHorizontal: theme.spacing.md,
+      borderColor:theme.colors.border,
+      borderWidth:1,
+      flexDirection: "row",
+      alignItems: "center",
 
-    flexDirection: "row",
-    alignItems: "center",
+      gap: theme.spacing.sm,
+    },
 
-    gap: tokens.spacing.sm,
-  },
+    inputError: {
+      borderWidth: 1,
+      borderColor: theme.colors.error,
+    },
 
-  inputError: {
-    borderWidth: 1,
-    borderColor: tokens.colors.error,
-  },
+    input: {
+      flex: 1,
 
-  input: {
-    flex: 1,
+      color: theme.colors.text,
 
-    color: tokens.colors.text,
-
-    fontSize: tokens.typography.bodyLg.fontSize,
-  },
-});
+      fontSize: theme.typography.bodyLg.fontSize,
+    },
+  });
 
 
 export { stylesIInput };

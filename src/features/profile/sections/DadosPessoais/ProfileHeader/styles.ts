@@ -1,20 +1,21 @@
 import { StyleSheet } from "react-native";
 
-import { tokens } from "@/theme/tokens";
+import { Theme } from "@/theme/theme";
 
-export const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    gap: tokens.spacing.sm,
-  },
+export const styles = (theme: Theme) =>
+  StyleSheet.create({
+    container: {
+      alignItems: "center",
+      gap: theme.spacing.sm,
+    },
 
-  avatarContainer: {
-    marginBottom: tokens.spacing.sm,
-  },
+    avatarContainer: {
+      marginBottom: theme.spacing.sm,
+    },
 
-  avatar: {
-    width: 96,
-    height: 96,
-    borderRadius: 48,
-  },
-});
+    avatar: {
+      width: 96,
+      height: 96,
+      borderRadius: 48,
+    },
+  });

@@ -2,20 +2,23 @@ import { View } from "react-native";
 
 import Typography from "@/components/Typography/Typography";
 
-import { tokens } from "@/theme/tokens";
 
+import { useTheme } from "@/theme/ThemeProvider";
+import { styles as stylesPersonalInfoItem } from "./styles";
 import { PersonalInfoItemProps } from "./types";
-import { styles } from "./styles";
 
 export default function PersonalInfoItem({
   label,
   value,
 }: PersonalInfoItemProps) {
+  const theme = useTheme();
+  const styles = stylesPersonalInfoItem(theme);
+  
   return (
     <View style={styles.container}>
       <Typography
         variant="body2"
-        color={tokens.colors.textSecondary}
+        color={theme.colors.textSecondary}
       >
         {label}
       </Typography>

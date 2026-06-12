@@ -5,9 +5,9 @@ import { useNavigation } from "@react-navigation/native";
 
 import Typography from "../Typography/Typography";
 
-import { tokens } from "@/theme/tokens";
 import { Icon } from "../Icon/Icon";
 import { styles } from "./styles";
+import { useTheme } from "@/theme/ThemeProvider";
 
 type Props = {
   title?: string;
@@ -21,20 +21,23 @@ export default function AppHeader({
 }: Props) {
   const navigation = useNavigation();
 
+  const theme = useTheme();
+  const style = styles(theme);
+
   return (
-    <View style={styles.container}>
+    <View style={style.container}>
       {showBackButton && (
         <Pressable
           onPress={() => navigation.goBack()}
           style={({ pressed }) => [
-            styles.button,
-            pressed && styles.buttonPressed,
+            style.button,
+            pressed && style.buttonPressed,
           ]}
         >
           <Icon
             name="arrow-back"
             size={24}
-            color={tokens.colors.textSecondary}
+            color={theme.colors.textSecondary}
           />
         </Pressable>
       )}
@@ -42,7 +45,7 @@ export default function AppHeader({
       {title && (
         <Typography
           variant="h2"
-          color={tokens.colors.textSecondary}
+          color={theme.colors.textSecondary}
         >
           {title}
         </Typography>

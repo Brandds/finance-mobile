@@ -1,26 +1,25 @@
-import { View, Pressable, Image }
-from "react-native";
+import { Image, Pressable, View } from "react-native";
 
-import { MaterialIcons }
-from "@expo/vector-icons";
 
-import Typography
-from "@/components/Typography/Typography";
+import Typography from "@/components/Typography/Typography";
 
-import { tokens }
-from "@/theme/tokens";
-import { styles } from "./styles";
+import { styles as stylesHomeHeader } from "./styles";
 
-import { useNavigation } from "@react-navigation/native";
+import { Icon } from "@/components";
 import { NavigationProps } from "@/features/auth/form/types";
 import { ROUTES } from "@/navigation/routes";
 import { useAuthStore } from "@/store/auth/auth.store";
+import { useTheme } from "@/theme/ThemeProvider";
+import { useNavigation } from "@react-navigation/native";
 
 
 export default function HomeHeader() {
 
   const navigation = useNavigation<NavigationProps>();
   const user = useAuthStore(state => state.userResponse);
+  const theme = useTheme();
+  const styles = stylesHomeHeader(theme);
+
 
   const handlerNotificationPress = () => {
     navigation.navigate(ROUTES.NOTIFICATIONS);
@@ -44,7 +43,7 @@ export default function HomeHeader() {
 
         <Typography
           variant="h2"
-          color={tokens.colors.primary}
+          color={theme.colors.primary}
           onPress={handlerUserPress}
         >
           {user?.name || "Financial Clarity"}
@@ -60,10 +59,10 @@ export default function HomeHeader() {
           pressed && styles.buttonPressed,
         ]}
       >
-        <MaterialIcons
+        <Icon
           name="notifications-none"
           size={24}
-          color={tokens.colors.textSecondary}
+          color={theme.colors.textSecondary}
         />
       </Pressable>
 

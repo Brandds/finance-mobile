@@ -24,11 +24,15 @@ import { useDadosPessoais } from "../hooks/useDadosPessoais";
 import { useEditProfile } from "../hooks/useEditProfile";
 import { NavigationProps } from "@/features/auth/form/types";
 import { useNavigation } from "@react-navigation/native";
+import { useTheme } from "@/theme/ThemeProvider";
+
 export default function EditProfileScreen() {
   const {user, loading} = useDadosPessoais();
   const {handleEditProfile, loadingEditProfile} = useEditProfile();
   const navigation = useNavigation<NavigationProps>();
-  
+  const theme = useTheme();
+  const styles = stylesEditProfile(theme);
+
   const {
     control,
     handleSubmit,
@@ -81,7 +85,7 @@ export default function EditProfileScreen() {
         loading={loadingEditProfile}
         onPress={handleSubmit(onSubmit)}
         style={
-          stylesEditProfile
+          styles
             .actionsContainer
         }
       />

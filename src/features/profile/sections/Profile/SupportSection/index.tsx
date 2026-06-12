@@ -1,8 +1,8 @@
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
-import { SupportSectionProps } from "./types";
-import SettingsSection from "@/components/Settings/SettingsSection";
+import { Icon } from "@/components";
 import SettingsItem from "@/components/Settings/SettingsItem";
+import SettingsSection from "@/components/Settings/SettingsSection";
+import { SupportSectionProps } from "./types";
 
 export default function SupportSection({
     onHelpPress,
@@ -12,7 +12,7 @@ export default function SupportSection({
     <SettingsSection title="Suporte">
         <SettingsItem
             icon={
-                <MaterialIcons
+                <Icon
                     name="help-outline"
                     size={20}
                 />
@@ -23,7 +23,7 @@ export default function SupportSection({
 
         <SettingsItem
             icon={
-                <MaterialIcons
+                <Icon
                     name="description"
                     size={20}
                 />

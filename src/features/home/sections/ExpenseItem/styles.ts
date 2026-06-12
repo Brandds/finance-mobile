@@ -1,61 +1,60 @@
-import { StyleSheet }
-from "react-native";
+import { Theme } from "@/theme/theme";
+import { StyleSheet } from "react-native";
 
-import { tokens }
-from "@/theme/tokens";
 
-export const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+export const styles = (theme: Theme) =>
+  StyleSheet.create({
+    container: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
 
-    padding: tokens.spacing.md,
+      padding: theme.spacing.md,
 
-    borderRadius: tokens.radius.xl,
+      borderRadius: theme.radius.xl,
 
-    backgroundColor:
-      tokens.colors.surface,
+      backgroundColor:
+        theme.colors.surface,
 
-    borderWidth: 1,
-    borderColor:
-      tokens.colors.border,
+      borderWidth: 1,
+      borderColor:
+        theme.colors.border,
 
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 4,
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 4,
+      },
+      shadowOpacity: 0.05,
+      shadowRadius: 12,
+
+      elevation: 2,
     },
-    shadowOpacity: 0.05,
-    shadowRadius: 12,
 
-    elevation: 2,
-  },
+    left: {
+      flexDirection: "row",
+      alignItems: "center",
 
-  left: {
-    flexDirection: "row",
-    alignItems: "center",
+      gap: theme.spacing.md,
 
-    gap: tokens.spacing.md,
+      flex: 1,
+    },
 
-    flex: 1,
-  },
+    iconContainer: {
+      width: 42,
+      height: 42,
 
-  iconContainer: {
-    width: 42,
-    height: 42,
+      borderRadius: 999,
 
-    borderRadius: 999,
+      alignItems: "center",
+      justifyContent: "center",
 
-    alignItems: "center",
-    justifyContent: "center",
+      backgroundColor:
+        theme.colors.surfaceSecondary,
+    },
 
-    backgroundColor:
-      tokens.colors.surfaceSecondary,
-  },
-
-  content: {
-    gap: 2,
-    flex: 1,
-  },
-});
+    content: {
+      gap: 2,
+      flex: 1,
+    },
+  });

@@ -1,18 +1,19 @@
-import { MaterialIcons } from "@expo/vector-icons";
 
+import { Icon } from "@/components";
 import SummaryCard from "@/components/SummaryCard";
-import { tokens } from "@/theme/tokens";
+import { useTheme } from "@/theme/ThemeProvider";
 
 export default function NotificationsSummary() {
+  const theme = useTheme();
   return (
     <SummaryCard
       subTitle="Você possui 2 notificações não lidas"
       info="Atualizado agora"
     >
-      <MaterialIcons
+      <Icon
         name="notifications-active"
         size={18}
-        color={tokens.colors.onPrimary}
+        color={theme.colors.onPrimary}
       />
     </SummaryCard>
   );

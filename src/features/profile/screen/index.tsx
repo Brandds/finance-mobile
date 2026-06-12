@@ -14,11 +14,13 @@ import { styles } from "../styles/styles";
 import { NavigationProps } from "@/features/auth/form/types";
 import { ROUTES } from "@/navigation/routes";
 import ProfileHeaderSection from "../sections/Profile/ProfileHeaderSection";
+import { useThemeStore } from "@/store/theme/theme.store";
 
 export default function ProfileScreen() {
 
   const user = useAuthStore(state => state.userResponse);
   const navigation = useNavigation<NavigationProps>();
+  const { theme, toggleTheme } = useThemeStore();
   
   const { handleLogout } = useProfile();
 
@@ -47,7 +49,7 @@ export default function ProfileScreen() {
   };
 
   const handleTheme = () => {
-    console.log("Tema");
+    toggleTheme();
   };
 
   const handleChangePassword = () => {
@@ -97,7 +99,7 @@ export default function ProfileScreen() {
 
           <PreferencesSection
             language="Português"
-            theme="Claro"
+            theme={theme === "light" ? "Claro" : "Escuro"}
             onNotificationsPress={
               handleNotifications
             }
