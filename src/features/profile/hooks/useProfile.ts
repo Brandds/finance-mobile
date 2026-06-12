@@ -1,3 +1,4 @@
+import { toastMessages, toastTitles } from "@/constants/toast.constants";
 import { useToast } from "@/hooks/useToasts";
 import { useAuthStore } from "@/store/auth/auth.store";
 
@@ -12,8 +13,8 @@ export function useProfile() {
   async function handleLogout() {
     await signOut();
     showToast({
-      title: "Sucesso",
-      message: "Logout realizado com sucesso",
+      title: toastTitles.SUCESSO,
+      message: toastMessages.LOGOUT_REALIZADO,
       type: "success",
     });
   }

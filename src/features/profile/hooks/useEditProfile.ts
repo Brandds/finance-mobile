@@ -5,6 +5,7 @@ import { useToast } from "@/hooks/useToasts";
 import { ApiResponse } from "@/shared/types/apiResponse";
 import { UserResponse } from "@/features/auth/types/authType";
 import { useAuthStore } from "@/store/auth/auth.store";
+import { toastMessages, toastTitles } from "@/constants/toast.constants";
 
 export function useEditProfile() {
   const [loadingEditProfile, setLoadingEditProfile] = useState(false);
@@ -25,7 +26,7 @@ export function useEditProfile() {
 
 
       showToast({
-        title: "Perfil atualizado com sucesso!",
+        title: toastTitles.PERFIL_ATUALIZADO,
         type: "success",
         message: response.message,
       });
@@ -34,9 +35,9 @@ export function useEditProfile() {
     } catch (error) {
       console.error("Error updating profile:", error);
       showToast({
-        title: "Erro ao atualizar perfil!",
+        title: toastTitles.ERRO_ATUALIZAR_PERFIL,
         type: "error",
-        message: "Ocorreu um erro ao atualizar seu perfil. Por favor, tente novamente."
+        message: toastMessages.ERRO_ATUALIZAR_PERFIL
       });
     } finally {
       setLoadingEditProfile(false);

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useAuthStore }
 from "@/store/auth/auth.store";
 import { useToast } from "@/hooks/useToasts";
+import { toastMessages, toastTitles } from "@/constants/toast.constants";
 
 export function useLogout() {
 
@@ -23,16 +24,16 @@ export function useLogout() {
 
       await signOut();
       showToast({
-        title: "Sucesso",
-        message: "Logout realizado com sucesso",
+        title: toastTitles.SUCESSO,
+        message: toastMessages.LOGOUT_REALIZADO,
         type: "success",
       });
 
     } catch (error) {
 
       showToast({
-        title: "Erro",
-        message: "Erro ao realizar logout",
+        title: toastTitles.ERRO,
+        message: toastMessages.ERRO_LOGOUT,
         type: "error",
       });
     } finally {

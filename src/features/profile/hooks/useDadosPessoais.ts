@@ -5,6 +5,7 @@ import {
 } from "react";
 import { getProfile } from "../service/user.service";
 import { useToast } from "@/hooks/useToasts";
+import { toastMessages, toastTitles } from "@/constants/toast.constants";
 
 
 export function useDadosPessoais() {
@@ -22,8 +23,8 @@ export function useDadosPessoais() {
 
       const response = await getProfile();
       showToast({
-        title: "Sucesso",
-        message: `Dados do usuário ${response.name} carregados com sucesso`,
+        title: toastTitles.SUCESSO,
+        message: toastMessages.DADOS_CARREGADOS,
         type: "success",
       });
 
@@ -31,8 +32,8 @@ export function useDadosPessoais() {
 
     } catch (error: any) {
       showToast({
-        title: "Erro",
-        message: "Erro ao carregar dados do usuário",
+        title: toastTitles.ERRO,
+        message: toastMessages.ERRO_CARREGAR_DADOS,
         type: "error",
       });
       console.log("Status:", error.response?.status);
