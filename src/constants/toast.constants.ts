@@ -15,6 +15,8 @@ export const toastMessages = {
     DADOS_CARREGADOS: "Dados do usuário carregados com sucesso.",
     LOGIN_SUCESSO: "Login realizado com sucesso!",
     LOGIN_FALHA: "Falha no login. Verifique suas credenciais e tente novamente.",
+    REGISTRO_SUCESSO: "Registro realizado com sucesso! Por favor, valide seu email.",
+    REGISTRO_FALHA: "Falha no registro. Verifique os dados fornecidos e tente novamente.",
     SUCESSO: "Sucesso",
     ERRO: "Erro",
 }

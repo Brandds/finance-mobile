@@ -1,12 +1,11 @@
-import { useState } from "react";
-import { Alert } from "react-native";
 import axios from "axios";
+import { useState } from "react";
 
 import { LoginFormData } from "../form/schema/login.schema";
 import { login } from "../services/auth.service";
 
-import { useAuthStore } from "@/store/auth/auth.store";
 import { useToast } from "@/hooks/useToasts";
+import { useAuthStore } from "@/store/auth/auth.store";
 
 function getLoginErrorMessage(
   status?: number
