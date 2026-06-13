@@ -15,6 +15,7 @@ export const lightColors = {
   surfaceSecondary: "#F1F5F9",
   surfaceVariant:"#E5E7EB",
   surfaceContainer: "#ffffff",
+  surfaceLine:"#0b1c30",
 
   border: "#40484b",
   borderOnSecondary:"rgb(11, 31, 0)"

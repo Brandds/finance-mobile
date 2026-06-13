@@ -20,6 +20,10 @@ export const styles = (theme: Theme) =>
 
     listContent: {
       paddingRight: theme.spacing.md,
+      paddingLeft: theme.spacing.md,
       gap: theme.spacing.md,
+      backgroundColor: "transparent",
+      borderRadius: 12,
+      paddingVertical: theme.spacing.md,
     },
   });

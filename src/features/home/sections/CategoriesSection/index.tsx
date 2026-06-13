@@ -42,9 +42,10 @@ export default function CategoriesSection() {
         keyExtractor={(item) =>
           item.id.toString()
         }
-        showsHorizontalScrollIndicator={true}
+        showsHorizontalScrollIndicator={false}
         scrollEnabled={true}
         nestedScrollEnabled={true}
+        contentContainerStyle={styles.listContent}
         renderItem={({ item }) => (
           <CategoryItem item={item} />
         )}

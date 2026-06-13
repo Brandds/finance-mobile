@@ -8,6 +8,7 @@ export const darkColors = {
     surface: "#1E1E1E",
     surfaceSecondary: "#2D2D2D",
     surfaceVariant: "#3D3D3D",
+    surfaceLine:"#0b1c30",
     
     error: '#ba1a1a',
     surfaceContainer: "#FFFFFF",

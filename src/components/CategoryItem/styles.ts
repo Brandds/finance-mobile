@@ -16,13 +16,11 @@ export const styles = (theme: Theme) =>
 
       justifyContent: "space-between",
 
-      backgroundColor:
-        theme.colors.surface,
+      backgroundColor:"transparent",
 
       borderBottomWidth: 1,
 
-      borderBottomColor:
-        "#EEF2F5",
+      borderBottomColor: theme.colors.surfaceLine,
     },
     iconContainer: {
       width: 60,
