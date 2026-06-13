@@ -10,6 +10,7 @@ import { useTheme } from '@/theme/ThemeProvider';
 import { useMemo } from 'react';
 import { createTabNavigatorOptions } from '../options/tabNavigatorOptions';
 import { ROUTES } from '../routes';
+import ProfileScreen from '@/features/profile/screen';
 
 const Tab =
   createBottomTabNavigator<BottomTabParamList>();
@@ -35,6 +36,20 @@ export default function BottomTabsRoutes() {
           tabBarIcon: ({ color }) => (
             <TabBarIcon
               name="home"
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={ROUTES.PROFILE}
+        component={ProfileScreen}
+        options={{
+          title: 'Perfil',
+
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon
+              name="person"
               color={color}
             />
           ),

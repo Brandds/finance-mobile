@@ -7,9 +7,9 @@ export const createTabNavigatorOptions = (
 ): BottomTabNavigationOptions => ({
   headerShown: false,
 
-  tabBarActiveTintColor: theme.colors.primary,
+  tabBarActiveTintColor: theme.colors.tabButtonActive,
 
-  tabBarInactiveTintColor: theme.colors.textSecondary,
+  tabBarInactiveTintColor: theme.colors.tabButtonInactive,
 
   tabBarStyle: {
     position: "absolute",

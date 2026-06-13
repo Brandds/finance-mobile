@@ -16,6 +16,8 @@ export const lightColors = {
   surfaceVariant:"#E5E7EB",
   surfaceContainer: "#ffffff",
   surfaceLine:"#0b1c30",
+  tabButtonActive: "#2563EB",
+  tabButtonInactive: "#94A3B8",
 
   border: "#40484b",
   borderOnSecondary:"rgb(11, 31, 0)"
