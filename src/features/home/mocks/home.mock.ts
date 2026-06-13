@@ -14,6 +14,27 @@ export const categoriesMock = [
     background: "#DBEAFE",
     color: "#2563EB",
   },
+  {
+    id:3,
+    title: "Lazer",
+    icon: "celebration",
+    background :"#d1e5ff",
+    color: "#007c0a"
+  },
+  {
+    id:4,
+    title: "Lazer",
+    icon: "celebration",
+    background :"#d1e5ff",
+    color: "#007c0a"
+  },
+  {
+    id:5,
+    title: "Lazer",
+    icon: "celebration",
+    background :"#d1e5ff",
+    color: "#007c0a"
+  }
 ];
 
 export const expensesMock = [

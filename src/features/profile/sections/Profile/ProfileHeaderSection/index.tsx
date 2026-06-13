@@ -8,6 +8,7 @@ import { ProfileHeaderSectionProps } from "./types";
 import { styles } from "./styles";
 import { Button } from "@/components";
 import ProfileAvatar from "@/features/profile/components/Profile/ProfileAvatar";
+import { useTheme } from "@/theme/ThemeProvider";
 
 export default function ProfileHeaderSection({
     name,
@@ -17,6 +18,7 @@ export default function ProfileHeaderSection({
     onEditAvatar,
     onEditProfile,
 }: ProfileHeaderSectionProps) {
+    const theme = useTheme();
     return (
         <View style={styles.container}> 
             <ProfileAvatar
@@ -32,7 +34,7 @@ export default function ProfileHeaderSection({
 
                 <Typography
                     variant="body2"
-                    color="textSecondary"
+                    color={theme.colors.textSecondary}
                     style={styles.email}
                 >
                     {email}

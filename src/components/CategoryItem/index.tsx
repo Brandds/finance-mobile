@@ -3,13 +3,15 @@ import { View } from "react-native";
 
 import Typography from "@/components/Typography/Typography";
 import { Icon } from "../Icon/Icon";
-import { styles } from "./styles";
+import { styles as stylesCategoryItem} from "./styles";
+import { useTheme } from "@/theme/ThemeProvider";
 
 
 export default function CategoryItem({
   item,
 }: any) {
-
+  const theme = useTheme();
+  const styles = stylesCategoryItem(theme);
   return (
     <View style={styles.container}>
 

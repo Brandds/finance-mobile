@@ -10,6 +10,7 @@ import Typography from "@/components/Typography/Typography";
 import { Icon } from "@/components/Icon/Icon";
 import { styles } from "./styles";
 import { SettingsItemProps } from "./types";
+import { useTheme } from "@/theme/ThemeProvider";
 
 
 export default function SettingsItem({
@@ -20,6 +21,8 @@ export default function SettingsItem({
   divider = true,
   showChevron = true,
 }: SettingsItemProps) {
+  const theme = useTheme();
+  
   return (
     <>
       <Pressable
@@ -43,7 +46,7 @@ export default function SettingsItem({
           {value && (
             <Typography
               variant="body2"
-              color="textSecondary"
+              color={theme.colors.textSecondary}
             >
               {value}
             </Typography>

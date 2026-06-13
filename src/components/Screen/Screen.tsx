@@ -41,7 +41,7 @@ const Screen = ({
   const content = (
     <View
       style={[
-        styles.container,
+        scrollable ? {} : styles.container,
 
         {
           paddingBottom: insets.bottom,
@@ -80,36 +80,34 @@ const Screen = ({
             : undefined
         }
       >
-        <TouchableWithoutFeedback
-          onPress={Keyboard.dismiss}
-        >
-          <View style={{ flex: 1 }}>
-            {(headerTitle || showBackButton) && (
-              <View style={styles.headerContainer}>
-                <AppHeader
-                  title={headerTitle}
-                  showBackButton={showBackButton}
-                />
-              </View>
-            )}
+        <View style={{ flex: 1 }}>
+          {(headerTitle || showBackButton) && (
+            <View style={styles.headerContainer}>
+              <AppHeader
+                title={headerTitle}
+                showBackButton={showBackButton}
+              />
+            </View>
+          )}
 
-            {scrollable ? (
-              <ScrollView
-                keyboardShouldPersistTaps="handled"
-                contentInsetAdjustmentBehavior="never"
-                automaticallyAdjustContentInsets={false}
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{
-                  flexGrow: 1,
-                }}
-              >
-                {content}
-              </ScrollView>
-            ) : (
-              content
-            )}
-          </View>
-        </TouchableWithoutFeedback>
+          {scrollable ? (
+            <ScrollView
+              keyboardShouldPersistTaps="handled"
+              contentInsetAdjustmentBehavior="never"
+              automaticallyAdjustContentInsets={false}
+              showsVerticalScrollIndicator={false}
+              nestedScrollEnabled={true}
+              scrollEventThrottle={16}
+              directionalLockEnabled={false}
+            >
+              <View style={[padding && styles.padding]}>
+                {children}
+              </View>
+            </ScrollView>
+          ) : (
+            content
+          )}
+        </View>
       </KeyboardAvoidingView>
     </>
   );

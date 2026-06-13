@@ -1,19 +1,21 @@
 import { View, FlatList }
-from "react-native";
+  from "react-native";
 
 import Typography
-from "@/components/Typography/Typography";
+  from "@/components/Typography/Typography";
 
-import { styles } from "./styles";
+import { styles as stylesCategoriesSection } from "./styles";
 
 import { categoriesMock }
-from "../../mocks/home.mock";
+  from "../../mocks/home.mock";
 
 import CategoryItem
-from "@/components/CategoryItem";
+  from "@/components/CategoryItem";
+import { useTheme } from "@/theme/ThemeProvider";
 
 export default function CategoriesSection() {
-
+  const theme = useTheme();
+  const styles = stylesCategoriesSection(theme);
   return (
     <View style={styles.container}>
 
@@ -40,8 +42,9 @@ export default function CategoriesSection() {
         keyExtractor={(item) =>
           item.id.toString()
         }
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.listContent}
+        showsHorizontalScrollIndicator={true}
+        scrollEnabled={true}
+        nestedScrollEnabled={true}
         renderItem={({ item }) => (
           <CategoryItem item={item} />
         )}

@@ -43,7 +43,7 @@ export default function HomeHeader() {
 
         <Typography
           variant="h2"
-          color={theme.colors.primary}
+          color={theme.colors.textSecondary}
           onPress={handlerUserPress}
         >
           {user?.name || "Financial Clarity"}
