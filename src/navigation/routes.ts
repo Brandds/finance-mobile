@@ -3,7 +3,7 @@ export const ROUTES = {
   REGISTER: "Register",
   HOME: "Home",
   EXPENSES: "Expenses",
-  CATEGORIES: "Categories",
+  CATEGORIAS: "Categorias",
   NOTIFICATIONS: "Notifications",
   SUMMARY: "Summary",
   MAIN_TABS:'MAIN_TABS',

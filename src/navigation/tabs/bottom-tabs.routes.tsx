@@ -11,6 +11,7 @@ import { useMemo } from 'react';
 import { createTabNavigatorOptions } from '../options/tabNavigatorOptions';
 import { ROUTES } from '../routes';
 import ProfileScreen from '@/features/profile/screen';
+import CategoryScreen from '@/features/category/screens/CategoryScreen';
 
 const Tab =
   createBottomTabNavigator<BottomTabParamList>();
@@ -50,6 +51,20 @@ export default function BottomTabsRoutes() {
           tabBarIcon: ({ color }) => (
             <TabBarIcon
               name="person"
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={ROUTES.CATEGORIAS}
+        component={CategoryScreen}
+        options={{
+          title: 'Categoria',
+
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon
+              name="category"
               color={color}
             />
           ),
