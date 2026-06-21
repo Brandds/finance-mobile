@@ -12,6 +12,8 @@ export const lightColors = {
   textSecondary: '#40484b',
   error: '#ba1a1a',
   
+  placeholder: '#40484b',
+
   surfaceSecondary: "#F1F5F9",
   surfaceVariant:"#E5E7EB",
   surfaceContainer: "#ffffff",
@@ -20,5 +22,9 @@ export const lightColors = {
   tabButtonInactive: "#94A3B8",
 
   border: "#40484b",
-  borderOnSecondary:"rgb(11, 31, 0)"
+  borderOnSecondary:"rgb(11, 31, 0)",
+
+  button: "#003541",
+  buttonSecundary: "#2563EB",
+  buttonSearch: "transparent"
 }

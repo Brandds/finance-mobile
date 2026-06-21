@@ -57,7 +57,7 @@ function Input<T extends FieldValues>({
                 name={icon as any}
                 library={library}
                 size={20}
-                color={theme.colors.textSecondary}
+                color={theme.colors.placeholder}
               />
             )}
 
@@ -66,7 +66,7 @@ function Input<T extends FieldValues>({
               onChangeText={onChange}
               placeholder={placeholder}
               placeholderTextColor={
-                theme.colors.textSecondary
+                theme.colors.placeholder
               }
               secureTextEntry={
                 secureTextEntry && !showPassword

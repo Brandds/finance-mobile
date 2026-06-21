@@ -16,9 +16,14 @@ export const darkColors = {
     text: "#FFFFFF",
     textSecondary: '#ffffff',
 
+    placeholder: '#40484b',
     tabButtonActive: "#60A5FA",
     tabButtonInactive: "#64748B",
 
     border: "#FFFFFF",
-    borderOnSecondary:"#ffffff"
+    borderOnSecondary:"#ffffff",
+
+    button: "#003541",
+    buttonSecundary: "#2563EB",
+    buttonSearch: "transparent"
 };  

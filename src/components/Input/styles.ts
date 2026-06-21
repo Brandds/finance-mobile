@@ -31,7 +31,7 @@ const stylesIInput = (theme: Theme) =>
     input: {
       flex: 1,
 
-      color: theme.colors.text,
+      color: theme.colors.placeholder,
 
       fontSize: theme.typography.bodyLg.fontSize,
     },
