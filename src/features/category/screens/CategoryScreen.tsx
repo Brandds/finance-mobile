@@ -5,6 +5,8 @@ import { CategorySearch } from "../components/CategorySearch";
 import CategorySuggestionChip from "../components/CategorySuggestionChip";
 import { useState } from "react";
 import CategorySuggestionList from "../components/CategorySuggestionList";
+import CategoryFab from "../components/CategoryFab";
+import { Icon } from "@/components";
 
 type Category = {
     id: string;
@@ -34,8 +36,12 @@ export default function CategoryScreen() {
         alert("Teste");
     }
 
+    function handleAddCategory() {
+        console.log("Abrir modal de nova categoria");
+    }
+
     return (
-        <Screen >
+        <Screen scrollable>
             <Text>Teste</Text>
             <CategoryCard
                 title="Teste"
@@ -45,23 +51,23 @@ export default function CategoryScreen() {
                 iconBackgroundColor="white"
             ></CategoryCard>
             <CategorySearch onAddPress={handleSearch}></CategorySearch>
-            {/* <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                {categories.map((item) => (
-                    <CategorySuggestionChip
-                        key={item.id}
-                        id={item.id}
-                        label={item.label}
-                        selected={selectedCategory === item.id}
-                        onPress={handleSelectCategory}
-                    />
-                ))}
-            </ScrollView> */}
-
-            <CategorySuggestionList
+            {/* <CategorySuggestionList
                 data={categories}
                 selectedId={selectedCategory}
                 onSelect={handleSelectCategory}
-            ></CategorySuggestionList>
+            ></CategorySuggestionList> */}
+
+            <CategoryFab
+                icon={
+                <Icon
+                    library="material"
+                    name="add"
+                    size={28}
+                    color="#fff"
+                />
+                }
+                onPress={handleAddCategory}
+            />
         </Screen>
     )
 }
