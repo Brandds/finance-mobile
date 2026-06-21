@@ -4,6 +4,7 @@ import { CategoryCard } from "../components/CategoryCard";
 import { CategorySearch } from "../components/CategorySearch";
 import CategorySuggestionChip from "../components/CategorySuggestionChip";
 import { useState } from "react";
+import CategorySuggestionList from "../components/CategorySuggestionList";
 
 type Category = {
     id: string;
@@ -16,6 +17,8 @@ const categories: Category[] = [
     { id: "market", label: "Mercado" },
     { id: "leisure", label: "Lazer" },
 ];
+
+
 
 export default function CategoryScreen() {
 
@@ -42,7 +45,7 @@ export default function CategoryScreen() {
                 iconBackgroundColor="white"
             ></CategoryCard>
             <CategorySearch onAddPress={handleSearch}></CategorySearch>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {/* <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                 {categories.map((item) => (
                     <CategorySuggestionChip
                         key={item.id}
@@ -52,7 +55,13 @@ export default function CategoryScreen() {
                         onPress={handleSelectCategory}
                     />
                 ))}
-            </ScrollView>
+            </ScrollView> */}
+
+            <CategorySuggestionList
+                data={categories}
+                selectedId={selectedCategory}
+                onSelect={handleSelectCategory}
+            ></CategorySuggestionList>
         </Screen>
     )
 }
