@@ -5,14 +5,14 @@ export const styles = (theme: Theme) =>
     StyleSheet.create({
         container: {
             position: "absolute",
-            bottom: -60,
+            bottom: 120,
             right: 24,
         },
 
         button: {
             width: 56,
             height: 56,
-            borderRadius: 28,
+            borderRadius: theme.radius.full,
             backgroundColor: theme.colors.primary,
             justifyContent: "center",
             alignItems: "center",

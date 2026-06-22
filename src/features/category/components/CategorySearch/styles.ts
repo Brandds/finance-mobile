@@ -19,11 +19,11 @@ export const styles = (theme: Theme) =>
     addButton: {
       width: 48,
       height: 48,
-      borderRadius: 12,
+      borderRadius: theme.radius.md,
 
       justifyContent: "center",
       alignItems: "center",
 
-      backgroundColor: theme.colors.buttonSearch,
+      backgroundColor: theme.colors.primary,
     },
   });

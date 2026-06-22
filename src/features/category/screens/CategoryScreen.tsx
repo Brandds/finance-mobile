@@ -51,7 +51,6 @@ export default function CategoryScreen() {
 
     return (
         <Screen
-            scrollable
         >
             <HomeHeader></HomeHeader>
             <FlatList
