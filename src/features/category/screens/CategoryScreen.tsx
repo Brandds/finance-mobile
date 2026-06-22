@@ -1,73 +1,100 @@
-import Screen from "@/components/Screen/Screen";
-import { Alert, ScrollView, Text } from "react-native";
-import { CategoryCard } from "../components/CategoryCard";
-import { CategorySearch } from "../components/CategorySearch";
-import CategorySuggestionChip from "../components/CategorySuggestionChip";
 import { useState } from "react";
-import CategorySuggestionList from "../components/CategorySuggestionList";
-import CategoryFab from "../components/CategoryFab";
+import { FlatList, View } from "react-native";
+
 import { Icon } from "@/components";
+import Screen from "@/components/Screen/Screen";
 
-type Category = {
-    id: string;
-    label: string;
-};
+import HomeHeader from "@/features/home/sections/HomeHeader";
+import { CategoryCard } from "../components/CategoryCard";
+import CategoryFab from "../components/CategoryFab";
+import { CategorySearch } from "../components/CategorySearch";
+import CategorySuggestionList from "../components/CategorySuggestionList";
+import { styles } from "../styles";
 
-const categories: Category[] = [
+const suggestions = [
     { id: "food", label: "Alimentação" },
     { id: "transport", label: "Transporte" },
     { id: "market", label: "Mercado" },
     { id: "leisure", label: "Lazer" },
 ];
 
-
+const categories = [
+    {
+        id: "1",
+        title: "Alimentação",
+        transactions: 12,
+        icon: "restaurant",
+        color: "#F97316",
+    },
+    {
+        id: "2",
+        title: "Transporte",
+        transactions: 8,
+        icon: "directions-car",
+        color: "#2563EB",
+    },
+    {
+        id: "3",
+        title: "Lazer",
+        transactions: 5,
+        icon: "celebration",
+        color: "#9333EA",
+    },
+];
 
 export default function CategoryScreen() {
-
-
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-    function handleSelectCategory(id: string) {
-        setSelectedCategory(id);
-    }
+    function handleSearch() { }
 
-
-    const handleSearch = () => {
-        alert("Teste");
-    }
-
-    function handleAddCategory() {
-        console.log("Abrir modal de nova categoria");
-    }
+    function handleAddCategory() { }
 
     return (
-        <Screen scrollable>
-            <Text>Teste</Text>
-            <CategoryCard
-                title="Teste"
-                transactions={2}
-                icon="celebration"
-                iconColor="black"
-                iconBackgroundColor="white"
-            ></CategoryCard>
-            <CategorySearch onAddPress={handleSearch}></CategorySearch>
-            {/* <CategorySuggestionList
+        <Screen
+            scrollable
+        >
+            <HomeHeader></HomeHeader>
+            <FlatList
                 data={categories}
-                selectedId={selectedCategory}
-                onSelect={handleSelectCategory}
-            ></CategorySuggestionList> */}
+                keyExtractor={(item) => item.id}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={styles.contentContainer}
+                ItemSeparatorComponent={() => (
+                    <View style={styles.separator} />
+                )}
+                ListHeaderComponent={
+                    <>
+                        <CategorySearch onAddPress={handleSearch} />
+
+                        <CategorySuggestionList
+                            data={suggestions}
+                            selectedId={selectedCategory}
+                            onSelect={setSelectedCategory}
+                        />
+                    </>
+                }
+                renderItem={({ item }) => (
+                    <CategoryCard
+                        title={item.title}
+                        transactions={item.transactions}
+                        icon={item.icon}
+                        iconColor="white"
+                        iconBackgroundColor={item.color}
+                    />
+                )}
+            />
 
             <CategoryFab
-                icon={
-                <Icon
-                    library="material"
-                    name="add"
-                    size={28}
-                    color="#fff"
-                />
-                }
                 onPress={handleAddCategory}
+                icon={
+                    <Icon
+                        library="material"
+                        name="add"
+                        size={28}
+                        color="#FFF"
+                    />
+                }
             />
         </Screen>
-    )
+    );
 }
