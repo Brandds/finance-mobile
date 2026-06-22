@@ -5,6 +5,9 @@ export const darkColors = {
     onSecondary: "#ffffff",
 
     background: "#121212",
+    backgroundSelect: "#003541",
+    backgroundNotSelect: '#40484b',
+
     surface: "#1E1E1E",
     surfaceSecondary: "#2D2D2D",
     surfaceVariant: "#3D3D3D",
@@ -15,6 +18,7 @@ export const darkColors = {
     
     text: "#FFFFFF",
     textSecondary: '#ffffff',
+    textSelect:"#fff",
 
     placeholder: '#40484b',
     tabButtonActive: "#60A5FA",

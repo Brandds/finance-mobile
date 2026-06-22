@@ -7,10 +7,8 @@ export const styles = (theme: Theme) =>
             paddingHorizontal: 14,
             paddingVertical: 8,
             borderRadius: 20,
-            backgroundColor: theme.colors.onPrimary,
+            backgroundColor: theme.colors.backgroundNotSelect,
             marginRight: 8,
-            borderWidth: 1,
-            borderColor: theme.colors.border,
             alignSelf: "flex-start",
         },
 
@@ -20,7 +18,7 @@ export const styles = (theme: Theme) =>
         },
 
         containerSelected: {
-            backgroundColor: theme.colors.primary,
+            backgroundColor: theme.colors.backgroundSelect,
             borderColor: theme.colors.primary,
         },
 
@@ -31,6 +29,6 @@ export const styles = (theme: Theme) =>
         },
 
         labelSelected: {
-            color: theme.colors.text,
+            color: theme.colors.textSelect,
         },
     });

@@ -6,10 +6,15 @@ export const lightColors = {
 
   background: "#f8f9ff",
 
+  backgroundSelect: "#003541",
+  backgroundNotSelect: '#fff',
+
   surface: "#f8f9ff",
 
   text: "#0b1c30",
   textSecondary: '#40484b',
+  textSelect:"#fff",
+  
   error: '#ba1a1a',
   
   placeholder: '#40484b',
