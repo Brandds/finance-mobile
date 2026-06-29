@@ -26,4 +26,8 @@ export const styles = (theme: Theme) =>
 
       backgroundColor: theme.colors.primary,
     },
+    pressed:{
+      opacity:0.8,
+      transform: [{ scale: 0.95 }]
+    }
   });

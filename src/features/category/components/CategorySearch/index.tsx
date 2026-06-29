@@ -44,12 +44,15 @@ export function CategorySearch({
             </View>
 
             <Pressable
-                style={style.addButton}
                 onPress={onAddPress}
+                style={({ pressed }) => [
+                    style.addButton,
+                    pressed && style.pressed,
+                ]}
             >
                 <Icon
-                    name="add"
-                    color={theme.colors.textSecondary}
+                    name="search"
+                    color={theme.colors.textSelect}
                 />
             </Pressable>
         </View>

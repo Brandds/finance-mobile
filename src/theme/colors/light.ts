@@ -15,6 +15,7 @@ export const lightColors = {
   text: "#0b1c30",
   textSecondary: '#40484b',
   textSelect:"#fff",
+  textLink: "#4FD0E8",
   
   error: '#ba1a1a',
   

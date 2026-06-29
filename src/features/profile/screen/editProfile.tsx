@@ -5,7 +5,7 @@ import {
 } from "react-hook-form";
 
 import Screen from "@/components/Screen/Screen";
-import AppHeader from "@/components/AppHeader";
+import Header from "@/components/Header";
 
 import ProfilePhotoSection from "../sections/Profile/ProfilePhotoSection";
 
@@ -69,7 +69,7 @@ export default function EditProfileScreen() {
 
   return (
     <Screen scrollable>
-      <AppHeader
+      <Header
         title="Editar Perfil"
         showBackButton
       />

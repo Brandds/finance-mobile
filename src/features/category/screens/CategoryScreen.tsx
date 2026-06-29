@@ -4,7 +4,7 @@ import { FlatList, View } from "react-native";
 import { Icon } from "@/components";
 import Screen from "@/components/Screen/Screen";
 
-import HomeHeader from "@/features/home/sections/HomeHeader";
+import AppHeader from "@/components/AppHeader";
 import { CategoryCard } from "../components/CategoryCard";
 import CategoryFab from "../components/CategoryFab";
 import { CategorySearch } from "../components/CategorySearch";
@@ -52,7 +52,7 @@ export default function CategoryScreen() {
     return (
         <Screen
         >
-            <HomeHeader></HomeHeader>
+            <AppHeader/>
             <FlatList
                 data={categories}
                 keyExtractor={(item) => item.id}

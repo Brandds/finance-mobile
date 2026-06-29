@@ -5,7 +5,7 @@ import Screen from "@/components/Screen/Screen";
 import SummaryCard from "../../../components/SummaryCard";
 import CategoriesSection from "../sections/CategoriesSection";
 import FloatingButton from "../sections/FloatingButton";
-import HomeHeader from "../sections/HomeHeader";
+import AppHeader from "../../../components/AppHeader";
 import RecentExpensesSection from "../sections/RecentExpensesSection";
 import { stylesHome } from "../styles/home.styles";
 import { useTheme } from "@/theme/ThemeProvider";
@@ -18,7 +18,7 @@ export default function HomeScreen() {
     <Screen scrollable>
       <View style={styles.container}>
         {/* Header */}
-        <HomeHeader />
+        <AppHeader />
 
         {/* Summary */}
         <SummaryCard

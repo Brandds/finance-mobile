@@ -15,6 +15,7 @@ import { NavigationProps } from "@/features/auth/form/types";
 import { ROUTES } from "@/navigation/routes";
 import ProfileHeaderSection from "../sections/Profile/ProfileHeaderSection";
 import { useThemeStore } from "@/store/theme/theme.store";
+import AppHeader from "@/components/AppHeader";
 
 export default function ProfileScreen() {
 
@@ -73,10 +74,8 @@ export default function ProfileScreen() {
   return (
     <Screen
       scrollable
-      headerTitle={titleScreen.profile}
-      showBackButton
     >
-
+      <AppHeader/>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.content}

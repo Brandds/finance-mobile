@@ -14,7 +14,7 @@ import {
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 
-import AppHeader from "../AppHeader";
+import Header from "../Header";
 
 import { ScreenProps } from "./types";
 
@@ -83,7 +83,7 @@ const Screen = ({
         <View style={{ flex: 1 }}>
           {(headerTitle || showBackButton) && (
             <View style={styles.headerContainer}>
-              <AppHeader
+              <Header
                 title={headerTitle}
                 showBackButton={showBackButton}
               />

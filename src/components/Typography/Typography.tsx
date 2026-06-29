@@ -11,6 +11,7 @@ const Typography = ({
   children,
   style,
   onPress,
+  underline = false,
 }: TypographyProps) => {
   const theme =  useTheme();
 
@@ -30,6 +31,7 @@ const Typography = ({
         {
           color: colorTeheme,
           textAlign: align,
+          textDecorationLine: underline ? "underline" : "none",
         },
         style,
       ]}

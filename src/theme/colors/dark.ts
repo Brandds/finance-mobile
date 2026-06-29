@@ -20,6 +20,7 @@ export const darkColors = {
     text: "#FFFFFF",
     textSecondary: '#ffffff',
     textSelect:"#fff",
+    textLink: "#4FD0E8",
 
     placeholder: '#40484b',
     tabButtonActive: "#60A5FA",

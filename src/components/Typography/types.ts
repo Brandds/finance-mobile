@@ -20,4 +20,5 @@ export interface TypographyProps {
   style?: StyleProp<TextStyle>;
 
   onPress?: () => void;
+  underline?: boolean;
 }

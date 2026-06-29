@@ -69,7 +69,8 @@ export default function LoginScreen() {
           >
             <Typography
               variant="body2"
-              color={theme.colors.primary}
+              color={theme.colors.textLink}
+              underline
             >
               Cadastre-se
             </Typography>
