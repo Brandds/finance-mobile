@@ -7,6 +7,7 @@ export const darkColors = {
     background: "#121212",
     backgroundSelect: "#003541",
     backgroundNotSelect: '#40484b',
+    backgroundSkeleton: "#40484b",
 
     surface: "#1E1E1E",
     surfaceSecondary: "#2D2D2D",

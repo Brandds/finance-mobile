@@ -5,9 +5,10 @@ export const lightColors = {
   onSecondary: "#000000",
 
   background: "#f8f9ff",
+  backgroundSkeleton: "#40484b",
 
   backgroundSelect: "#003541",
-  backgroundNotSelect: '#fff',
+  backgroundNotSelect: '#40484b',
 
   surface: "#f8f9ff",
 

@@ -12,12 +12,13 @@ import {
   LinearGradient,
 } from "expo-linear-gradient";
 
-import { styles } from "./styles";
+import { styles as stylesSkeletonBlock } from "./styles";
 
 import {
   SkeletonBlockProps,
 } from "./types";
 import { skeletonTheme } from "../SkeletonTheme";
+import { useTheme } from "@/theme/ThemeProvider";
 
 export default function SkeletonBlock({
   width,
@@ -45,7 +46,8 @@ export default function SkeletonBlock({
     ).start();
 
   }, []);
-
+  const theme = useTheme();
+  const styles = stylesSkeletonBlock(theme);
   return (
     <View
       style={[

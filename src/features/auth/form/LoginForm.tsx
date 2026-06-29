@@ -73,7 +73,7 @@ export default function LoginForm() {
       <Pressable>
         <Typography
           variant="body2"
-          color={theme.colors.primary}
+          color={theme.colors.textSecondary}
         >
           Esqueceu a senha?
         </Typography>

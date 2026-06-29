@@ -1,5 +1,4 @@
 export const skeletonTheme = {
-  background: "#E5E7EB",
 
   shimmer: [
     "transparent",

@@ -32,7 +32,7 @@ const stylesLogin = (theme: Theme) =>
         },
 
         card: {
-            backgroundColor: "#FFFFFF",
+            backgroundColor: theme.colors.background,
 
             borderRadius: theme.radius.xl,
 

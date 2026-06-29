@@ -1,12 +1,11 @@
-import { StyleSheet } from "react-native";
-import { skeletonTheme } from "../SkeletonTheme";
 import { Theme } from "@/theme/theme";
+import { StyleSheet } from "react-native";
 
 export const styles = (theme: Theme) =>
   StyleSheet.create({
     container: {
       overflow: "hidden",
-      backgroundColor: skeletonTheme.background,
+      backgroundColor: theme.colors.backgroundSkeleton,
     },
 
     shimmer: {
