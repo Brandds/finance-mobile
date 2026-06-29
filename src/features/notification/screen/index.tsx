@@ -5,6 +5,7 @@ import NotificationsSummary from "../sections/NotificationsSummary";
 
 import { notifications } from "../mocks/notifications";
 import { titleScreen } from "@/constants/titleScreen";
+import { View } from "react-native";
 
 export default function NotificationsScreen() {
   return (
@@ -15,13 +16,17 @@ export default function NotificationsScreen() {
     >
       <NotificationsSummary />
 
-      {notifications.map((section) => (
-        <NotificationSection
-          key={section.section}
-          title={section.section}
-          notifications={section.data}
-        />
-      ))}
+      <View style={{gap:15}}>
+
+        {notifications.map((section) => (
+          <NotificationSection
+            key={section.section}
+            title={section.section}
+            notifications={section.data}
+          />
+        ))}
+        
+      </View>
     </Screen>
   );
 }
