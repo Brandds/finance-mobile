@@ -37,7 +37,7 @@ export const styles = (theme: Theme) =>
       alignItems: "center",
       justifyContent: "center",
 
-      backgroundColor: theme.colors.surfaceSecondary,
+      backgroundColor: theme.colors.button,
     },
     buttonPressed: {
       backgroundColor: "#E5E7EB",

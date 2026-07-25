@@ -32,6 +32,6 @@ export const styles = (theme: Theme) =>
       borderRadius: 20,
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor: theme.colors.surfaceSecondary,
+      backgroundColor: theme.colors.button,
     },
   });

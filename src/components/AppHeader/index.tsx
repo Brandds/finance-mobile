@@ -62,7 +62,7 @@ export default function AppHeader() {
         <Icon
           name="notifications-none"
           size={24}
-          color={theme.colors.textSecondary}
+          color={theme.colors.onPrimary}
         />
       </Pressable>
 
