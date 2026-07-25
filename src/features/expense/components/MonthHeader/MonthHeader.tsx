@@ -33,7 +33,7 @@ export default function MonthHeader({
       >
         <Typography
           variant="h1"
-          color={theme.colors.primary}
+          color={theme.colors.text}
           style={styles.monthText}
         >
           {formattedMonth}
@@ -42,7 +42,7 @@ export default function MonthHeader({
         <Icon
           name="keyboard-arrow-down"
           size={24}
-          color={theme.colors.primary}
+          color={theme.colors.onPrimary}
         />
       </TouchableOpacity>
 
@@ -55,7 +55,7 @@ export default function MonthHeader({
           <Icon
             name="filter-list"
             size={22}
-            color={theme.colors.primary}
+            color={theme.colors.onPrimary}
           />
         </TouchableOpacity>
 
@@ -67,7 +67,7 @@ export default function MonthHeader({
           <Icon
             name="search"
             size={22}
-            color={theme.colors.primary}
+            color={theme.colors.onPrimary}
           />
         </TouchableOpacity>
       </View>
