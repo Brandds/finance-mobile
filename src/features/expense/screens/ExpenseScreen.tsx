@@ -8,6 +8,8 @@ import MonthHeader from "../components/MonthHeader";
 import SummaryCard from "@/components/SummaryCard";
 import { Icon } from "@/components";
 import { styles as expensesStyles }  from "../styles/expense.style";
+import ExpenseSection from "../components/ExpenseSection";
+import ExpenseItem from "@/features/home/sections/ExpenseItem";
 
 export default function ExpensesScreen() {
   const theme = useTheme();
@@ -19,9 +21,9 @@ export default function ExpensesScreen() {
 
       <MonthHeader
         selectedMonth={new Date()}
-        onMonthPress={() => {}}
-        onFilterPress={() => {}}
-        onSearchPress={() => {}}
+        onMonthPress={() => {alert("Month pressed")}}
+        onFilterPress={() => {alert("Filter pressed")}}
+        onSearchPress={() => {alert("Search pressed")}}
       />
 
       <SummaryCard
@@ -37,7 +39,24 @@ export default function ExpensesScreen() {
       </SummaryCard>
 
       <View style={styles.listContainer}>
-        {/* A lista de gastos será implementada na próxima etapa */}
+        <ExpenseSection
+            title="Hoje"
+            total="R$ 158,00"
+        >
+            <ExpenseItem
+                description="Almoço Executivo"
+                amount="-R$ 42,00"
+                date="09:30"
+                icon="restaurant"
+            />
+
+            <ExpenseItem
+                description="Uber"
+                amount="-R$ 116,00"
+                date="12:10"
+                icon="directions-car"
+            />
+        </ExpenseSection>
       </View>
     </Screen>
   );
