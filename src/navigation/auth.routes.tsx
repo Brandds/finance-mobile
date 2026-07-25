@@ -6,6 +6,7 @@ from "@/features/auth/screens/LoginScreen";
 import { RootStackParamList } from "./types";
 import RegisterScreen from "@/features/auth/screens/RegisterScreen";
 import { ROUTES } from "./routes";
+import ExpensesScreen from "@/features/expense/screens";
 
 const Stack =
   createNativeStackNavigator<RootStackParamList>();
@@ -15,7 +16,7 @@ export default function AuthRoutes() {
     <Stack.Navigator>
       <Stack.Screen
         name={ROUTES.LOGIN}
-        component={LoginScreen}
+        component={ExpensesScreen}
         options={{
           headerShown: false,
         }}
