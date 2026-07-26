@@ -21,7 +21,7 @@ export default function PreferencesSection({
                 size={20}
             />
             }
-            title={titleScreen.notifications}
+            title={titleScreen.NOTIFICACOES}
             onPress={onNotificationsPress}
         />
         <SettingsItem

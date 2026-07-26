@@ -1,51 +1,45 @@
 import Screen from "@/components/Screen/Screen";
+import { useState } from "react";
 import QuickExpenseInput from "../components/QuickExpenseInput";
-import ExpenseSuggestions, { ExpenseSuggestion } from "../components/ExpenseSuggestions";
+import ExpenseSuggestions from "../components/ExpenseSuggestions";
+import { expenseSuggestionsMock } from "@/mocks/expenseSuggestions";
 import ExpenseDetailsAction from "../components/ExpenseDetailsAction";
+import ConfirmExpenseFooter from "../components/ConfirmExpenseFooter";
+import { titleScreen } from "@/constants/titleScreen";
 
-const suggestions: ExpenseSuggestion[] = [
-  {
-    id: "1",
-    description: "Mercado",
-    amount: 80,
-    icon: "shopping-cart",
-  },
-  {
-    id: "2",
-    description: "Gasolina",
-    amount: 250,
-    icon: "local-gas-station",
-  },
-  {
-    id: "3",
-    description: "Uber",
-    amount: 25,
-    icon: "directions-car",
-  },
-  {
-    id: "4",
-    description: "Café",
-    amount: 8,
-    icon: "coffee",
-  },
-];
 
-export default function AddExpense(){
-    return (
-        <Screen scrollable>
-            <QuickExpenseInput
-                amount="32"
-                description="Teste"
-                value={"Nada"}
-                onChangeText={() => {}}
-            ></QuickExpenseInput>
-            <ExpenseSuggestions
-                suggestions={suggestions}
-                onSelect={(suggestion) => console.log(suggestion)}
-            />
-            <ExpenseDetailsAction
-                onPress={() => {}}
-            />
-        </Screen>
-    )
-};
+export default function AddExpenseScreen() {
+
+  const [text, setText] = useState("");
+
+  return (
+    <Screen 
+        scrollable
+        headerTitle={titleScreen.NOVO_GASTO}
+        showBackButton
+    >
+
+      <QuickExpenseInput
+        value={text}
+        description="Padaria"
+        amount="R$ 14,00"
+        onChangeText={setText}
+      />
+
+      <ExpenseSuggestions
+        suggestions={expenseSuggestionsMock}
+        onSelect={(suggestion) => console.log(suggestion)}
+      />
+
+      <ExpenseDetailsAction
+        onPress={() => console.log("Abrir detalhes")}
+      />
+
+      <ConfirmExpenseFooter
+        onConfirm={() => console.log("Salvar")}
+        onCancel={() => console.log("Cancelar")}
+      />
+
+    </Screen>
+  );
+}

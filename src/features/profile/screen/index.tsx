@@ -1,21 +1,20 @@
 import { ScrollView, View } from "react-native";
 
+import AppHeader from "@/components/AppHeader";
 import Screen from "@/components/Screen/Screen";
-import { titleScreen } from "@/constants/titleScreen";
+import { NavigationProps } from "@/features/auth/form/types";
+import { ROUTES } from "@/navigation/routes";
 import { useAuthStore } from "@/store/auth/auth.store";
+import { useThemeStore } from "@/store/theme/theme.store";
+import { useNavigation } from "@react-navigation/native";
 import { useProfile } from "../hooks/useProfile";
 import AccountSection from "../sections/Profile/AccountSection";
 import LogoutSection from "../sections/Profile/LogoutSection";
 import PreferencesSection from "../sections/Profile/PreferencesSection";
+import ProfileHeaderSection from "../sections/Profile/ProfileHeaderSection";
 import SecuritySection from "../sections/Profile/SecuritySection";
 import SupportSection from "../sections/Profile/SupportSection";
-import { useNavigation } from "@react-navigation/native";
 import { styles } from "../styles/styles";
-import { NavigationProps } from "@/features/auth/form/types";
-import { ROUTES } from "@/navigation/routes";
-import ProfileHeaderSection from "../sections/Profile/ProfileHeaderSection";
-import { useThemeStore } from "@/store/theme/theme.store";
-import AppHeader from "@/components/AppHeader";
 
 export default function ProfileScreen() {
 

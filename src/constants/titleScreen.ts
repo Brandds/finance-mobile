@@ -1,5 +1,6 @@
 export const titleScreen = {
-    profile: "Perfil",
-    notifications: "Notificações",
-    categorias: "Categorias"
+    PERFIL: "Perfil",
+    NOTIFICACOES: "Notificações",
+    CATEGORIAS: "Categorias",
+    NOVO_GASTO: "Novo Gasto",
 }

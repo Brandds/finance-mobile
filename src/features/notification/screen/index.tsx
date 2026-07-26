@@ -11,7 +11,7 @@ export default function NotificationsScreen() {
   return (
     <Screen
       scrollable
-      headerTitle={titleScreen.notifications}
+      headerTitle={titleScreen.NOTIFICACOES}
       showBackButton
     >
       <NotificationsSummary />
