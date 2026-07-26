@@ -7,6 +7,7 @@ import { RootStackParamList } from "./types";
 import RegisterScreen from "@/features/auth/screens/RegisterScreen";
 import { ROUTES } from "./routes";
 import AddExpense from "@/features/expense/screens/AddExpense";
+import MonthlySummaryScreen from "@/features/monthly-summary/screen";
 
 const Stack =
   createNativeStackNavigator<RootStackParamList>();
@@ -16,7 +17,7 @@ export default function AuthRoutes() {
     <Stack.Navigator>
       <Stack.Screen
         name={ROUTES.LOGIN}
-        component={AddExpense}
+        component={MonthlySummaryScreen}
         options={{
           headerShown: false,
         }}
