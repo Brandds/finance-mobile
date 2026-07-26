@@ -4,6 +4,7 @@ import SummaryCard from "@/components/SummaryCard";
 import { categoriesMock } from "@/mocks/categoriesMock";
 import { useTheme } from "@/theme/ThemeProvider";
 import CategorySummarySection from "../components/CategorySummarySection";
+import InsightCard from "@/components/InsightCard";
 
 
 export default function MonthlySummaryScreen() {
@@ -26,6 +27,14 @@ export default function MonthlySummaryScreen() {
             
             <CategorySummarySection
                 categories={categoriesMock}
+            />
+            <InsightCard
+
+                description="
+                Você economizou R$ 450,00 em alimentação
+                comparado à sua média anual.
+                "
+
             />
         </Screen>       
     );
