@@ -1,6 +1,7 @@
 import Screen from "@/components/Screen/Screen";
 import QuickExpenseInput from "../components/QuickExpenseInput";
 import ExpenseSuggestions, { ExpenseSuggestion } from "../components/ExpenseSuggestions";
+import ExpenseDetailsAction from "../components/ExpenseDetailsAction";
 
 const suggestions: ExpenseSuggestion[] = [
   {
@@ -41,6 +42,9 @@ export default function AddExpense(){
             <ExpenseSuggestions
                 suggestions={suggestions}
                 onSelect={(suggestion) => console.log(suggestion)}
+            />
+            <ExpenseDetailsAction
+                onPress={() => {}}
             />
         </Screen>
     )
