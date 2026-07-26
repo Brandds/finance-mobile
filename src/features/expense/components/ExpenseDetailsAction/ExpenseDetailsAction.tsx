@@ -24,7 +24,7 @@ export default function ExpenseDetailsAction({
         <Icon
           name="tune"
           size={22}
-          color={theme.colors.primary}
+          color={theme.colors.onSecondary}
         />
 
         <View style={styles.content}>

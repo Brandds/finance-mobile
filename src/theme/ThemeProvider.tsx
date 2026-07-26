@@ -13,7 +13,7 @@ type Props = {
 export const ThemeProvider = ({ children }: Props) => {
   const { isDark } = useThemeStore();
 
-  const currentTheme = isDark ? darkTheme : lightTheme;
+  const currentTheme = isDark ? darkTheme: lightTheme;
 
   return (
     <ThemeContext.Provider value={currentTheme}>

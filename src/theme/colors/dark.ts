@@ -5,6 +5,8 @@ export const darkColors = {
     onSecondary: "#ffffff",
 
     background: "#121212",
+    backgroundDescriptionInput: "#003541",
+
     backgroundSelect: "#003541",
     backgroundNotSelect: '#40484b',
     backgroundSkeleton: "#40484b",

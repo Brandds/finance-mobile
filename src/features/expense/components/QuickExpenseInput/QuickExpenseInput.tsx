@@ -20,7 +20,7 @@ export default function QuickExpenseInput({
   const styles = quickExpenseInputStyles(theme);
 
   return (
-    <Card>
+    <Card style={styles.container}>
 
       <TextInput
         value={value}
@@ -39,7 +39,7 @@ export default function QuickExpenseInput({
           <Icon
             name="description"
             size={20}
-            color={theme.colors.primary}
+            color={theme.colors.onSecondary}
           />
 
           <View style={styles.infoContent}>
@@ -67,7 +67,7 @@ export default function QuickExpenseInput({
           <Icon
             name="payments"
             size={20}
-            color={theme.colors.primary}
+            color={theme.colors.onSecondary}
           />
 
           <View style={styles.infoContent}>

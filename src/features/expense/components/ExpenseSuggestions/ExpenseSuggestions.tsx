@@ -36,12 +36,12 @@ export default function ExpenseSuggestions({
             <Icon
               name={suggestion.icon}
               size={18}
-              color={theme.colors.primary}
+              color={theme.colors.onSecondary}
             />
 
             <Typography
               variant="body2"
-              color={theme.colors.primary}
+              color={theme.colors.onSecondary}
               style={styles.chipText}
             >
               {`${suggestion.description} ${suggestion.amount}`}
