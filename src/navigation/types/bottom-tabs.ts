@@ -6,4 +6,5 @@ export type BottomTabParamList = {
   [ROUTES.CATEGORIAS]: undefined;
   [ROUTES.SUMMARY]: undefined;
   [ROUTES.PROFILE]: undefined;
+  [ROUTES.RESUMO_MENSAL]: undefined;
 };

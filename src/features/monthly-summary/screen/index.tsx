@@ -5,6 +5,7 @@ import { categoriesMock } from "@/mocks/categoriesMock";
 import { useTheme } from "@/theme/ThemeProvider";
 import CategorySummarySection from "../components/CategorySummarySection";
 import InsightCard from "@/components/InsightCard";
+import AppHeader from "@/components/AppHeader";
 
 
 export default function MonthlySummaryScreen() {
@@ -12,6 +13,7 @@ export default function MonthlySummaryScreen() {
 
     return(
         <Screen scrollable>
+            <AppHeader/>
             <SummaryCard
                 title="Gasto Total no Período"
                 subTitle="R$ 4.285,40"

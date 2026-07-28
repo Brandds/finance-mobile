@@ -5,13 +5,14 @@ import { BottomTabParamList } from '../types/bottom-tabs';
 
 import { TabBarIcon } from './TabBarIcon';
 
+import CategoryScreen from '@/features/category/screens/CategoryScreen';
+import ExpensesScreen from '@/features/expense/screens';
 import HomeScreen from '@/features/home/screens/HomeScreen';
 import { useTheme } from '@/theme/ThemeProvider';
 import { useMemo } from 'react';
 import { createTabNavigatorOptions } from '../options/tabNavigatorOptions';
 import { ROUTES } from '../routes';
-import ProfileScreen from '@/features/profile/screen';
-import CategoryScreen from '@/features/category/screens/CategoryScreen';
+import MonthlySummaryScreen from '@/features/monthly-summary/screen';
 
 const Tab =
   createBottomTabNavigator<BottomTabParamList>();
@@ -42,15 +43,16 @@ export default function BottomTabsRoutes() {
           ),
         }}
       />
+
       <Tab.Screen
-        name={ROUTES.PROFILE}
-        component={ProfileScreen}
+        name={ROUTES.EXPENSES}
+        component={ExpensesScreen}
         options={{
-          title: 'Perfil',
+          title: 'Gastos',
 
           tabBarIcon: ({ color }) => (
             <TabBarIcon
-              name="person"
+              name="receipt"
               color={color}
             />
           ),
@@ -70,40 +72,9 @@ export default function BottomTabsRoutes() {
           ),
         }}
       />
-
-      {/* <Tab.Screen
-        name={ROUTES.EXPENSES}
-        component={ExpensesScreen}
-        options={{
-          title: 'Gastos',
-
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon
-              name="payments"
-              color={color}
-            />
-          ),
-        }}
-      />
-
       <Tab.Screen
-        name={ROUTES.CATEGORIES}
-        component={CategoriesScreen}
-        options={{
-          title: 'Categorias',
-
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon
-              name="category"
-              color={color}
-            />
-          ),
-        }}
-      />
-
-      <Tab.Screen
-        name={ROUTES.SUMMARY}
-        component={SummaryScreen}
+        name={ROUTES.RESUMO_MENSAL}
+        component={MonthlySummaryScreen}
         options={{
           title: 'Resumo',
 
@@ -114,7 +85,7 @@ export default function BottomTabsRoutes() {
             />
           ),
         }}
-      /> */}
+      />
     </Tab.Navigator>
   );
 }
