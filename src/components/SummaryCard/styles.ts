@@ -19,7 +19,7 @@ StyleSheet.create({
         paddingHorizontal: theme.spacing.md,
         paddingVertical: theme.spacing.xs,
         borderRadius: theme.radius.full,
-        backgroundColor: theme.colors.background,
+        backgroundColor: theme.colors.backgroundOnSecondary,
     }
 
 });

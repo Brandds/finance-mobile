@@ -5,6 +5,9 @@ export const lightColors = {
   onSecondary: "#000000",
 
   background: "#f8f9ff",
+  backgroundOnPrimary: "#003541",
+  backgroundOnSecondary: "#000000",
+
   backgroundDescriptionInput: "#cad0d3",
 
   backgroundSkeleton: "#40484b",

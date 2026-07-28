@@ -1,13 +1,9 @@
-import { createNativeStackNavigator }
-from "@react-navigation/native-stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import LoginScreen
-from "@/features/auth/screens/LoginScreen";
-import { RootStackParamList } from "./types";
+import LoginScreen from "@/features/auth/screens/LoginScreen";
 import RegisterScreen from "@/features/auth/screens/RegisterScreen";
 import { ROUTES } from "./routes";
-import AddExpense from "@/features/expense/screens/AddExpense";
-import MonthlySummaryScreen from "@/features/monthly-summary/screen";
+import { RootStackParamList } from "./types";
 
 const Stack =
   createNativeStackNavigator<RootStackParamList>();
@@ -17,7 +13,7 @@ export default function AuthRoutes() {
     <Stack.Navigator>
       <Stack.Screen
         name={ROUTES.LOGIN}
-        component={MonthlySummaryScreen}
+        component={LoginScreen}
         options={{
           headerShown: false,
         }}
