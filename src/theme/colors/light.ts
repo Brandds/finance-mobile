@@ -7,6 +7,7 @@ export const lightColors = {
   background: "#f8f9ff",
   backgroundOnPrimary: "#003541",
   backgroundOnSecondary: "#000000",
+  backgroundOnThree: "#2D6675",
 
   backgroundDescriptionInput: "#cad0d3",
 
