@@ -24,7 +24,7 @@ export const styles = (theme: Theme) =>
 
         label: {
             fontSize: 14,
-            color: theme.colors.text,
+            color: theme.colors.onPrimary,
             fontWeight: "500",
         },
 

@@ -14,7 +14,7 @@ export const lightColors = {
   backgroundSkeleton: "#40484b",
 
   backgroundSelect: "#003541",
-  backgroundNotSelect: '#40484b',
+  backgroundNotSelect: "#9CACC5",
 
   surface: "#f8f9ff",
 

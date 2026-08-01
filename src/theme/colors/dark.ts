@@ -11,7 +11,7 @@ export const darkColors = {
     backgroundDescriptionInput: "#003541",
 
     backgroundSelect: "#003541",
-    backgroundNotSelect: '#40484b',
+    backgroundNotSelect: "#9CACC5",
     backgroundSkeleton: "#40484b",
 
     surface: "#1E1E1E",
