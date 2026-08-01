@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import {
   View,
   ScrollView,
   KeyboardAvoidingView,
   Platform,
-  TouchableWithoutFeedback,
-  Keyboard,
   StatusBar,
 } from "react-native";
+
+import {
+  BottomTabBarHeightContext,
+} from "@react-navigation/bottom-tabs";
 
 import {
   useSafeAreaInsets,
@@ -33,9 +35,14 @@ const Screen = ({
   showBackButton = false,
 }: ScreenProps) => {
   const insets = useSafeAreaInsets();
+  const tabBarHeight = useContext(BottomTabBarHeightContext) ?? 0;
   const theme = useTheme();
   const styles = stylesScreen(theme);
 
+  const bottomSpacing = Math.max(
+    insets.bottom + tabBarHeight,
+    theme.spacing.screenPaddingBottom,
+  );
   const screenBackground =
     backgroundColor ?? theme.colors.background;
   const content = (
@@ -44,7 +51,7 @@ const Screen = ({
         scrollable ? {} : styles.container,
 
         {
-          paddingBottom: insets.bottom,
+          paddingBottom: bottomSpacing,
         },
 
         padding &&
@@ -71,7 +78,8 @@ const Screen = ({
           styles.container,
           {
             backgroundColor: screenBackground,
-            paddingTop: insets.top,
+            paddingTop: 40,
+            paddingBottom: bottomSpacing,
           },
         ]}
         behavior={
@@ -81,17 +89,18 @@ const Screen = ({
         }
       >
         <View style={{ flex: 1 }}>
-          {(headerTitle || showBackButton) && (
+          {/* {(headerTitle || showBackButton) && (
             <View style={styles.headerContainer}>
               <Header
                 title={headerTitle}
                 showBackButton={showBackButton}
               />
             </View>
-          )}
+          )} */}
 
           {scrollable ? (
             <ScrollView
+              style={styles.content}
               keyboardShouldPersistTaps="handled"
               contentInsetAdjustmentBehavior="never"
               automaticallyAdjustContentInsets={false}
@@ -99,10 +108,15 @@ const Screen = ({
               nestedScrollEnabled={true}
               scrollEventThrottle={16}
               directionalLockEnabled={false}
+              contentContainerStyle={[
+                padding && styles.padding,
+                {
+                  flexGrow: 1,
+                  paddingBottom: bottomSpacing,
+                },
+              ]}
             >
-              <View style={[padding && styles.padding]}>
-                {children}
-              </View>
+              {children}
             </ScrollView>
           ) : (
             content

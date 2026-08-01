@@ -7,7 +7,6 @@ export const styles = (theme: Theme) =>
       flexDirection: "row",
       alignItems: "center",
       gap: 16,
-      marginBottom: 24,
     },
 
     button: {
