@@ -15,7 +15,7 @@ export const styles = (theme: Theme) =>
     },
 
     seeAllText: {
-      color: theme.colors.secondary,
+      color: theme.colors.onSecondary,
     },
 
     listContent: {
