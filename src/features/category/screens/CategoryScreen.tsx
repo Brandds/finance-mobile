@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FlatList, View } from "react-native";
 
 import { Icon } from "@/components";
@@ -10,6 +10,7 @@ import CategoryFab from "../components/CategoryFab";
 import { CategorySearch } from "../components/CategorySearch";
 import CategorySuggestionList from "../components/CategorySuggestionList";
 import { styles } from "../styles";
+import { SkeletonBlock } from "@/components/Skeleton";
 
 const suggestions = [
     { id: "food", label: "Alimentação" },
@@ -43,7 +44,17 @@ const categories = [
 ];
 
 export default function CategoryScreen() {
+    const [loading, setLoading] = useState(true);
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 5000);
+
+        return () => clearTimeout(timer);
+    }, []);
 
     function handleSearch() { }
 
@@ -73,13 +84,17 @@ export default function CategoryScreen() {
                     </>
                 }
                 renderItem={({ item }) => (
-                    <CategoryCard
-                        title={item.title}
-                        transactions={item.transactions}
-                        icon={item.icon}
-                        iconColor="white"
-                        iconBackgroundColor={item.color}
-                    />
+                    loading ? (
+                        <SkeletonBlock width={365} height={80} borderRadius={8} />
+                    ) : (
+                        <CategoryCard
+                            title={item.title}
+                            transactions={item.transactions}
+                            icon={item.icon}
+                            iconColor="white"
+                            iconBackgroundColor={item.color}
+                        />
+                    )
                 )}
             />
 
