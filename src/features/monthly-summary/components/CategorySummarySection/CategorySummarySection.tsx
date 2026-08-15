@@ -50,7 +50,7 @@ export default function CategorySummarySection({
           categories.map((category) => (
 
             loading ? (
-              <SkeletonSummaryCard/>
+              <SkeletonSummaryCard key={category.id}/>
             ) : (
               <CategorySummary
               key={category.id}
