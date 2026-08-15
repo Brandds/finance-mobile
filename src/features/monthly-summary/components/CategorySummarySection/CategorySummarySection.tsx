@@ -6,16 +6,28 @@ import { useTheme } from "@/theme/ThemeProvider";
 
 import CategorySummary from "../CategorySummary";
 
-import { CategorySummarySectionProps } from "./types";
+import { SkeletonSummaryCard } from "@/components/Skeleton";
+import { useEffect, useState } from "react";
 import { styles as categorySummarySectionStyles } from "./styles";
+import { CategorySummarySectionProps } from "./types";
 
 
 export default function CategorySummarySection({
   categories,
 }: CategorySummarySectionProps) {
+  const [loading, setLoading] = useState<boolean>(true);
 
   const theme = useTheme();
   const styles = categorySummarySectionStyles(theme);
+
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
 
   return (
@@ -37,10 +49,14 @@ export default function CategorySummarySection({
         {
           categories.map((category) => (
 
-            <CategorySummary
+            loading ? (
+              <SkeletonSummaryCard/>
+            ) : (
+              <CategorySummary
               key={category.id}
               {...category}
             />
+            )
 
           ))
         }

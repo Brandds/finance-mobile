@@ -6,15 +6,34 @@ import { useTheme } from "@/theme/ThemeProvider";
 import CategorySummarySection from "../components/CategorySummarySection";
 import InsightCard from "@/components/InsightCard";
 import AppHeader from "@/components/AppHeader";
+import { useEffect, useState } from "react";
+import { SkeletonBlock } from "@/components/Skeleton";
 
 
 export default function MonthlySummaryScreen() {
+    const [loading, setLoading] = useState<boolean>(true);
     const theme = useTheme();
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+
+        return () => clearTimeout(timer);
+    }, []);
+
 
     return(
         <Screen scrollable>
             <AppHeader/>
-            <SummaryCard
+            {loading ? (
+                <SkeletonBlock
+                    width="100%"
+                    height={130}
+                    borderRadius={theme.radius.md}
+                />
+            ) : (
+                <SummaryCard
                 title="Gasto Total no Período"
                 subTitle="R$ 4.285,40"
                 info="12% menos que mês passado"
@@ -26,6 +45,7 @@ export default function MonthlySummaryScreen() {
                     color={theme.colors.onSecondary}
                 />
             </SummaryCard>
+            )}
             
             <CategorySummarySection
                 categories={categoriesMock}
