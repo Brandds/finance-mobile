@@ -96,12 +96,10 @@ export default function ProfileScreen() {
           />
 
           <PreferencesSection
-            language="Português"
             theme={theme === "light" ? "Claro" : "Escuro"}
             onNotificationsPress={
               handleNotifications
             }
-            onLanguagePress={handleLanguage}
             onThemePress={handleTheme}
           />
 

@@ -6,10 +6,8 @@ import { titleScreen } from "@/constants/titleScreen";
 import { PreferencesSectionProps } from "./types";
 
 export default function PreferencesSection({
-    language,
     theme,
     onNotificationsPress,
-    onLanguagePress,
     onThemePress,
 }: PreferencesSectionProps) {
     return (
@@ -24,18 +22,6 @@ export default function PreferencesSection({
             title={titleScreen.NOTIFICACOES}
             onPress={onNotificationsPress}
         />
-        <SettingsItem
-            icon={
-                <Icon
-                    name="language"
-                    size={20}
-                />
-            }
-            title="Idioma"
-            value={language}
-            onPress={onLanguagePress}
-        />
-
         <SettingsItem
             icon={
                 <Icon
