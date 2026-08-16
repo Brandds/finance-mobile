@@ -11,6 +11,7 @@ import NotificationScreen from '@/features/notification/screen';
 import ProfileScreen from '@/features/profile/screen';
 import EditProfileScreen from '@/features/profile/screen/editProfile';
 import DadosPessoaisScreen from '@/features/profile/screen/dadosPessoaisScreen';
+import ChangePassword from '@/features/changePassword/screen/changePassword.screen';
 
 const Stack =
   createNativeStackNavigator<RootStackParamList>();
@@ -45,6 +46,10 @@ export default function AppRoutes() {
       <Stack.Screen
         name={ROUTES.DAADOS_PESSOAIS}
         component={DadosPessoaisScreen}
+      />
+      <Stack.Screen
+        name={ROUTES.ALTERAR_SENHA}
+        component={ChangePassword}
       />
     </Stack.Navigator>
   );

@@ -4,15 +4,14 @@ import { Pressable, View } from "react-native";
 import { useTheme } from "@/theme/ThemeProvider";
 
 
-import { styles } from "./styles";
-import { CategorySearchProps } from "./types";
-import Input from "@/components/Input";
 import { Icon } from "@/components";
 import FormFields from "@/components/FormFields/FormFields";
-import { fieldsCategorySearch } from "./fields";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { fieldsCategorySearch } from "./fields";
 import { CategorySearchFormData, categorySearchSchema } from "./schema";
+import { styles } from "./styles";
+import { CategorySearchProps } from "./types";
 
 export function CategorySearch({
     onAddPress,

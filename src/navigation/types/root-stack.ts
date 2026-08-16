@@ -6,4 +6,5 @@ export type RootStackParamList = {
   [ROUTES.PROFILE]: undefined;
   [ROUTES.EDIT_PROFILE]: undefined;
   [ROUTES.DAADOS_PESSOAIS]: undefined;
+  [ROUTES.ALTERAR_SENHA]: undefined;
 };

@@ -8,12 +8,13 @@ export type RootStackParamList = {
   [ROUTES.PROFILE]: undefined;
   [ROUTES.EDIT_PROFILE]: undefined;
   [ROUTES.DAADOS_PESSOAIS]: undefined;
+  [ROUTES.ALTERAR_SENHA]: undefined;
 };
 
 
 export type RootTabParamList = {
   [ROUTES.HOME]: undefined;
   [ROUTES.EXPENSES]: undefined;
-  [ROUTES.CATEGORIES]: undefined;
+  [ROUTES.CATEGORIAS]: undefined;
   [ROUTES.SUMMARY]: undefined;
 };

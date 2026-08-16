@@ -53,7 +53,7 @@ export default function ProfileScreen() {
   };
 
   const handleChangePassword = () => {
-    console.log("Alterar senha");
+    navigation.navigate(ROUTES.ALTERAR_SENHA);
   };
 
   const handleBiometricChange = (
