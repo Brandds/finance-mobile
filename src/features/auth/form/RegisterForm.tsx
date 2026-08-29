@@ -118,7 +118,7 @@ export default function RegisterForm() {
       <Button
         title="Criar Conta"
         loading={loading}
-        onPress={() => handleSubmit(onSubmit)}
+        onPress={handleSubmit(onSubmit)}
       />
 
       {/* Divider */}
