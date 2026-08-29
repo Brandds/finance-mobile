@@ -13,14 +13,14 @@ interface ExpenseItemProps {
   description: string;
   amount: string;
   date: string;
-  icon: keyof typeof MaterialIcons.glyphMap;
+  icon?: keyof typeof MaterialIcons.glyphMap;
 }
 
 export default function ExpenseItem({
   description,
   amount,
   date,
-  icon,
+  icon = "payments",
 }: ExpenseItemProps) {
 
   const theme = useTheme();
