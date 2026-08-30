@@ -30,6 +30,43 @@ export function normalizeExpenseResponse(payload: unknown): ExpenseDTO[] {
     return payload ? [payload as ExpenseDTO] : [];
 }
 
+export function formatCurrencyValue(value: number) {
+    return `R$ ${value.toFixed(2).replace(".", ",")}`;
+}
+
+export function sumExpensesByDate(expenses: ExpenseDTO[], targetDate: Date = new Date()) {
+    const normalizedTargetDate = new Date(
+        targetDate.getFullYear(),
+        targetDate.getMonth(),
+        targetDate.getDate(),
+    )
+        .toISOString()
+        .split("T")[0];
+
+    return expenses.reduce((total, expense) => {
+        if (!expense.date) {
+            return total;
+        }
+
+        const expenseDate = new Date(expense.date);
+        const normalizedExpenseDate = new Date(
+            expenseDate.getFullYear(),
+            expenseDate.getMonth(),
+            expenseDate.getDate(),
+        )
+            .toISOString()
+            .split("T")[0];
+
+        if (normalizedExpenseDate !== normalizedTargetDate) {
+            return total;
+        }
+
+        const amount = Number(expense.amount ?? 0);
+
+        return total + (Number.isFinite(amount) ? Math.abs(amount) : 0);
+    }, 0);
+}
+
 export function formatExpenseList(expenses: ExpenseDTO[]) {
     return expenses.map((expense) => ({
         ...expense,

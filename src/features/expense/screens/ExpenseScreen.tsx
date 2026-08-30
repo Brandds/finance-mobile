@@ -9,7 +9,11 @@ import ExpenseItem from "@/features/home/sections/ExpenseItem";
 import { useTheme } from "@/theme/ThemeProvider";
 import ExpenseSection from "../components/ExpenseSection";
 import MonthHeader from "../components/MonthHeader";
-import { formatExpenseList } from "../helper/expense.helper";
+import {
+  formatCurrencyValue,
+  formatExpenseList,
+  sumExpensesByDate,
+} from "../helper/expense.helper";
 import { useExpense } from "../hooks/useExpense";
 import { styles as expensesStyles } from "../styles/expense.style";
 
@@ -19,6 +23,8 @@ export default function ExpensesScreen() {
   const styles = expensesStyles(theme);
 
   const formattedExpenses = formatExpenseList(expenses);
+  const todayTotal = sumExpensesByDate(expenses, new Date());
+  const todayTotalText = formatCurrencyValue(todayTotal);
 
   return (
     <Screen scrollable>
@@ -53,7 +59,7 @@ export default function ExpensesScreen() {
         {loading ? (
           <SkeletonBlock width="100%" height={130} borderRadius={theme.radius.md} />
         ) : (
-          <ExpenseSection title="Hoje" total="R$ 158,00">
+          <ExpenseSection title="Hoje" total={todayTotalText}>
             {formattedExpenses.length > 0 ? (
               formattedExpenses.map((expense) => (
                 <ExpenseItem
