@@ -1,4 +1,4 @@
-export interface ExpenseDTO {
+﻿export interface ExpenseDTO {
   id: number | null;
   description: string;
   amount: number;
@@ -18,4 +18,10 @@ export interface ExpensePage<T> {
   first: boolean;
   last: boolean;
   empty: boolean;
+}
+
+export interface ExpenseAnalysisDTO {
+  previousPeriodTotal?: number;
+  percentageChange?: number;
+  totalSpent?: number;
 }

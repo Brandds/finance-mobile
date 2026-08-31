@@ -18,7 +18,7 @@ import { useExpense } from "../hooks/useExpense";
 import { styles as expensesStyles } from "../styles/expense.style";
 
 export default function ExpensesScreen() {
-  const { expenses, loading } = useExpense();
+  const { expenses, expenseAnalysis, loading } = useExpense();
   const theme = useTheme();
   const styles = expensesStyles(theme);
 
@@ -48,8 +48,8 @@ export default function ExpensesScreen() {
       ) : (
         <SummaryCard
           title="Total gasto no mês"
-          subTitle="R$ 4.280,50"
-          info="8% menor que mês passado"
+          subTitle={expenseAnalysis?.totalSpent ? formatCurrencyValue(expenseAnalysis.totalSpent) : "R$ 0,00"}
+          info={expenseAnalysis?.percentageChange !== undefined ? `${expenseAnalysis.percentageChange.toFixed(2)}% menor que mês passado` : "Nenhuma informação disponível"}
         >
           <Icon name="trending-down" size={16} color="#FFFFFF" />
         </SummaryCard>

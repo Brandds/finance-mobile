@@ -1,12 +1,37 @@
-import { useCallback, useEffect, useState } from "react";
+﻿import { useCallback, useEffect, useState } from "react";
 
+import { ApiResponse } from "@/shared/types/apiResponse";
 import { getDefaultDateRange, normalizeExpenseResponse } from "../helper/expense.helper";
-import { getByDateRange } from "../services/expense.service";
-import { ExpenseDTO } from "../types/expense.type";
+import { getByDateRange, getExpenseAnalysis } from "../services/expense.service";
+import { ExpenseAnalysisDTO, ExpenseDTO, ExpensePage } from "../types/expense.type";
 
 export function useExpense(startDate?: string, endDate?: string) {
   const [expenses, setExpenses] = useState<ExpenseDTO[]>([]);
+  const [expenseAnalysis, setExpenseAnalysis] = useState<ExpenseAnalysisDTO | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const handleExpensesResponse = (
+    response: PromiseSettledResult<ApiResponse<ExpensePage<ExpenseDTO>>>,
+  ) => {
+    if (response.status === "fulfilled") {
+      const normalizedExpenses = normalizeExpenseResponse(response.value?.data);
+      setExpenses(normalizedExpenses);
+      return;
+    }
+
+    setExpenses([]);
+  };
+
+  const handleAnalysisResponse = (
+    response: PromiseSettledResult<ApiResponse<ExpenseAnalysisDTO>>,
+  ) => {
+    if (response.status === "fulfilled") {
+      setExpenseAnalysis(response.value?.data ?? null);
+      return;
+    }
+
+    setExpenseAnalysis(null);
+  };
 
   const fetchExpenses = useCallback(async () => {
     try {
@@ -16,12 +41,16 @@ export function useExpense(startDate?: string, endDate?: string) {
       const currentStartDate = startDate ?? range.startDate;
       const currentEndDate = endDate ?? range.endDate;
 
-      const response = await getByDateRange(currentStartDate, currentEndDate);
-      const normalizedExpenses = normalizeExpenseResponse(response?.data);
+      const [expensesResponse, analysisResponse] = await Promise.allSettled([
+        getByDateRange(currentStartDate, currentEndDate),
+        getExpenseAnalysis(currentStartDate, currentEndDate),
+      ]);
 
-      setExpenses(normalizedExpenses);
+      handleExpensesResponse(expensesResponse);
+      handleAnalysisResponse(analysisResponse);
     } catch (error) {
       setExpenses([]);
+      setExpenseAnalysis(null);
     } finally {
       setLoading(false);
     }
@@ -33,6 +62,7 @@ export function useExpense(startDate?: string, endDate?: string) {
 
   return {
     expenses,
+    expenseAnalysis,
     loading,
     refetch: fetchExpenses,
   };
