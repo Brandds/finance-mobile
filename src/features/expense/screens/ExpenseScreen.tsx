@@ -15,20 +15,11 @@ import MonthPickerSheet from "../components/MonthPickerSheet";
 import {
   formatCurrencyValue,
   formatExpenseList,
+  getMonthDateRange,
   sumExpensesByDate,
 } from "../helper/expense.helper";
 import { useExpense } from "../hooks/useExpense";
 import { styles as expensesStyles } from "../styles/expense.style";
-
-function getMonthDateRange(date: Date) {
-  const startDate = new Date(date.getFullYear(), date.getMonth(), 1)
-    .toISOString()
-    .split("T")[0];
-  const endDate = new Date(date.getFullYear(), date.getMonth() + 1, 0)
-    .toISOString()
-    .split("T")[0];
-  return { startDate, endDate };
-}
 
 export default function ExpensesScreen() {
   const theme = useTheme();

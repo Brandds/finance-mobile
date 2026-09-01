@@ -15,6 +15,20 @@ export function getDefaultDateRange() {
     };
 }
 
+export function getMonthDateRange(date: Date) {
+    const startDate = new Date(date.getFullYear(), date.getMonth(), 1)
+        .toISOString()
+        .split("T")[0];
+    const endDate = new Date(date.getFullYear(), date.getMonth() + 1, 0)
+        .toISOString()
+        .split("T")[0];
+
+    return {
+        startDate,
+        endDate,
+    };
+}
+
 export function normalizeExpenseResponse(payload: unknown): ExpenseDTO[] {
     if (Array.isArray(payload)) {
         return payload.filter(Boolean) as ExpenseDTO[];
