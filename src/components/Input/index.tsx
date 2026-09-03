@@ -25,6 +25,7 @@ function Input<T extends FieldValues>({
   icon,
   secureTextEntry = false,
   library,
+  keyboardType,
 }: InputProps<T>) {
   const [showPassword, setShowPassword] =
     useState(false);
@@ -71,6 +72,7 @@ function Input<T extends FieldValues>({
               secureTextEntry={
                 secureTextEntry && !showPassword
               }
+              keyboardType={keyboardType}
               style={styles.input}
             />
 

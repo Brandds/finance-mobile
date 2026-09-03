@@ -1,11 +1,11 @@
-﻿import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { ApiResponse } from "@/shared/types/apiResponse";
 import { getDefaultDateRange, normalizeExpenseResponse } from "../helper/expense.helper";
-import { getByDateRange, getExpenseAnalysis } from "../services/expense.service";
-import { ExpenseAnalysisDTO, ExpenseDTO, ExpensePage } from "../types/expense.type";
+import { getByDateRange, getExpenseAnalysis, filterExpenses } from "../services/expense.service";
+import { ExpenseAnalysisDTO, ExpenseDTO, ExpensePage, ExpenseFilterParams } from "../types/expense.type";
 
-export function useExpense(startDate?: string, endDate?: string) {
+export function useExpense(startDate?: string, endDate?: string, filters?: ExpenseFilterParams) {
   const [expenses, setExpenses] = useState<ExpenseDTO[]>([]);
   const [expenseAnalysis, setExpenseAnalysis] = useState<ExpenseAnalysisDTO | null>(null);
   const [loading, setLoading] = useState(true);
@@ -41,8 +41,14 @@ export function useExpense(startDate?: string, endDate?: string) {
       const currentStartDate = startDate ?? range.startDate;
       const currentEndDate = endDate ?? range.endDate;
 
+      const hasFilters = filters && Object.keys(filters).length > 0;
+      
+      const expensesPromise = hasFilters 
+        ? filterExpenses(filters!)
+        : getByDateRange(currentStartDate, currentEndDate);
+
       const [expensesResponse, analysisResponse] = await Promise.allSettled([
-        getByDateRange(currentStartDate, currentEndDate),
+        expensesPromise,
         getExpenseAnalysis(currentStartDate, currentEndDate),
       ]);
 
@@ -54,7 +60,7 @@ export function useExpense(startDate?: string, endDate?: string) {
     } finally {
       setLoading(false);
     }
-  }, [endDate, startDate]);
+  }, [endDate, startDate, filters]);
 
   useEffect(() => {
     fetchExpenses();
@@ -67,3 +73,4 @@ export function useExpense(startDate?: string, endDate?: string) {
     refetch: fetchExpenses,
   };
 }
+

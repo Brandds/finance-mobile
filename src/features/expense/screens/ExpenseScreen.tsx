@@ -12,6 +12,8 @@ import { useTheme } from "@/theme/ThemeProvider";
 import ExpenseSection from "../components/ExpenseSection";
 import MonthHeader from "../components/MonthHeader";
 import MonthPickerSheet from "../components/MonthPickerSheet";
+import ExpenseFilterSheet from "../components/ExpenseFilterSheet";
+import { ExpenseFilterFormData } from "../components/ExpenseFilterSheet/schema";
 import {
   formatCurrencyValue,
   formatExpenseList,
@@ -26,10 +28,12 @@ export default function ExpensesScreen() {
   const styles = expensesStyles(theme);
 
   const [selectedMonth, setSelectedMonth] = useState(new Date());
+  const [filters, setFilters] = useState<ExpenseFilterFormData | undefined>(undefined);
   const bottomSheetRef = useRef<AppBottomSheetRef>(null);
+  const filterSheetRef = useRef<AppBottomSheetRef>(null);
 
   const { startDate, endDate } = getMonthDateRange(selectedMonth);
-  const { expenses, expenseAnalysis, loading } = useExpense(startDate, endDate);
+  const { expenses, expenseAnalysis, loading } = useExpense(startDate, endDate, filters);
 
   const formattedExpenses = formatExpenseList(expenses);
   const todayTotal = sumExpensesByDate(expenses, new Date());
@@ -44,6 +48,14 @@ export default function ExpensesScreen() {
     bottomSheetRef.current?.dismiss();
   };
 
+  const handleFilterPress = () => {
+    filterSheetRef.current?.present();
+  };
+
+  const handleApplyFilters = (newFilters: ExpenseFilterFormData) => {
+    setFilters(newFilters);
+  };
+
   return (
     <>
       <Screen scrollable>
@@ -52,9 +64,7 @@ export default function ExpensesScreen() {
         <MonthHeader
           selectedMonth={selectedMonth}
           onMonthPress={handleMonthPress}
-          onFilterPress={() => {
-            alert("Filter pressed");
-          }}
+          onFilterPress={handleFilterPress}
           onSearchPress={() => {
             alert("Search pressed");
           }}
@@ -111,6 +121,11 @@ export default function ExpensesScreen() {
         ref={bottomSheetRef}
         selectedMonth={selectedMonth}
         onSelect={handleMonthSelect}
+      />
+      
+      <ExpenseFilterSheet
+        ref={filterSheetRef}
+        onApplyFilters={handleApplyFilters}
       />
     </>
   );

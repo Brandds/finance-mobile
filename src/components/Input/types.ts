@@ -1,3 +1,4 @@
+import { KeyboardTypeOptions } from "react-native";
 import { Control, FieldValues, Path } from "react-hook-form";
 
 export interface InputProps<T extends FieldValues> {
@@ -14,4 +15,6 @@ export interface InputProps<T extends FieldValues> {
   library?: "material" | "fontAwesome";
 
   secureTextEntry?: boolean;
-}
+  
+  keyboardType?: KeyboardTypeOptions;
+}
