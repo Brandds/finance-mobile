@@ -36,21 +36,28 @@ export function useExpense(startDate?: string, endDate?: string, filters?: Expen
     setExpenseAnalysis(null);
   };
 
-  const handleFilterToast = (
-    response?: PromiseSettledResult<ApiResponse<ExpensePage<ExpenseDTO>>>,
+  const handleExpenseToast = (
+    response: PromiseSettledResult<ApiResponse<ExpensePage<ExpenseDTO>>>,
+    hasFilters: boolean,
   ) => {
-    if (response?.status === "fulfilled") {
+    if (response.status === "fulfilled") {
+      const defaultMsg = hasFilters ? toastMessages.FILTRO_APLICADO : toastMessages.DESPESAS_CARREGADAS;
+      const title = hasFilters ? toastTitles.FILTRO_APLICADO : toastTitles.SUCESSO;
+
       showToast({
-        title: toastTitles.FILTRO_APLICADO,
-        message: response.value?.message || toastMessages.FILTRO_APLICADO,
+        title,
+        message: response.value?.message || defaultMsg,
         type: "success",
       });
       return;
     }
 
+    const defaultErrorMsg = hasFilters ? toastMessages.ERRO_FILTRAR : toastMessages.ERRO_CARREGAR_DESPESAS;
+    const errorTitle = hasFilters ? toastTitles.ERRO_FILTRAR : toastTitles.ERRO;
+
     showToast({
-      title: toastTitles.ERRO_FILTRAR,
-      message: toastMessages.ERRO_FILTRAR,
+      title: errorTitle,
+      message: defaultErrorMsg,
       type: "error",
     });
   };
@@ -74,16 +81,15 @@ export function useExpense(startDate?: string, endDate?: string, filters?: Expen
         getExpenseAnalysis(currentStartDate, currentEndDate),
       ]);
 
-      if (hasFilters) {
-        handleFilterToast(expensesResponse);
-      }
-
+      handleExpenseToast(expensesResponse, hasFilters);
       handleExpensesResponse(expensesResponse);
       handleAnalysisResponse(analysisResponse);
     } catch (error) {
-      if (hasFilters) {
-        handleFilterToast();
-      }
+      showToast({
+        title: hasFilters ? toastTitles.ERRO_FILTRAR : toastTitles.ERRO,
+        message: hasFilters ? toastMessages.ERRO_FILTRAR : toastMessages.ERRO_CARREGAR_DESPESAS,
+        type: "error",
+      });
       setExpenses([]);
       setExpenseAnalysis(null);
     } finally {
@@ -102,6 +108,7 @@ export function useExpense(startDate?: string, endDate?: string, filters?: Expen
     refetch: fetchExpenses,
   };
 }
+
 
 
 

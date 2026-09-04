@@ -23,4 +23,6 @@ export const toastMessages = {
     ERRO: "Erro",
     FILTRO_APLICADO: "Filtro aplicado com sucesso",
     ERRO_FILTRAR: "Erro ao filtrar",
+    DESPESAS_CARREGADAS: "Despesas carregadas com sucesso",
+    ERRO_CARREGAR_DESPESAS: "Erro ao carregar despesas",
 }
