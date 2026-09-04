@@ -3,6 +3,8 @@ export const toastTitles = {
     ERRO_ATUALIZAR_PERFIL: "Erro ao atualizar perfil!",
     SUCESSO: "Sucesso",
     ERRO: "Erro",
+    FILTRO_APLICADO: "Sucesso",
+    ERRO_FILTRAR: "Erro",
 }
 
 
@@ -19,4 +21,6 @@ export const toastMessages = {
     REGISTRO_FALHA: "Falha no registro. Verifique os dados fornecidos e tente novamente.",
     SUCESSO: "Sucesso",
     ERRO: "Erro",
+    FILTRO_APLICADO: "Filtro aplicado com sucesso",
+    ERRO_FILTRAR: "Erro ao filtrar",
 }

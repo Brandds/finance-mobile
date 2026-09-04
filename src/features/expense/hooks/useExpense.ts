@@ -4,11 +4,14 @@ import { ApiResponse } from "@/shared/types/apiResponse";
 import { getDefaultDateRange, normalizeExpenseResponse } from "../helper/expense.helper";
 import { getByDateRange, getExpenseAnalysis, filterExpenses } from "../services/expense.service";
 import { ExpenseAnalysisDTO, ExpenseDTO, ExpensePage, ExpenseFilterParams } from "../types/expense.type";
+import { useToast } from "@/hooks/useToasts";
+import { toastMessages, toastTitles } from "@/constants/toast.constants";
 
 export function useExpense(startDate?: string, endDate?: string, filters?: ExpenseFilterParams) {
   const [expenses, setExpenses] = useState<ExpenseDTO[]>([]);
   const [expenseAnalysis, setExpenseAnalysis] = useState<ExpenseAnalysisDTO | null>(null);
   const [loading, setLoading] = useState(true);
+  const { showToast } = useToast();
 
   const handleExpensesResponse = (
     response: PromiseSettledResult<ApiResponse<ExpensePage<ExpenseDTO>>>,
@@ -33,7 +36,28 @@ export function useExpense(startDate?: string, endDate?: string, filters?: Expen
     setExpenseAnalysis(null);
   };
 
+  const handleFilterToast = (
+    response?: PromiseSettledResult<ApiResponse<ExpensePage<ExpenseDTO>>>,
+  ) => {
+    if (response?.status === "fulfilled") {
+      showToast({
+        title: toastTitles.FILTRO_APLICADO,
+        message: response.value?.message || toastMessages.FILTRO_APLICADO,
+        type: "success",
+      });
+      return;
+    }
+
+    showToast({
+      title: toastTitles.ERRO_FILTRAR,
+      message: toastMessages.ERRO_FILTRAR,
+      type: "error",
+    });
+  };
+
   const fetchExpenses = useCallback(async () => {
+    const hasFilters = Boolean(filters && Object.keys(filters).length > 0);
+
     try {
       setLoading(true);
 
@@ -41,8 +65,6 @@ export function useExpense(startDate?: string, endDate?: string, filters?: Expen
       const currentStartDate = startDate ?? range.startDate;
       const currentEndDate = endDate ?? range.endDate;
 
-      const hasFilters = filters && Object.keys(filters).length > 0;
-      
       const expensesPromise = hasFilters 
         ? filterExpenses(filters!)
         : getByDateRange(currentStartDate, currentEndDate);
@@ -52,15 +74,22 @@ export function useExpense(startDate?: string, endDate?: string, filters?: Expen
         getExpenseAnalysis(currentStartDate, currentEndDate),
       ]);
 
+      if (hasFilters) {
+        handleFilterToast(expensesResponse);
+      }
+
       handleExpensesResponse(expensesResponse);
       handleAnalysisResponse(analysisResponse);
     } catch (error) {
+      if (hasFilters) {
+        handleFilterToast();
+      }
       setExpenses([]);
       setExpenseAnalysis(null);
     } finally {
       setLoading(false);
     }
-  }, [endDate, startDate, filters]);
+  }, [endDate, startDate, filters, showToast]);
 
   useEffect(() => {
     fetchExpenses();
@@ -73,4 +102,6 @@ export function useExpense(startDate?: string, endDate?: string, filters?: Expen
     refetch: fetchExpenses,
   };
 }
+
+
 
