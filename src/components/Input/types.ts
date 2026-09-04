@@ -17,4 +17,8 @@ export interface InputProps<T extends FieldValues> {
   secureTextEntry?: boolean;
   
   keyboardType?: KeyboardTypeOptions;
+
+  mask?: (text: string) => string;
+
+  maxLength?: number;
 }

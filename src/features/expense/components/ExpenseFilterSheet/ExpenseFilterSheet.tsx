@@ -14,17 +14,18 @@ import { expenseFilterSchema, ExpenseFilterFormData } from "./schema";
 import { styles as createStyles } from "./styles";
 import { PeriodType, ExpenseFilterParams } from "../../types/expense.type";
 import { categoriesMock } from "@/mocks/categoriesMock";
+import {
+  PERIOD_OPTIONS,
+  DEFAULT_FILTER_FORM_VALUES,
+  parseFilterFormDataToParams,
+  toggleCategoryId,
+  formatDateMask,
+  formatCurrencyMask,
+} from "../../helper/expenseFilter.helper";
 
 export interface ExpenseFilterSheetProps {
   onApplyFilters: (filters: ExpenseFilterParams | undefined) => void;
 }
-
-const PERIOD_OPTIONS = [
-  { label: "Hoje", value: PeriodType.TODAY },
-  { label: "Últimos 7 dias", value: PeriodType.LAST_7_DAYS },
-  { label: "Mês atual", value: PeriodType.CURRENT_MONTH },
-  { label: "Personalizado", value: PeriodType.CUSTOM },
-];
 
 const ExpenseFilterSheet = forwardRef<AppBottomSheetRef, ExpenseFilterSheetProps>(
   function ExpenseFilterSheet({ onApplyFilters }, ref) {
@@ -48,14 +49,7 @@ const ExpenseFilterSheet = forwardRef<AppBottomSheetRef, ExpenseFilterSheetProps
     const selectedCategoryIds = watch("categoryIds") ?? [];
 
     const handleApply = (data: ExpenseFilterFormData) => {
-      const parsedFilters: ExpenseFilterParams = {
-        categoryIds: data.categoryIds,
-        periodType: data.periodType,
-        startDate: data.periodType === PeriodType.CUSTOM ? data.startDate : undefined,
-        endDate: data.periodType === PeriodType.CUSTOM ? data.endDate : undefined,
-        minAmount: data.minAmount ? Number(data.minAmount.replace(",", ".")) : undefined,
-        maxAmount: data.maxAmount ? Number(data.maxAmount.replace(",", ".")) : undefined,
-      };
+      const parsedFilters = parseFilterFormDataToParams(data);
 
       onApplyFilters(parsedFilters);
       if (ref && typeof ref === "object" && ref.current) {
@@ -64,23 +58,11 @@ const ExpenseFilterSheet = forwardRef<AppBottomSheetRef, ExpenseFilterSheetProps
     };
 
     const toggleCategory = (id: number) => {
-      const current = selectedCategoryIds;
-      if (current.includes(id)) {
-        setValue("categoryIds", current.filter((catId) => catId !== id));
-      } else {
-        setValue("categoryIds", [...current, id]);
-      }
+      setValue("categoryIds", toggleCategoryId(selectedCategoryIds, id));
     };
 
     const clearFilters = () => {
-      reset({
-        categoryIds: [],
-        periodType: undefined,
-        minAmount: undefined,
-        maxAmount: undefined,
-        startDate: undefined,
-        endDate: undefined,
-      });
+      reset(DEFAULT_FILTER_FORM_VALUES);
       onApplyFilters(undefined);
       if (ref && typeof ref === "object" && ref.current) {
         ref.current.dismiss();
@@ -139,7 +121,10 @@ const ExpenseFilterSheet = forwardRef<AppBottomSheetRef, ExpenseFilterSheetProps
               control={control}
               name="startDate"
               label="Data inicial"
-              placeholder="YYYY-MM-DD"
+              placeholder="DD/MM/YYYY"
+              mask={formatDateMask}
+              maxLength={10}
+              keyboardType="numeric"
             />
           </View>
           <View style={styles.flex1}>
@@ -147,7 +132,10 @@ const ExpenseFilterSheet = forwardRef<AppBottomSheetRef, ExpenseFilterSheetProps
               control={control}
               name="endDate"
               label="Data final"
-              placeholder="YYYY-MM-DD"
+              placeholder="DD/MM/YYYY"
+              mask={formatDateMask}
+              maxLength={10}
+              keyboardType="numeric"
             />
           </View>
         </View>
@@ -179,7 +167,8 @@ const ExpenseFilterSheet = forwardRef<AppBottomSheetRef, ExpenseFilterSheetProps
                 control={control}
                 name="minAmount"
                 label="Mínimo"
-                placeholder="0.00"
+                placeholder="0,00"
+                mask={formatCurrencyMask}
                 keyboardType="numeric"
               />
             </View>
@@ -188,7 +177,8 @@ const ExpenseFilterSheet = forwardRef<AppBottomSheetRef, ExpenseFilterSheetProps
                 control={control}
                 name="maxAmount"
                 label="Máximo"
-                placeholder="999.00"
+                placeholder="0,00"
+                mask={formatCurrencyMask}
                 keyboardType="numeric"
               />
             </View>
@@ -209,4 +199,5 @@ const ExpenseFilterSheet = forwardRef<AppBottomSheetRef, ExpenseFilterSheetProps
 ExpenseFilterSheet.displayName = "ExpenseFilterSheet";
 
 export default ExpenseFilterSheet;
+
 

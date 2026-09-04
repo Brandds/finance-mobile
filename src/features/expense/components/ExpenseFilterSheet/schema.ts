@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { PeriodType } from "../../types/expense.type";
+import { parseCurrencyToNumber, parseDateToIso } from "../../helper/expenseFilter.helper";
 
 export const expenseFilterSchema = z
   .object({
@@ -12,26 +13,38 @@ export const expenseFilterSchema = z
   })
   .superRefine((data, ctx) => {
     if (data.periodType === PeriodType.CUSTOM) {
-      if (!data.startDate) {
+      if (!data.startDate || data.startDate.length !== 10) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Obrigatório",
+          message: "Data inicial inválida (DD/MM/YYYY)",
           path: ["startDate"],
         });
       }
-      if (!data.endDate) {
+      if (!data.endDate || data.endDate.length !== 10) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Obrigatório",
+          message: "Data final inválida (DD/MM/YYYY)",
           path: ["endDate"],
         });
       }
+
+      if (data.startDate?.length === 10 && data.endDate?.length === 10) {
+        const isoStart = parseDateToIso(data.startDate);
+        const isoEnd = parseDateToIso(data.endDate);
+        if (isoStart && isoEnd && isoStart > isoEnd) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Data inicial maior que a final",
+            path: ["startDate"],
+          });
+        }
+      }
     }
 
-    if (data.minAmount !== undefined && data.maxAmount !== undefined) {
-      const min = Number(data.minAmount.replace(",", "."));
-      const max = Number(data.maxAmount.replace(",", "."));
-      if (!isNaN(min) && !isNaN(max) && min > max) {
+    if (data.minAmount && data.maxAmount) {
+      const min = parseCurrencyToNumber(data.minAmount);
+      const max = parseCurrencyToNumber(data.maxAmount);
+      if (min !== undefined && max !== undefined && min > max) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: "Mínimo maior que o máximo",
@@ -42,3 +55,4 @@ export const expenseFilterSchema = z
   });
 
 export type ExpenseFilterFormData = z.infer<typeof expenseFilterSchema>;
+

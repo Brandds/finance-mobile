@@ -26,6 +26,8 @@ function Input<T extends FieldValues>({
   secureTextEntry = false,
   library,
   keyboardType,
+  mask,
+  maxLength,
 }: InputProps<T>) {
   const [showPassword, setShowPassword] =
     useState(false);
@@ -64,7 +66,10 @@ function Input<T extends FieldValues>({
 
             <TextInput
               value={value}
-              onChangeText={onChange}
+              onChangeText={(text) => {
+                const formatted = mask ? mask(text) : text;
+                onChange(formatted);
+              }}
               placeholder={placeholder}
               placeholderTextColor={
                 theme.colors.placeholder
@@ -73,6 +78,7 @@ function Input<T extends FieldValues>({
                 secureTextEntry && !showPassword
               }
               keyboardType={keyboardType}
+              maxLength={maxLength}
               style={styles.input}
             />
 
