@@ -11,10 +11,10 @@ export const PERIOD_OPTIONS = [
 export const DEFAULT_FILTER_FORM_VALUES: ExpenseFilterFormData = {
   categoryIds: [],
   periodType: undefined,
-  minAmount: undefined,
-  maxAmount: undefined,
-  startDate: undefined,
-  endDate: undefined,
+  minAmount: "",
+  maxAmount: "",
+  startDate: "",
+  endDate: "",
 };
 
 export function formatDateMask(value: string): string {

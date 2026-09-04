@@ -40,9 +40,7 @@ const ExpenseFilterSheet = forwardRef<AppBottomSheetRef, ExpenseFilterSheetProps
       reset,
     } = useForm<ExpenseFilterFormData>({
       resolver: zodResolver(expenseFilterSchema),
-      defaultValues: {
-        categoryIds: [],
-      },
+      defaultValues: DEFAULT_FILTER_FORM_VALUES,
     });
 
     const selectedPeriod = watch("periodType");

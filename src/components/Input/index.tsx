@@ -65,7 +65,7 @@ function Input<T extends FieldValues>({
             )}
 
             <TextInput
-              value={value}
+              value={value ?? ""}
               onChangeText={(text) => {
                 const formatted = mask ? mask(text) : text;
                 onChange(formatted);
