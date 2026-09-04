@@ -22,13 +22,14 @@ import {
 } from "../helper/expense.helper";
 import { useExpense } from "../hooks/useExpense";
 import { styles as expensesStyles } from "../styles/expense.style";
+import { ExpenseFilterParams } from "../types/expense.type";
 
 export default function ExpensesScreen() {
   const theme = useTheme();
   const styles = expensesStyles(theme);
 
   const [selectedMonth, setSelectedMonth] = useState(new Date());
-  const [filters, setFilters] = useState<ExpenseFilterFormData | undefined>(undefined);
+  const [filters, setFilters] = useState<ExpenseFilterParams  | undefined>(undefined);
   const bottomSheetRef = useRef<AppBottomSheetRef>(null);
   const filterSheetRef = useRef<AppBottomSheetRef>(null);
 
@@ -52,7 +53,7 @@ export default function ExpensesScreen() {
     filterSheetRef.current?.present();
   };
 
-  const handleApplyFilters = (newFilters: ExpenseFilterFormData) => {
+  const handleApplyFilters = (newFilters: ExpenseFilterParams | undefined) => {
     setFilters(newFilters);
   };
 

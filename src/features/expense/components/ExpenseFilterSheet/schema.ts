@@ -1,4 +1,4 @@
-﻿import { z } from "zod";
+import { z } from "zod";
 import { PeriodType } from "../../types/expense.type";
 
 export const expenseFilterSchema = z
@@ -6,14 +6,8 @@ export const expenseFilterSchema = z
     periodType: z.nativeEnum(PeriodType).optional(),
     startDate: z.string().optional(),
     endDate: z.string().optional(),
-    minAmount: z
-      .string()
-      .optional()
-      .transform((val) => (val ? Number(val.replace(",", ".")) : undefined)),
-    maxAmount: z
-      .string()
-      .optional()
-      .transform((val) => (val ? Number(val.replace(",", ".")) : undefined)),
+    minAmount: z.string().optional(),
+    maxAmount: z.string().optional(),
     categoryIds: z.array(z.number()).optional(),
   })
   .superRefine((data, ctx) => {
@@ -35,7 +29,9 @@ export const expenseFilterSchema = z
     }
 
     if (data.minAmount !== undefined && data.maxAmount !== undefined) {
-      if (data.minAmount > data.maxAmount) {
+      const min = Number(data.minAmount.replace(",", "."));
+      const max = Number(data.maxAmount.replace(",", "."));
+      if (!isNaN(min) && !isNaN(max) && min > max) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: "Mínimo maior que o máximo",
