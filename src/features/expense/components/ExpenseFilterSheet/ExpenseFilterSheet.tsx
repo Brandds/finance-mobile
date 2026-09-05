@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useState, useEffect } from "react";
 import { View, TouchableOpacity, ScrollView } from "react-native";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,7 +13,8 @@ import { Button } from "@/components";
 import { expenseFilterSchema, ExpenseFilterFormData } from "./schema";
 import { styles as createStyles } from "./styles";
 import { PeriodType, ExpenseFilterParams } from "../../types/expense.type";
-import { categoriesMock } from "@/mocks/categoriesMock";
+import { CategoryDTO } from "@/features/category/types/category.type";
+import { getByUserList } from "@/features/category/services/category.service";
 import {
   PERIOD_OPTIONS,
   DEFAULT_FILTER_FORM_VALUES,
@@ -87,8 +88,25 @@ const ExpenseFilterSheet = forwardRef<AppBottomSheetRef, ExpenseFilterSheetProps
       });
     };
 
+    const [categories, setCategories] = useState<CategoryDTO[]>([]);
+
+    useEffect(() => {
+      const fetchCategories = async () => {
+        try {
+          const response = await getByUserList(0, 50, "name,asc");
+          if (response?.data?.content) {
+            setCategories(response.data.content);
+          }
+        } catch (error) {
+          console.error("Error fetching categories:", error);
+        }
+      };
+
+      fetchCategories();
+    }, []);
+
     const renderCategoryChips = () => {
-      return categoriesMock.map((category) => {
+      return categories.map((category) => {
         const isSelected = selectedCategoryIds.includes(category.id);
         return (
           <TouchableOpacity
@@ -100,7 +118,7 @@ const ExpenseFilterSheet = forwardRef<AppBottomSheetRef, ExpenseFilterSheetProps
               variant="body2"
               style={isSelected ? styles.chipTextSelected : styles.chipText}
             >
-              {category.title}
+              {category.name}
             </Typography>
           </TouchableOpacity>
         );
