@@ -23,6 +23,7 @@ export default function RegisterScreen() {
   return (
     <Screen
       scrollable
+      centered
     >
       <View style={stylesLOGIN.container}>
         {/* Header */}

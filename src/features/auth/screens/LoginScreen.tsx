@@ -23,7 +23,7 @@ export default function LoginScreen() {
   const stylesLOGIN = stylesLogin(theme);
 
   return (
-    <Screen centered>
+    <Screen scrollable centered>
       <View style={stylesLOGIN.container}>
         {/* Header */}
         <View style={stylesLOGIN.header}>

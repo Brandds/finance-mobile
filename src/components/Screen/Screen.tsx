@@ -39,10 +39,9 @@ const Screen = ({
   const theme = useTheme();
   const styles = stylesScreen(theme);
 
-  const bottomSpacing = Math.max(
-    insets.bottom + tabBarHeight,
-    theme.spacing.screenPaddingBottom,
-  );
+  const bottomSpacing = tabBarHeight > 0
+    ? tabBarHeight + theme.spacing.screenPaddingBottom
+    : Math.max(insets.bottom, theme.spacing.screenPaddingBottom);
   const screenBackground =
     backgroundColor ?? theme.colors.background;
   const content = (
@@ -78,8 +77,7 @@ const Screen = ({
           styles.container,
           {
             backgroundColor: screenBackground,
-            paddingTop: 40,
-            paddingBottom: bottomSpacing,
+            paddingTop: insets.top,
           },
         ]}
         behavior={
@@ -110,6 +108,7 @@ const Screen = ({
               directionalLockEnabled={false}
               contentContainerStyle={[
                 padding && styles.padding,
+                centered && styles.centered,
                 {
                   flexGrow: 1,
                   paddingBottom: bottomSpacing,

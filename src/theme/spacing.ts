@@ -5,5 +5,5 @@ export const spacing = {
     lg: 24,
     xl: 32,
     screenPadding: 15,
-    screenPaddingBottom: 120,
+    screenPaddingBottom: 16,
 };
