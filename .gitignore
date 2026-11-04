@@ -43,4 +43,3 @@ yarn-error.*
 
 # ignora os agents do github actions
 /.github
-/.agents
