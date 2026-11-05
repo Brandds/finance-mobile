@@ -35,7 +35,7 @@ export enum PeriodType {
 
 export interface ExpenseFilterParams {
   categoryIds?: number[];
-  periodType?: PeriodType | string;
+  periodType?: PeriodType;
   startDate?: string;
   endDate?: string;
   minAmount?: number;

@@ -22,14 +22,12 @@ export async function getByDateRange(
 export async function filterExpenses(
     params: ExpenseFilterParams,
 ): Promise<ApiResponse<ExpensePage<ExpenseDTO>>> {
-    // Transform categoryIds into a format that paramsSerializer handles well, or just pass it 
-    // Usually axios handles arrays as categoryIds[]=1&categoryIds[]=2, but some APIs expect categoryIds=1,2
-    // Let's pass the params directly first. If the API strictly expects a comma-separated string, we can do:
-    // const queryParams = { ...params, categoryIds: params.categoryIds?.join(",") };
-    const queryParams = { ...params };
-    if (queryParams.categoryIds && queryParams.categoryIds.length > 0) {
-        queryParams.categoryIds = queryParams.categoryIds.join(",") as any;
-    }
+    // O contrato da API usa categoryIds=1,2; uma seleção vazia omite o filtro.
+    const { categoryIds, ...filters } = params;
+    const queryParams = {
+        ...filters,
+        categoryIds: categoryIds?.length ? categoryIds.join(",") : undefined,
+    };
 
     const response = await api.get<ApiResponse<ExpensePage<ExpenseDTO>>>(
         "/expenses/filter",
