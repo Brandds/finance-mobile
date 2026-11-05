@@ -7,27 +7,17 @@ import { useTheme } from "@/theme/ThemeProvider";
 import CategorySummary from "../CategorySummary";
 
 import { SkeletonSummaryCard } from "@/components/Skeleton";
-import { useEffect, useState } from "react";
 import { styles as categorySummarySectionStyles } from "./styles";
 import { CategorySummarySectionProps } from "./types";
 
 
 export default function CategorySummarySection({
   categories,
+  loading = false,
 }: CategorySummarySectionProps) {
-  const [loading, setLoading] = useState<boolean>(true);
 
   const theme = useTheme();
   const styles = categorySummarySectionStyles(theme);
-
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
 
 
   return (
@@ -46,22 +36,17 @@ export default function CategorySummarySection({
 
       <View style={styles.grid}>
 
-        {
-          categories.map((category) => (
-
-            loading ? (
-              <SkeletonSummaryCard key={category.id}/>
-            ) : (
-              <CategorySummary
-              key={category.id}
-              {...category}
-            />
-            )
-
-          ))
-        }
+        {loading
+          ? [0, 1, 2].map((index) => <SkeletonSummaryCard key={index} />)
+          : categories.map((category) => <CategorySummary key={category.id} {...category} />)}
 
       </View>
+
+      {!loading && categories.length === 0 && (
+        <Typography variant="body2" color={theme.colors.textSecondary}>
+          Nenhuma categoria com gastos neste período.
+        </Typography>
+      )}
 
 
     </View>
