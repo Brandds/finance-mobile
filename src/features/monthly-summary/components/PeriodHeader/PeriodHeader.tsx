@@ -46,6 +46,8 @@ export default function PeriodHeader({
           style={styles.iconButton}
           activeOpacity={0.7}
           onPress={onPrevious}
+          accessibilityRole="button"
+          accessibilityLabel="Mês anterior"
         >
           <Icon
             name="chevron-left"
@@ -58,6 +60,8 @@ export default function PeriodHeader({
           style={styles.iconButton}
           activeOpacity={0.7}
           onPress={onNext}
+          accessibilityRole="button"
+          accessibilityLabel="Próximo mês"
         >
           <Icon
             name="chevron-right"
