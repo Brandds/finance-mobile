@@ -18,7 +18,7 @@ export default function ChangePassword() {
         <Screen>
 
             <View style={styles.content}>
-                <Header title="Alterar Senha" />
+                <Header title="Alterar Senha" showBackButton />
                 <ChangePasswordForm/>
             </View>
         </Screen>
