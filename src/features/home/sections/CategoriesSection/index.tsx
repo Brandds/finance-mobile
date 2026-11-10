@@ -1,56 +1,25 @@
-import { View, FlatList }
-  from "react-native";
-
-import Typography
-  from "@/components/Typography/Typography";
-
+﻿import { View, FlatList, Pressable } from "react-native";
+import Typography from "@/components/Typography/Typography";
+import CategoryItem from "@/components/CategoryItem";
+import { Category, categoryIcons } from "@/features/category/types";
+import { useTheme } from "@/theme/ThemeProvider";
 import { styles as stylesCategoriesSection } from "./styles";
 
-import { categoriesMock }
-  from "../../mocks/home.mock";
-
-import CategoryItem
-  from "@/components/CategoryItem";
-import { useTheme } from "@/theme/ThemeProvider";
-
-export default function CategoriesSection() {
+export default function CategoriesSection({ categories, onSeeAll }: { categories: Category[]; onSeeAll: () => void }) {
   const theme = useTheme();
   const styles = stylesCategoriesSection(theme);
   return (
     <View style={styles.container}>
-
-      {/* Header */}
       <View style={styles.header}>
-
-        <Typography variant="h2">
-          Categorias
-        </Typography>
-
-        <Typography
-          variant="body2"
-          style={styles.seeAllText}
-        >
-          Ver todas
-        </Typography>
-
+        <Typography variant="h2">Categorias</Typography>
+        <Pressable onPress={onSeeAll} accessibilityRole="button" accessibilityLabel="Ver todas as categorias" style={styles.link}>
+          <Typography variant="body2" color={theme.colors.primary}>Ver todas</Typography>
+        </Pressable>
       </View>
-
-      {/* List */}
-      <FlatList
-        horizontal
-        data={categoriesMock}
-        keyExtractor={(item) =>
-          item.id.toString()
-        }
-        showsHorizontalScrollIndicator={false}
-        scrollEnabled={true}
-        nestedScrollEnabled={true}
-        contentContainerStyle={styles.listContent}
-        renderItem={({ item }) => (
-          <CategoryItem item={item} />
-        )}
+      <FlatList horizontal data={categories} keyExtractor={(item) => String(item.id)} showsHorizontalScrollIndicator={false} contentContainerStyle={styles.listContent}
+        ListEmptyComponent={<Typography>Nenhuma categoria cadastrada.</Typography>}
+        renderItem={({ item }) => <CategoryItem item={{ title: item.name, icon: item.icon ? categoryIcons[item.icon]?.icon ?? "category" : "category", background: theme.colors.background, color: theme.colors.primary }} />}
       />
-
     </View>
   );
 }
