@@ -28,6 +28,9 @@ export default function Header({
     <View style={style.container}>
       {showBackButton && (
         <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Voltar"
+          hitSlop={8}
           onPress={() => navigation.goBack()}
           style={({ pressed }) => [
             style.button,

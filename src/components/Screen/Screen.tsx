@@ -87,14 +87,14 @@ const Screen = ({
         }
       >
         <View style={{ flex: 1 }}>
-          {/* {(headerTitle || showBackButton) && (
+          {(headerTitle || showBackButton) && (
             <View style={styles.headerContainer}>
               <Header
                 title={headerTitle}
                 showBackButton={showBackButton}
               />
             </View>
-          )} */}
+          )}
 
           {scrollable ? (
             <ScrollView

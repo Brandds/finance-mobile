@@ -16,7 +16,7 @@ const stylesScreen = (theme: Theme) =>
       justifyContent: "center",
     },
     headerContainer: {
-      paddingHorizontal: 20,
+      paddingHorizontal: theme.spacing.screenPadding,
     },
   });
 
