@@ -20,15 +20,16 @@ const Stack =
 export default function AppRoutes() {
   return (
     <Stack.Navigator
+      initialRouteName={ROUTES.MAIN_TABS}
       screenOptions={{
         headerShown: false,
       }}
     >
+      <Stack.Screen name={ROUTES.ADD_EXPENSE} component={AddExpenseScreen} options={{ headerShown: true, title: 'Novo gasto' }} />
       <Stack.Screen
         name={ROUTES.MAIN_TABS}
         component={BottomTabsRoutes}
       />
-      <Stack.Screen name={ROUTES.ADD_EXPENSE} component={AddExpenseScreen} />
 
       <Stack.Screen
         name={ROUTES.NOTIFICATIONS}
