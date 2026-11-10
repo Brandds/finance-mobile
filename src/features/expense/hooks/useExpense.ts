@@ -47,9 +47,14 @@ export function useExpense(startDate?: string, endDate?: string, filters?: Expen
       const currentStartDate = startDate ?? range.startDate;
       const currentEndDate = endDate ?? range.endDate;
 
-      const expensesPromise = filterExpenses(filters && Object.keys(filters).length > 0
-        ? filters
-        : { startDate: currentStartDate, endDate: currentEndDate, sort: "date,desc" });
+      const expensesPromise = filterExpenses({
+        ...filters,
+        ...(!filters?.periodType ? {
+          startDate: currentStartDate,
+          endDate: currentEndDate,
+        } : {}),
+        sort: "date,desc",
+      });
 
       const [expensesResponse, analysisResponse] = await Promise.allSettled([
         expensesPromise,

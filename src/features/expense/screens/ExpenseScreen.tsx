@@ -15,12 +15,12 @@ import ExpenseSection from "../components/ExpenseSection";
 import MonthHeader from "../components/MonthHeader";
 import MonthPickerSheet from "../components/MonthPickerSheet";
 import ExpenseFilterSheet from "../components/ExpenseFilterSheet";
-import { ExpenseFilterFormData } from "../components/ExpenseFilterSheet/schema";
+import { PERIOD_OPTIONS } from "../components/ExpenseFilterSheet/ExpenseFilterSheet";
+import { useCategories } from "@/features/category/hooks/useCategories";
 import {
   formatCurrencyValue,
   formatExpenseList,
   getMonthDateRange,
-  sumExpensesByDate,
 } from "../helper/expense.helper";
 import { useExpense } from "../hooks/useExpense";
 import { styles as expensesStyles } from "../styles/expense.style";
@@ -34,13 +34,19 @@ export default function ExpensesScreen() {
   const [filters, setFilters] = useState<ExpenseFilterParams  | undefined>(undefined);
   const bottomSheetRef = useRef<AppBottomSheetRef>(null);
   const filterSheetRef = useRef<AppBottomSheetRef>(null);
+  const { categories, loading: categoriesLoading, error: categoriesError, refetch: refetchCategories } = useCategories();
 
   const { startDate, endDate } = getMonthDateRange(selectedMonth);
   const { expenses, expenseAnalysis, loading, error, refetch } = useExpense(startDate, endDate, filters);
 
   const formattedExpenses = formatExpenseList(expenses);
-  const todayTotal = sumExpensesByDate(expenses, new Date());
-  const todayTotalText = formatCurrencyValue(todayTotal);
+  const activeFilters = [
+    PERIOD_OPTIONS.find(option => option.value === filters?.periodType)?.label,
+    filters?.startDate && filters?.endDate ? `${filters.startDate} a ${filters.endDate}` : undefined,
+    ...(filters?.categoryIds ?? []).map(id => categories.find(category => category.id === id)?.name ?? `Categoria #${id}`),
+    filters?.minAmount !== undefined ? `Mínimo: ${formatCurrencyValue(filters.minAmount)}` : undefined,
+    filters?.maxAmount !== undefined ? `Máximo: ${formatCurrencyValue(filters.maxAmount)}` : undefined,
+  ].filter(Boolean).join(" · ");
 
   const handleMonthPress = () => {
     bottomSheetRef.current?.present();
@@ -52,6 +58,7 @@ export default function ExpensesScreen() {
   };
 
   const handleFilterPress = () => {
+    void refetchCategories();
     filterSheetRef.current?.present();
   };
 
@@ -94,6 +101,9 @@ export default function ExpensesScreen() {
         )}
 
         <View style={styles.listContainer}>
+          {activeFilters ? (
+            <Typography color={theme.colors.primary}>Filtros ativos: {activeFilters}</Typography>
+          ) : null}
           {error ? (
             <>
               <Typography color={theme.colors.error}>{error}</Typography>
@@ -102,7 +112,7 @@ export default function ExpensesScreen() {
           ) : loading ? (
             <SkeletonBlock width="100%" height={130} borderRadius={theme.radius.md} />
           ) : (
-            <ExpenseSection title="Hoje" total={todayTotalText}>
+            <ExpenseSection title={activeFilters ? "Resultados filtrados" : "Despesas do mês"} total={formatCurrencyValue(expenses.reduce((total, expense) => total + expense.amount, 0))}>
               {formattedExpenses.length > 0 ? (
                 formattedExpenses.map((expense) => (
                   <ExpenseItem
@@ -115,7 +125,7 @@ export default function ExpensesScreen() {
                 ))
               ) : (
                 <ExpenseItem
-                  description="Nenhuma despesa registrada"
+                  description={activeFilters ? "Nenhuma despesa encontrada para os filtros" : "Nenhuma despesa registrada no mês"}
                   amount="-R$ 0,00"
                   date="-"
                 />
@@ -134,6 +144,11 @@ export default function ExpensesScreen() {
       <ExpenseFilterSheet
         ref={filterSheetRef}
         onApplyFilters={handleApplyFilters}
+        filters={filters}
+        categories={categories}
+        categoriesLoading={categoriesLoading}
+        categoriesError={categoriesError}
+        onReloadCategories={() => void refetchCategories()}
       />
     </>
   );

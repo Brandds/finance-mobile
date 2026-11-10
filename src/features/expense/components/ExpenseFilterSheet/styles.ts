@@ -24,6 +24,8 @@ export const styles = (theme: Theme) =>
       marginBottom: theme.spacing.md,
     },
     chip: {
+      minHeight: 44,
+      justifyContent: "center",
       paddingHorizontal: theme.spacing.md,
       paddingVertical: theme.spacing.sm,
       borderRadius: theme.radius.full,

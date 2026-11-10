@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useImperativeHandle, useRef } from "react";
 import { View, TouchableOpacity, ScrollView } from "react-native";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,13 +13,18 @@ import { Button } from "@/components";
 import { expenseFilterSchema, ExpenseFilterFormData } from "./schema";
 import { styles as createStyles } from "./styles";
 import { PeriodType, ExpenseFilterParams } from "../../types/expense.type";
-import { categoriesMock } from "@/mocks/categoriesMock";
+import { Category } from "@/features/category/types";
 
 export interface ExpenseFilterSheetProps {
   onApplyFilters: (filters: ExpenseFilterParams | undefined) => void;
+  filters?: ExpenseFilterParams;
+  categories: Category[];
+  categoriesLoading: boolean;
+  categoriesError: string | null;
+  onReloadCategories: () => void;
 }
 
-const PERIOD_OPTIONS = [
+export const PERIOD_OPTIONS = [
   { label: "Hoje", value: PeriodType.TODAY },
   { label: "Últimos 7 dias", value: PeriodType.LAST_7_DAYS },
   { label: "Mês atual", value: PeriodType.CURRENT_MONTH },
@@ -27,9 +32,10 @@ const PERIOD_OPTIONS = [
 ];
 
 const ExpenseFilterSheet = forwardRef<AppBottomSheetRef, ExpenseFilterSheetProps>(
-  function ExpenseFilterSheet({ onApplyFilters }, ref) {
+  function ExpenseFilterSheet({ onApplyFilters, filters, categories, categoriesLoading, categoriesError, onReloadCategories }, ref) {
     const theme = useTheme();
     const styles = createStyles(theme);
+    const sheetRef = useRef<AppBottomSheetRef>(null);
 
     const {
       control,
@@ -44,12 +50,27 @@ const ExpenseFilterSheet = forwardRef<AppBottomSheetRef, ExpenseFilterSheetProps
       },
     });
 
+    useImperativeHandle(ref, () => ({
+      present() {
+        reset({
+          categoryIds: filters?.categoryIds ?? [],
+          periodType: filters?.periodType,
+          startDate: filters?.startDate ?? "",
+          endDate: filters?.endDate ?? "",
+          minAmount: filters?.minAmount?.toString() ?? "",
+          maxAmount: filters?.maxAmount?.toString() ?? "",
+        });
+        sheetRef.current?.present();
+      },
+      dismiss() { sheetRef.current?.dismiss(); },
+    }));
+
     const selectedPeriod = watch("periodType");
     const selectedCategoryIds = watch("categoryIds") ?? [];
 
     const handleApply = (data: ExpenseFilterFormData) => {
       const parsedFilters: ExpenseFilterParams = {
-        categoryIds: data.categoryIds,
+        categoryIds: data.categoryIds?.length ? data.categoryIds : undefined,
         periodType: data.periodType,
         startDate: data.periodType === PeriodType.CUSTOM ? data.startDate : undefined,
         endDate: data.periodType === PeriodType.CUSTOM ? data.endDate : undefined,
@@ -57,10 +78,8 @@ const ExpenseFilterSheet = forwardRef<AppBottomSheetRef, ExpenseFilterSheetProps
         maxAmount: data.maxAmount ? Number(data.maxAmount.replace(",", ".")) : undefined,
       };
 
-      onApplyFilters(parsedFilters);
-      if (ref && typeof ref === "object" && ref.current) {
-        ref.current.dismiss();
-      }
+      onApplyFilters(Object.values(parsedFilters).some(value => value !== undefined) ? parsedFilters : undefined);
+      sheetRef.current?.dismiss();
     };
 
     const toggleCategory = (id: number) => {
@@ -82,9 +101,7 @@ const ExpenseFilterSheet = forwardRef<AppBottomSheetRef, ExpenseFilterSheetProps
         endDate: undefined,
       });
       onApplyFilters(undefined);
-      if (ref && typeof ref === "object" && ref.current) {
-        ref.current.dismiss();
-      }
+      sheetRef.current?.dismiss();
     };
 
     const renderPeriodChips = () => {
@@ -94,7 +111,9 @@ const ExpenseFilterSheet = forwardRef<AppBottomSheetRef, ExpenseFilterSheetProps
           <TouchableOpacity
             key={period.value}
             style={[styles.chip, isActive ? styles.chipSelected : null]}
-            onPress={() => setValue("periodType", period.value)}
+            accessibilityRole="button"
+            accessibilityState={{ selected: isActive }}
+            onPress={() => setValue("periodType", isActive ? undefined : period.value)}
           >
             <Typography
               variant="body2"
@@ -108,19 +127,21 @@ const ExpenseFilterSheet = forwardRef<AppBottomSheetRef, ExpenseFilterSheetProps
     };
 
     const renderCategoryChips = () => {
-      return categoriesMock.map((category) => {
+      return categories.map((category) => {
         const isSelected = selectedCategoryIds.includes(category.id);
         return (
           <TouchableOpacity
             key={category.id}
             style={[styles.chip, isSelected ? styles.chipSelected : null]}
             onPress={() => toggleCategory(category.id)}
+            accessibilityRole="button"
+            accessibilityState={{ selected: isSelected }}
           >
             <Typography
               variant="body2"
               style={isSelected ? styles.chipTextSelected : styles.chipText}
             >
-              {category.title}
+              {category.name}
             </Typography>
           </TouchableOpacity>
         );
@@ -155,8 +176,8 @@ const ExpenseFilterSheet = forwardRef<AppBottomSheetRef, ExpenseFilterSheetProps
     };
 
     return (
-      <AppBottomSheet ref={ref} snapPoints={["85%"]}>
-        <ScrollView contentContainerStyle={styles.container}>
+      <AppBottomSheet ref={sheetRef} snapPoints={["85%"]}>
+        <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
           <View style={styles.header}>
             <Typography variant="h2">{"Filtros"}</Typography>
             <TouchableOpacity onPress={clearFilters}>
@@ -196,7 +217,18 @@ const ExpenseFilterSheet = forwardRef<AppBottomSheetRef, ExpenseFilterSheetProps
           <Typography variant="body1" style={styles.sectionTitle}>
             {"Categorias"}
           </Typography>
-          <View style={styles.chipContainer}>{renderCategoryChips()}</View>
+          {categoriesLoading ? (
+            <Typography>Carregando categorias...</Typography>
+          ) : categoriesError ? (
+            <View>
+              <Typography color={theme.colors.error}>{categoriesError}</Typography>
+              <Button title="Tentar carregar categorias novamente" onPress={onReloadCategories} />
+            </View>
+          ) : categories.length === 0 ? (
+            <Typography>Nenhuma categoria cadastrada.</Typography>
+          ) : (
+            <View style={styles.chipContainer}>{renderCategoryChips()}</View>
+          )}
           <View style={styles.footer}>
             <Button title="Aplicar Filtros" onPress={handleSubmit(handleApply)} />
           </View>
