@@ -1,4 +1,9 @@
-import { ChartData } from "@/features/monthly-summary/components/ExpenseChart";
+type ChartData = {
+  id: string;
+  label: string;
+  value: number;
+  color: string;
+};
 
 export const chartMock: ChartData[] = [
   {

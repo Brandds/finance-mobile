@@ -2,6 +2,7 @@ import { View } from "react-native";
 
 import Typography from "@/components/Typography/Typography";
 import { styles } from "../styles";
+import { useTheme } from "@/theme/ThemeProvider";
 
 
 type Props = {
@@ -11,8 +12,10 @@ type Props = {
 export default function NotificationSectionHeader({
   title,
 }: Props) {
+  const theme = useTheme();
+  const themedStyles = styles(theme);
   return (
-    <View style={styles.container}>
+    <View style={themedStyles.container}>
       <Typography
         variant="h2"
         color="#64748B"
@@ -20,7 +23,7 @@ export default function NotificationSectionHeader({
         {title}
       </Typography>
 
-      <View style={styles.line} />
+      <View style={themedStyles.line} />
     </View>
   );
 }
