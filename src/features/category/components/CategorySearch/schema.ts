@@ -3,7 +3,7 @@ import { z } from "zod";
 export const categorySearchSchema = z.object({
   search: z
     .string()
-    .min(4,"Mínimo de 6 caracteres"),
+    .trim(),
 });
 
 export type CategorySearchFormData = z.infer<

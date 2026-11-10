@@ -1,7 +1,6 @@
 import React from "react";
 import { Pressable, View, Text } from "react-native";
 
-import { MaterialIcons } from "@expo/vector-icons";
 
 import { useTheme } from "@/theme/ThemeProvider";
 
@@ -11,7 +10,7 @@ import { Icon } from "@/components";
 
 export function CategoryCard({
   title,
-  transactions,
+  subtitle,
   icon,
   iconColor,
   iconBackgroundColor,
@@ -25,6 +24,8 @@ export function CategoryCard({
     <Pressable
       style={style.container}
       onPress={onPress}
+      accessibilityRole="button"
+      accessibilityLabel={`Detalhes de ${title}`}
     >
       <View style={style.content}>
         <View
@@ -46,7 +47,7 @@ export function CategoryCard({
           <Text style={style.title}>{title}</Text>
 
           <Text style={style.subtitle}>
-            {transactions} transações este mês
+            {subtitle ?? "Ver detalhes"}
           </Text>
         </View>
       </View>

@@ -1,3 +1,3 @@
 export type CategorySearchProps = {
-  onAddPress: () => void;
+  onSearch: (value: string) => void;
 };
