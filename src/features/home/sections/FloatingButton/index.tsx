@@ -18,6 +18,8 @@ export default function FloatingButton({
 
   return (
     <Pressable
+      accessibilityRole="button"
+      accessibilityLabel="Adicionar gasto"
       style={styles.container}
       onPress={onPress}
     >
