@@ -9,9 +9,14 @@ import AppHeader from "../../../components/AppHeader";
 import RecentExpensesSection from "../sections/RecentExpensesSection";
 import { stylesHome } from "../styles/home.styles";
 import { useTheme } from "@/theme/ThemeProvider";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "@/navigation/types/root-stack";
+import { ROUTES } from "@/navigation/routes";
 
 
 export default function HomeScreen() {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const theme = useTheme();
   const styles = stylesHome(theme);
   return (
@@ -41,7 +46,7 @@ export default function HomeScreen() {
       </View>
 
       {/* Floating Action Button */}
-      <FloatingButton />
+      <FloatingButton onPress={() => navigation.navigate(ROUTES.ADD_EXPENSE)} />
 
     </Screen>
   );

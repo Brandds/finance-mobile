@@ -1,6 +1,7 @@
 import { ROUTES } from "../routes";
 
 export type RootStackParamList = {
+  [ROUTES.ADD_EXPENSE]: undefined;
   [ROUTES.MAIN_TABS]: undefined;
   [ROUTES.NOTIFICATIONS]: undefined;
   [ROUTES.PROFILE]: undefined;

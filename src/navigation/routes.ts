@@ -1,4 +1,5 @@
 export const ROUTES = {
+  ADD_EXPENSE: "AddExpense",
   LOGIN: "Login",
   REGISTER: "Register",
   HOME: "Home",

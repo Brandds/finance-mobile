@@ -62,7 +62,7 @@ export function sumExpensesByDate(expenses: ExpenseDTO[], targetDate: Date = new
             return total;
         }
 
-        const expenseDate = new Date(expense.date);
+        const expenseDate = new Date(`${expense.date.slice(0, 10)}T12:00:00`);
         const normalizedExpenseDate = new Date(
             expenseDate.getFullYear(),
             expenseDate.getMonth(),
@@ -89,7 +89,7 @@ export function formatExpenseList(expenses: ExpenseDTO[]) {
                 ? `- R$ ${Number(expense.amount).toFixed(2).replace(".", ",")}`
                 : "- R$ 0,00",
         dateText: expense.date
-            ? new Date(expense.date).toLocaleDateString("pt-BR", {
+            ? new Date(`${expense.date.slice(0, 10)}T12:00:00`).toLocaleDateString("pt-BR", {
                 day: "2-digit",
                 month: "2-digit",
             })

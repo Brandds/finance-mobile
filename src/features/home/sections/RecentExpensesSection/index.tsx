@@ -1,86 +1,53 @@
+﻿import { useCallback, useRef, useState } from "react";
 import { View } from "react-native";
-
-import { MaterialIcons } from "@expo/vector-icons";
-
+import { useFocusEffect } from "@react-navigation/native";
 import Typography from "@/components/Typography/Typography";
-
-import ExpenseItem from "../ExpenseItem";
-
+import { Button } from "@/components/Button/Button";
 import { SkeletonSummaryCard } from "@/components/Skeleton";
 import { useTheme } from "@/theme/ThemeProvider";
-import { useEffect, useState } from "react";
+import { filterExpenses } from "@/features/expense/services/expense.service";
+import { ExpenseDTO } from "@/features/expense/types/expense.type";
+import { formatExpenseList } from "@/features/expense/helper/expense.helper";
+import { expenseError } from "@/features/expense/helper/expenseError";
+import ExpenseItem from "../ExpenseItem";
 import { styles as stylesRecentExpensesSection } from "./styles";
 
-type Expense = {
-  id: number;
-  description: string;
-  amount: string;
-  date: string;
-
-  icon: keyof typeof MaterialIcons.glyphMap;
-};
-
-const expenses: Expense[] = [
-  {
-    id: 1,
-    description: "Supermercado",
-    amount: "R$ 150,00",
-    date: "Hoje, 14:20",
-    icon: "shopping-cart",
-  },
-  {
-    id: 2,
-    description: "Uber",
-    amount: "R$ 28,50",
-    date: "Ontem",
-    icon: "local-taxi",
-  },
-  {
-    id: 3,
-    description: "Netflix",
-    amount: "R$ 55,90",
-    date: "12 Out",
-    icon: "subscriptions",
-  },
-];
-
 export default function RecentExpensesSection() {
-  const [loading , setLoading] = useState(true);
+  const [expenses, setExpenses] = useState<ExpenseDTO[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [attempt, setAttempt] = useState(0);
+  const request = useRef(0);
   const theme = useTheme();
   const styles = stylesRecentExpensesSection(theme);
-  
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 5000);
 
-    return () => clearTimeout(timer);
-  }, []);
+  useFocusEffect(useCallback(() => {
+    const current = ++request.current;
+    setLoading(true);
+    setError(null);
+    filterExpenses({ page: 0, size: 5, sort: "id,desc" }).then(result => {
+      if (current === request.current) setExpenses(result.data.content);
+    }).catch(error => {
+      if (current === request.current) setError(expenseError(error));
+    }).finally(() => { if (current === request.current) setLoading(false); });
+    return () => { ++request.current; };
+  }, [attempt]));
+
   return (
     <View style={styles.container}>
-
-      <Typography variant="h2">
-        Gastos Recentes
-      </Typography>
-
+      <Typography variant="h2">Gastos Recentes</Typography>
       <View style={styles.list}>
-      {loading ? (
-      <SkeletonSummaryCard />
-
-      ) : (
-        expenses.map((item) => (
-          <ExpenseItem
-            key={item.id}
-            description={item.description}
-            amount={item.amount}
-            date={item.date}
-            icon={item.icon}
-          />
-        ))
-      )}
-
+        {loading ? <SkeletonSummaryCard /> : error ? (
+          <>
+            <Typography color={theme.colors.error}>{error}</Typography>
+            <Button title="Tentar novamente" onPress={() => setAttempt(value => value + 1)} />
+          </>
+        ) : expenses.length === 0 ? <Typography>Nenhuma despesa registrada</Typography> : (
+          formatExpenseList(expenses).map(item => (
+            <ExpenseItem key={item.id} description={item.description} amount={item.amountText} date={item.dateText} icon="payments" />
+          ))
+        )}
       </View>
-
     </View>
   );
 }

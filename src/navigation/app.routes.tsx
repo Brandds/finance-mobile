@@ -12,6 +12,7 @@ import ProfileScreen from '@/features/profile/screen';
 import EditProfileScreen from '@/features/profile/screen/editProfile';
 import DadosPessoaisScreen from '@/features/profile/screen/dadosPessoaisScreen';
 import ChangePassword from '@/features/changePassword/screen/changePassword.screen';
+import AddExpenseScreen from '@/features/expense/screens/AddExpense';
 
 const Stack =
   createNativeStackNavigator<RootStackParamList>();
@@ -27,6 +28,7 @@ export default function AppRoutes() {
         name={ROUTES.MAIN_TABS}
         component={BottomTabsRoutes}
       />
+      <Stack.Screen name={ROUTES.ADD_EXPENSE} component={AddExpenseScreen} />
 
       <Stack.Screen
         name={ROUTES.NOTIFICATIONS}

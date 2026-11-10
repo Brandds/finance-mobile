@@ -1,6 +1,17 @@
 import { api } from "@/services/api";
 import { ApiResponse } from "@/shared/types/apiResponse";
 import { ExpenseAnalysisDTO, ExpenseDTO, ExpensePage, ExpenseFilterParams } from "../types/expense.type";
+import { CreateExpensePayload, ExpenseAccount } from "../types/expense.type";
+
+export async function createExpense(payload: CreateExpensePayload) {
+    const { data } = await api.post<ApiResponse<ExpenseDTO>>("/expenses", payload);
+    return data.data;
+}
+
+export async function listExpenseAccounts() {
+    const { data } = await api.get<ApiResponse<ExpenseAccount[]>>("/accounts/list");
+    return data.data;
+}
 
 export async function getByDateRange(
     startDate: string,

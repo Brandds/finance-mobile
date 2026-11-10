@@ -9,6 +9,9 @@ export interface ExpenseDTO {
   categoryName: string | null;
 }
 
+export type CreateExpensePayload = Pick<ExpenseDTO, "description" | "amount" | "date" | "categoryId" | "accountId">;
+export type ExpenseAccount = { id: number; name: string };
+
 export interface ExpensePage<T> {
   content: T[];
   totalElements: number;

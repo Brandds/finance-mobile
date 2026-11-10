@@ -3,6 +3,8 @@ import { View } from "react-native";
 import { AppBottomSheetRef } from "@/components/BottomSheet/types";
 
 import { Icon } from "@/components";
+import Typography from "@/components/Typography/Typography";
+import { Button } from "@/components/Button/Button";
 import AppHeader from "@/components/AppHeader";
 import Screen from "@/components/Screen/Screen";
 import { SkeletonBlock } from "@/components/Skeleton";
@@ -34,7 +36,7 @@ export default function ExpensesScreen() {
   const filterSheetRef = useRef<AppBottomSheetRef>(null);
 
   const { startDate, endDate } = getMonthDateRange(selectedMonth);
-  const { expenses, expenseAnalysis, loading } = useExpense(startDate, endDate, filters);
+  const { expenses, expenseAnalysis, loading, error, refetch } = useExpense(startDate, endDate, filters);
 
   const formattedExpenses = formatExpenseList(expenses);
   const todayTotal = sumExpensesByDate(expenses, new Date());
@@ -92,7 +94,12 @@ export default function ExpensesScreen() {
         )}
 
         <View style={styles.listContainer}>
-          {loading ? (
+          {error ? (
+            <>
+              <Typography color={theme.colors.error}>{error}</Typography>
+              <Button title="Tentar novamente" onPress={() => void refetch()} />
+            </>
+          ) : loading ? (
             <SkeletonBlock width="100%" height={130} borderRadius={theme.radius.md} />
           ) : (
             <ExpenseSection title="Hoje" total={todayTotalText}>
@@ -100,7 +107,7 @@ export default function ExpensesScreen() {
                 formattedExpenses.map((expense) => (
                   <ExpenseItem
                     key={expense.id ?? `${expense.description}-${expense.date}`}
-                    description={expense.categoryName ?? expense.description}
+                    description={expense.description}
                     amount={expense.amountText}
                     date={expense.dateText}
                     icon={expense.categoryName ? "restaurant" : "payments"}
