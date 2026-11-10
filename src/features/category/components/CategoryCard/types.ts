@@ -1,6 +1,6 @@
 export type CategoryCardProps = {
   title: string;
-  transactions: number;
+  subtitle?: string;
   icon: string;
   iconColor: string;
   iconBackgroundColor: string;

@@ -17,6 +17,8 @@ export default function CategoryFab({
         <View style={styles.container}>
             <Pressable
                 onPress={onPress}
+                accessibilityRole="button"
+                accessibilityLabel="Criar categoria"
                 style={({ pressed }) => [
                     styles.button,
                     pressed && styles.pressed,

@@ -14,7 +14,7 @@ import { styles } from "./styles";
 import { CategorySearchProps } from "./types";
 
 export function CategorySearch({
-    onAddPress,
+    onSearch,
 }: CategorySearchProps) {
     const theme = useTheme();
 
@@ -43,7 +43,9 @@ export function CategorySearch({
             </View>
 
             <Pressable
-                onPress={onAddPress}
+                onPress={handleSubmit(({ search }) => onSearch(search))}
+                accessibilityRole="button"
+                accessibilityLabel="Buscar categorias"
                 style={({ pressed }) => [
                     style.addButton,
                     pressed && style.pressed,

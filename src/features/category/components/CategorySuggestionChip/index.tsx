@@ -19,6 +19,8 @@ export default function CategorySuggestionChip({
   return (
     <Pressable
       onPress={handlePress}
+      accessibilityRole="button"
+      accessibilityState={{ selected }}
       style={({ pressed }) => [
         styles.container,
         selected && styles.containerSelected,
