@@ -1,4 +1,6 @@
 export const ROUTES = {
+  EXPENSE_DETAILS: "ExpenseDetails",
+  EDIT_EXPENSE: "EditExpense",
   ADD_EXPENSE: "AddExpense",
   LOGIN: "Login",
   REGISTER: "Register",
