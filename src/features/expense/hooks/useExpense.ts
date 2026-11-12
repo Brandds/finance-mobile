@@ -3,7 +3,7 @@ import { useFocusEffect } from "@react-navigation/native";
 
 import { ApiResponse } from "@/shared/types/apiResponse";
 import { getDefaultDateRange, normalizeExpenseResponse } from "../helper/expense.helper";
-import { getExpenseAnalysis, filterExpenses } from "../services/expense.service";
+import { getExpenseAnalysis, listFilteredExpenses } from "../services/expense.service";
 import { expenseError } from "../helper/expenseError";
 import { ExpenseAnalysisDTO, ExpenseDTO, ExpensePage, ExpenseFilterParams } from "../types/expense.type";
 
@@ -47,7 +47,7 @@ export function useExpense(startDate?: string, endDate?: string, filters?: Expen
       const currentStartDate = startDate ?? range.startDate;
       const currentEndDate = endDate ?? range.endDate;
 
-      const expensesPromise = filterExpenses({
+      const expensesPromise = listFilteredExpenses({
         ...filters,
         ...(!filters?.periodType ? {
           startDate: currentStartDate,

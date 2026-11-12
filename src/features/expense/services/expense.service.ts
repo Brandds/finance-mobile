@@ -8,6 +8,30 @@ export async function createExpense(payload: CreateExpensePayload) {
     return data.data;
 }
 
+export async function getExpense(id: number) {
+    const { data } = await api.get<ApiResponse<ExpenseDTO>>(`/expenses/${id}`);
+    return data.data;
+}
+
+export async function updateExpense(id: number, payload: CreateExpensePayload) {
+    const { data } = await api.put<ApiResponse<ExpenseDTO>>(`/expenses/${id}`, payload);
+    return data.data;
+}
+
+export async function deleteExpense(id: number) {
+    await api.delete(`/expenses/${id}`);
+}
+
+export async function listFilteredExpenses(params: ExpenseFilterParams): Promise<ApiResponse<ExpensePage<ExpenseDTO>>> {
+    const first = await filterExpenses({ ...params, page: 0, size: 100 });
+    const content = [...first.data.content];
+    for (let page = 1; page < first.data.totalPages; page++) {
+        const next = await filterExpenses({ ...params, page, size: 100 });
+        content.push(...next.data.content);
+    }
+    return { ...first, data: { ...first.data, content } };
+}
+
 export async function listExpenseAccounts() {
     const { data } = await api.get<ApiResponse<ExpenseAccount[]>>("/accounts/list");
     return data.data;

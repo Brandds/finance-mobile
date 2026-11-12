@@ -14,6 +14,8 @@ import DadosPessoaisScreen from '@/features/profile/screen/dadosPessoaisScreen';
 import ChangePassword from '@/features/changePassword/screen/changePassword.screen';
 import AddExpenseScreen from '@/features/expense/screens/AddExpense';
 
+import ExpenseDetailsScreen from "@/features/expense/screens/ExpenseDetailsScreen";
+
 const Stack =
   createNativeStackNavigator<RootStackParamList>();
 
@@ -25,6 +27,8 @@ export default function AppRoutes() {
         headerShown: false,
       }}
     >
+      <Stack.Screen name={ROUTES.EXPENSE_DETAILS} component={ExpenseDetailsScreen} options={{ headerShown: true, title: "Detalhes do gasto" }} />
+      <Stack.Screen name={ROUTES.EDIT_EXPENSE} component={AddExpenseScreen} options={{ headerShown: true, title: "Editar gasto" }} />
       <Stack.Screen name={ROUTES.ADD_EXPENSE} component={AddExpenseScreen} options={{ headerShown: true, title: 'Novo gasto' }} />
       <Stack.Screen
         name={ROUTES.MAIN_TABS}

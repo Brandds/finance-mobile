@@ -1,5 +1,9 @@
-import { useRef, useState } from "react";
-import { View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "@/navigation/types/root-stack";
+import { ROUTES } from "@/navigation/routes";
+import { useMemo, useRef, useState } from "react";
+import { Pressable, TextInput, View } from "react-native";
 import { AppBottomSheetRef } from "@/components/BottomSheet/types";
 
 import { Icon } from "@/components";
@@ -19,7 +23,7 @@ import { PERIOD_OPTIONS } from "../components/ExpenseFilterSheet/ExpenseFilterSh
 import { useCategories } from "@/features/category/hooks/useCategories";
 import {
   formatCurrencyValue,
-  formatExpenseList,
+  groupExpensesByDate,
   getMonthDateRange,
 } from "../helper/expense.helper";
 import { useExpense } from "../hooks/useExpense";
@@ -27,6 +31,9 @@ import { styles as expensesStyles } from "../styles/expense.style";
 import { ExpenseFilterParams } from "../types/expense.type";
 
 export default function ExpensesScreen() {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const [search, setSearch] = useState("");
+  const searchRef = useRef<TextInput>(null);
   const theme = useTheme();
   const styles = expensesStyles(theme);
 
@@ -39,7 +46,7 @@ export default function ExpensesScreen() {
   const { startDate, endDate } = getMonthDateRange(selectedMonth);
   const { expenses, expenseAnalysis, loading, error, refetch } = useExpense(startDate, endDate, filters);
 
-  const formattedExpenses = formatExpenseList(expenses);
+  const groups = useMemo(() => groupExpensesByDate(expenses, search), [expenses, search]);
   const activeFilters = [
     PERIOD_OPTIONS.find(option => option.value === filters?.periodType)?.label,
     filters?.startDate && filters?.endDate ? `${filters.startDate} a ${filters.endDate}` : undefined,
@@ -76,10 +83,14 @@ export default function ExpensesScreen() {
           onMonthPress={handleMonthPress}
           onFilterPress={handleFilterPress}
           onSearchPress={() => {
-            alert("Search pressed");
+            searchRef.current?.focus();
           }}
         />
 
+        <TextInput ref={searchRef} value={search} onChangeText={setSearch}
+          accessibilityLabel="Buscar gastos por descrição" placeholder="Buscar por descrição"
+          placeholderTextColor={theme.colors.textSecondary} style={styles.search} returnKeyType="search" />
+        {search.length > 0 && <Button title="Limpar busca" variant="ghost" onPress={() => setSearch("")} />}
         {loading ? (
           <SkeletonBlock width="100%" height={130} borderRadius={theme.radius.md} />
         ) : (
@@ -112,25 +123,20 @@ export default function ExpensesScreen() {
           ) : loading ? (
             <SkeletonBlock width="100%" height={130} borderRadius={theme.radius.md} />
           ) : (
-            <ExpenseSection title={activeFilters ? "Resultados filtrados" : "Despesas do mês"} total={formatCurrencyValue(expenses.reduce((total, expense) => total + expense.amount, 0))}>
-              {formattedExpenses.length > 0 ? (
-                formattedExpenses.map((expense) => (
-                  <ExpenseItem
-                    key={expense.id ?? `${expense.description}-${expense.date}`}
-                    description={expense.description}
-                    amount={expense.amountText}
-                    date={expense.dateText}
-                    icon={expense.categoryName ? "restaurant" : "payments"}
-                  />
-                ))
-              ) : (
-                <ExpenseItem
-                  description={activeFilters ? "Nenhuma despesa encontrada para os filtros" : "Nenhuma despesa registrada no mês"}
-                  amount="-R$ 0,00"
-                  date="-"
-                />
-              )}
-            </ExpenseSection>
+            <>
+              {groups.length === 0 ? <Typography>Nenhuma despesa encontrada para este período e busca.</Typography> :
+                groups.map(({ date, expenses: items, total }) => (
+                  <ExpenseSection key={date} title={date.split("-").reverse().join("/")} total={formatCurrencyValue(total)}>
+                    {items.map((expense, index) => (
+                      <Pressable key={expense.id ?? index} accessibilityRole="button"
+                        accessibilityLabel={`Ver detalhes de ${expense.description}`} disabled={expense.id === null}
+                        onPress={() => { if (expense.id !== null) navigation.navigate(ROUTES.EXPENSE_DETAILS, { expenseId: expense.id }); }}>
+                        <ExpenseItem description={expense.description} amount={expense.amountText} date={expense.dateText} icon={expense.categoryName ? "restaurant" : "payments"} />
+                      </Pressable>
+                    ))}
+                  </ExpenseSection>
+                ))}
+            </>
           )}
         </View>
       </Screen>
