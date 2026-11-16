@@ -1,5 +1,23 @@
 import { ExpenseDTO } from "../types/expense.type";
 
+export function groupExpensesByDate(expenses: ExpenseDTO[], search: string) {
+    const normalize = (value: string) => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("pt-BR");
+    const query = normalize(search.trim());
+    const groups = new Map<string, ExpenseDTO[]>();
+    for (const expense of expenses) {
+        if (!normalize(expense.description).includes(query)) continue;
+        const date = expense.date.slice(0, 10);
+        const items = groups.get(date) ?? [];
+        items.push(expense);
+        groups.set(date, items);
+    }
+    return [...groups.entries()].sort(([a], [b]) => b.localeCompare(a)).map(([date, items]) => ({
+        date,
+        expenses: formatExpenseList(items),
+        total: items.reduce((total, expense) => total + expense.amount, 0),
+    }));
+}
+
 export function getDefaultDateRange() {
     const now = new Date();
     const startDate = new Date(now.getFullYear(), now.getMonth(), 1)
