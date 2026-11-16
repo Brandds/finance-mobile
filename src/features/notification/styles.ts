@@ -5,15 +5,15 @@ export const styles = (theme: Theme) =>
   StyleSheet.create({
     content: {
       flex: 1,
-      gap: 4,
+      gap: theme.spacing.xs,
     },
 
     card: {
       backgroundColor: theme.colors.background,
-      borderRadius: 20,
-      padding: 16,
+      borderRadius: theme.radius.xl,
+      padding: theme.spacing.md,
       flexDirection: "row",
-      gap: 16,
+      gap: theme.spacing.md,
       position: "relative",
       borderWidth: 1,
       borderColor: theme.colors.borderOnSecondary,
@@ -33,17 +33,16 @@ export const styles = (theme: Theme) =>
     },
 
     header: {
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
-      marginBottom: 4,
+      gap: theme.spacing.xs,
+      marginBottom: theme.spacing.xs,
+      paddingRight: theme.spacing.md,
     },
 
     unreadDot: {
       width: 10,
       height: 10,
       borderRadius: 999,
-      backgroundColor: "#14B8A6",
+      backgroundColor: theme.colors.primary,
       position: "absolute",
       top: 16,
       right: 16,
