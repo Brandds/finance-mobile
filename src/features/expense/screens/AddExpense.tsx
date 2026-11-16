@@ -1,6 +1,6 @@
 ﻿import { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Pressable, View } from "react-native";
-import { useNavigation, usePreventRemove } from "@react-navigation/native";
+import { useNavigation, usePreventRemove, useRoute, RouteProp } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,9 +11,10 @@ import { Button } from "@/components/Button/Button";
 import { useTheme } from "@/theme/ThemeProvider";
 import { useToast } from "@/hooks/useToasts";
 import { RootStackParamList } from "@/navigation/types/root-stack";
+import { ROUTES } from "@/navigation/routes";
 import { Category } from "@/features/category/types";
 import { listCategories } from "@/features/category/services/category.service";
-import { createExpense, listExpenseAccounts } from "../services/expense.service";
+import { createExpense, getExpense, updateExpense, listExpenseAccounts } from "../services/expense.service";
 import { ExpenseAccount } from "../types/expense.type";
 import { CreateExpenseFormData, createExpenseSchema, localExpenseDate, parseExpenseAmount } from "../schemas/createExpense.schema";
 import { expenseError } from "../helper/expenseError";
@@ -23,6 +24,9 @@ export default function AddExpenseScreen() {
   const theme = useTheme();
   const styles = addExpenseStyles(theme);
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const route = useRoute<RouteProp<RootStackParamList, typeof ROUTES.ADD_EXPENSE | typeof ROUTES.EDIT_EXPENSE>>();
+  const expenseId = route.params?.expenseId;
+  const editing = expenseId !== undefined;
   const { showToast } = useToast();
   const [categories, setCategories] = useState<Category[]>([]);
   const [accounts, setAccounts] = useState<ExpenseAccount[]>([]);
@@ -33,7 +37,7 @@ export default function AddExpenseScreen() {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const locked = useRef(false);
-  const { control, handleSubmit } = useForm<CreateExpenseFormData>({
+  const { control, handleSubmit, reset } = useForm<CreateExpenseFormData>({
     resolver: zodResolver(createExpenseSchema),
     defaultValues: { description: "", amount: "", date: localExpenseDate(), categoryId: null, accountId: null },
   });
@@ -45,22 +49,26 @@ export default function AddExpenseScreen() {
     let active = true;
     setLoading(true);
     setLoadError(null);
-    Promise.all([listCategories(), listExpenseAccounts()]).then(([categories, accounts]) => {
-      if (active) { setCategories(categories); setAccounts(accounts); }
+    Promise.all([listCategories(), listExpenseAccounts(), expenseId !== undefined ? getExpense(expenseId) : Promise.resolve(null)]).then(([categories, accounts, expense]) => {
+      if (active) { setCategories(categories); setAccounts(accounts);
+        if (expense) reset({ description: expense.description, amount: expense.amount.toFixed(2).replace(".", ","), date: expense.date.slice(0, 10), categoryId: expense.categoryId, accountId: expense.accountId });
+      }
     }).catch(error => {
       if (active) setLoadError(expenseError(error));
     }).finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
-  }, [attempt]);
+  }, [attempt, expenseId, reset]);
 
   async function submit(values: CreateExpenseFormData) {
-    if (locked.current || loading || loadError) return;
+    if (locked.current || saved || loading || loadError) return;
     locked.current = true;
     setSaving(true);
     setError(null);
     try {
-      await createExpense({ ...values, amount: parseExpenseAmount(values.amount) });
-      showToast({ title: "Sucesso", message: "Gasto criado com sucesso", type: "success" });
+      const payload = { ...values, amount: parseExpenseAmount(values.amount) };
+      if (expenseId !== undefined) await updateExpense(expenseId, payload);
+      else await createExpense(payload);
+      showToast({ title: "Sucesso", message: editing ? "Gasto atualizado com sucesso" : "Gasto criado com sucesso", type: "success" });
       setSaved(true);
     } catch (error) {
       setError(expenseError(error));
@@ -73,7 +81,7 @@ export default function AddExpenseScreen() {
   return (
     <Screen scrollable>
       <View style={styles.form}>
-        <Typography variant="h2">Novo gasto</Typography>
+        <Typography variant="h2">{editing ? "Editar gasto" : "Novo gasto"}</Typography>
         <View style={styles.form} pointerEvents={saving || saved ? "none" : "auto"} accessibilityState={{ busy: saving }}>
           <Input control={control} name="description" label="Descrição" placeholder="Ex.: Padaria" />
           <Input control={control} name="amount" label="Valor (R$)" placeholder="Ex.: 14,00" keyboardType="decimal-pad" />

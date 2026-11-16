@@ -1,6 +1,8 @@
 import { ROUTES } from "../routes";
 
 export type RootStackParamList = {
+  [ROUTES.EXPENSE_DETAILS]: { expenseId: number };
+  [ROUTES.EDIT_EXPENSE]: { expenseId: number };
   [ROUTES.ADD_EXPENSE]: undefined;
   [ROUTES.MAIN_TABS]: undefined;
   [ROUTES.NOTIFICATIONS]: undefined;
