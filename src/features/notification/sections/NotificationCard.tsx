@@ -16,6 +16,8 @@ type Props = {
   iconBackground: string;
 
   unread?: boolean;
+  disabled?: boolean;
+  onPress?: () => void;
 };
 
 export default function NotificationCard(props: Props) {
@@ -25,6 +27,11 @@ export default function NotificationCard(props: Props) {
 
   return (
     <Pressable
+      onPress={props.onPress}
+      disabled={props.disabled}
+      accessibilityRole="button"
+      accessibilityLabel={`${props.title}. ${props.description}. ${props.unread ? "Não lida. Marcar como lida" : "Lida"}`}
+      accessibilityState={{ disabled: props.disabled }}
       style={({ pressed }) => [
         styles.card,
         pressed && styles.cardPressed,

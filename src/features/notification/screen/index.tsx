@@ -1,62 +1,63 @@
+﻿import { FlatList, View } from "react-native";
 import Screen from "@/components/Screen/Screen";
-
-import NotificationSection from "../sections/NotificationSection";
-import NotificationsSummary from "../sections/NotificationsSummary";
-
-import { notifications } from "../mocks/notifications";
+import { Button } from "@/components";
+import Typography from "@/components/Typography/Typography";
+import { SkeletonBlock } from "@/components/Skeleton";
 import { titleScreen } from "@/constants/titleScreen";
-import { View } from "react-native";
-import { useEffect, useState } from "react";
-import { SkeletonBlock, SkeletonExpenseList, SkeletonSummaryCard } from "@/components/Skeleton";
+import { useTheme } from "@/theme/ThemeProvider";
+import NotificationCard from "../sections/NotificationCard";
+import NotificationsSummary from "../sections/NotificationsSummary";
+import { useNotifications } from "../hooks/useNotifications";
 
 export default function NotificationsScreen() {
-  const [loading, setLoading] = useState<boolean>(true);
-  
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
-  if (!loading) {
-    return (
-      <Screen
-        scrollable
-        headerTitle={titleScreen.NOTIFICACOES}
-        showBackButton
-      >
-        <NotificationsSummary/>
-
-        <View style={{gap:15}}>
-
-          {notifications.map((section) => (
-            <NotificationSection
-              key={section.section}
-              title={section.section}
-              notifications={section.data}
-            />
-          ))}
-          
-        </View>
-      </Screen>
-    );
-  }
+  const theme = useTheme();
+  const state = useNotifications();
   return (
-    <Screen
-      scrollable
-      headerTitle={titleScreen.NOTIFICACOES}
-      showBackButton
-    >
-      <View style={{gap:15, marginBottom: 25, marginTop: 20}}>
-        <SkeletonBlock height={170} width="100%" borderRadius={20}/>
-      </View>
-
-      <View style={{gap:15}}>
-        <SkeletonBlock height={100} width="100%" borderRadius={20}/>
-        <SkeletonBlock height={100} width="100%" borderRadius={20}/>
-        <SkeletonBlock height={100} width="100%" borderRadius={20}/>
-      </View>
-    </Screen> 
+    <Screen headerTitle={titleScreen.NOTIFICACOES} showBackButton>
+      {state.loading ? (
+        <View style={{ gap: theme.spacing.md }}>
+          <SkeletonBlock height={170} width="100%" />
+          <SkeletonBlock height={100} width="100%" />
+          <SkeletonBlock height={100} width="100%" />
+        </View>
+      ) : (
+        <FlatList
+          data={state.items}
+          keyExtractor={item => String(item.id)}
+          refreshing={state.busy}
+          onRefresh={state.refresh}
+          contentContainerStyle={{ gap: theme.spacing.md, paddingBottom: theme.spacing.lg }}
+          ListHeaderComponent={
+            <View style={{ gap: theme.spacing.md }}>
+              {state.count !== null && <NotificationsSummary count={state.count} />}
+              {state.error !== "" && (
+                <>
+                  <Typography variant="body2" color={theme.colors.error}>{state.error}</Typography>
+                  <Button title="Tentar novamente" onPress={state.refresh} loading={state.busy} />
+                </>
+              )}
+              {state.count !== null && state.count > 0 && (
+                <Button title="Marcar todas como lidas" onPress={() => state.markRead()} loading={state.busy} />
+              )}
+            </View>
+          }
+          ListEmptyComponent={state.error ? null : <Typography variant="body2">Você ainda não possui notificações.</Typography>}
+          renderItem={({ item }) => (
+            <NotificationCard
+              title={item.title}
+              description={item.message}
+              time={new Date(item.createdAt).toLocaleString("pt-BR")}
+              icon={item.type === "SECURITY_ALERT" ? "shield" : "warning"}
+              iconColor={theme.colors.primary}
+              iconBackground={theme.colors.surfaceContainer}
+              unread={!item.read}
+              disabled={state.busy || item.read}
+              onPress={() => state.markRead(item)}
+            />
+          )}
+          ListFooterComponent={state.hasMore ? <Button title="Carregar mais" onPress={state.loadMore} loading={state.busy} /> : null}
+        />
+      )}
+    </Screen>
   );
 }
