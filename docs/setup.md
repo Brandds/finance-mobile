@@ -165,6 +165,67 @@ Também é possível salvar a mesma variável em `.env.local`, mantendo esse arq
 Os caminhos relativos e o cliente HTTP compartilhado permanecem os mesmos.
 O interceptor existente adiciona o JWT e mantém o tratamento de sessão expirada.
 
+## Pendências de autenticação — Issue #9
+
+A [Issue mobile #9](https://github.com/Brandds/finance-mobile/issues/9) está
+parcialmente implementada. O cadastro direciona para uma tela de orientação para
+confirmar o e-mail pelo link recebido, com retorno ao login. Essa tela não confirma
+o e-mail por conta própria e não oferece reenvio.
+
+Na consulta à branch principal da API, foi encontrado somente o contrato
+`GET /auth/verify-email?token=...` para confirmação; o controller Google não
+expunha operações. Não foram encontrados contratos de reenvio ou recuperação e
+redefinição de senha. As dependências estão registradas na
+[Issue finance-api #16](https://github.com/Brandds/finance-api/issues/16).
+
+Para concluir a integração, a API precisa disponibilizar e documentar:
+
+- Reenvio de verificação, incluindo limites e tratamento de conta já confirmada.
+- Solicitação de recuperação e redefinição por token, incluindo validade, uso
+  único, erros, política de senha e invalidação de sessões.
+- Google OAuth compatível com Expo, com validação da credencial e retorno de
+  token e usuário para a sessão do aplicativo.
+- Métodos, caminhos, payloads, respostas, configuração e URLs de retorno dos
+  fluxos de e-mail e OAuth.
+
+Recuperação de senha, Google e Apple foram removidos da interface de login por
+não terem integração funcional. Não foram criados endpoints presumidos nem
+sessões simuladas. Após a entrega dos contratos, ainda será necessário implementar
+reenvio, recuperação/redefinição e Google no mobile e validar sucesso, erro,
+tokens expirados, navegação e persistência. Apple depende de suporte próprio.
+
+## Notificações — Issue #8
+
+A tela usa os contratos existentes da API, com o envelope `{ data, message }`:
+
+- `GET /notifications?page=0&size=20`: lista paginada, ordenada pelo backend.
+- `GET /notifications/unread-count`: contador real de não lidas.
+- `PATCH /notifications/{id}/read`: persiste a leitura individual.
+- `PATCH /notifications/read-all`: persiste a leitura de todas as notificações.
+
+As chamadas usam o cliente autenticado compartilhado. O contador é consultado
+novamente após as mutações; falhas exibem erro e permitem tentar novamente. A tela
+recarrega ao ganhar foco, permite atualização manual e carregamento de mais páginas.
+Tocar em uma notificação não lida marca sua leitura; não há navegação inferida pelo
+título, mensagem ou tipo do alerta.
+
+### Dependência da API para destinos relacionados
+
+O [contrato atual](https://github.com/Brandds/finance-api/blob/main/docs/notifications.md)
+oferece lista, contador e leitura, sem necessidade de novos endpoints para essas
+operações. Porém, o payload contém apenas `id`, `type`, `title`, `message`, `read`,
+`createdAt` e `readAt`: não identifica um recurso relacionado.
+
+Para atender ao critério de navegação da
+[Issue mobile #8](https://github.com/Brandds/finance-mobile/issues/8), é necessário
+definir e implementar na API um destino opcional estruturado (tipo de recurso e
+identificador), propagado pelos eventos, persistência e resposta. O contrato ainda
+precisa ser acordado; esses campos não são consumidos pelo aplicativo atualmente.
+A API deve preservar autorização ao acessar o recurso. Depois disso, o mobile
+precisará mapear os destinos suportados para rotas tipadas e tratar recursos
+removidos, inacessíveis ou tipos desconhecidos. Alertas sem recurso devem continuar
+permitindo leitura sem navegação. Esse critério permanece pendente.
+
 ## Solução de problemas
 
 ### `node` ou `npm` não encontrados
