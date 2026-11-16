@@ -2,6 +2,7 @@ export const ROUTES = {
   ADD_EXPENSE: "AddExpense",
   LOGIN: "Login",
   REGISTER: "Register",
+  VERIFY_EMAIL: "VerifyEmail",
   HOME: "Home",
   EXPENSES: "Expenses",
   CATEGORIAS: "Categorias",

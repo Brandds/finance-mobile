@@ -165,6 +165,35 @@ Também é possível salvar a mesma variável em `.env.local`, mantendo esse arq
 Os caminhos relativos e o cliente HTTP compartilhado permanecem os mesmos.
 O interceptor existente adiciona o JWT e mantém o tratamento de sessão expirada.
 
+## Pendências de autenticação — Issue #9
+
+A [Issue mobile #9](https://github.com/Brandds/finance-mobile/issues/9) está
+parcialmente implementada. O cadastro direciona para uma tela de orientação para
+confirmar o e-mail pelo link recebido, com retorno ao login. Essa tela não confirma
+o e-mail por conta própria e não oferece reenvio.
+
+Na consulta à branch principal da API, foi encontrado somente o contrato
+`GET /auth/verify-email?token=...` para confirmação; o controller Google não
+expunha operações. Não foram encontrados contratos de reenvio ou recuperação e
+redefinição de senha. As dependências estão registradas na
+[Issue finance-api #16](https://github.com/Brandds/finance-api/issues/16).
+
+Para concluir a integração, a API precisa disponibilizar e documentar:
+
+- Reenvio de verificação, incluindo limites e tratamento de conta já confirmada.
+- Solicitação de recuperação e redefinição por token, incluindo validade, uso
+  único, erros, política de senha e invalidação de sessões.
+- Google OAuth compatível com Expo, com validação da credencial e retorno de
+  token e usuário para a sessão do aplicativo.
+- Métodos, caminhos, payloads, respostas, configuração e URLs de retorno dos
+  fluxos de e-mail e OAuth.
+
+Recuperação de senha, Google e Apple foram removidos da interface de login por
+não terem integração funcional. Não foram criados endpoints presumidos nem
+sessões simuladas. Após a entrega dos contratos, ainda será necessário implementar
+reenvio, recuperação/redefinição e Google no mobile e validar sucesso, erro,
+tokens expirados, navegação e persistência. Apple depende de suporte próprio.
+
 ## Solução de problemas
 
 ### `node` ou `npm` não encontrados
