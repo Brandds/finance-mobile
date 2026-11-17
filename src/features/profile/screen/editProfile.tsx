@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import {
   useForm,
@@ -20,14 +20,14 @@ import { EditProfileFormData } from "../types/edit-profile.types";
 import { editProfileSchema } from "../schema/edit-profileSchema";
 import { Button } from "@/components";
 import PersonalInfoForm from "../sections/Profile/PersonalInfoForm";
-import { useDadosPessoais } from "../hooks/useDadosPessoais";
+import { useAuthStore } from "@/store/auth/auth.store";
 import { useEditProfile } from "../hooks/useEditProfile";
 import { NavigationProps } from "@/features/auth/form/types";
 import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "@/theme/ThemeProvider";
 
 export default function EditProfileScreen() {
-  const {user, loading} = useDadosPessoais();
+  const user = useAuthStore((state) => state.userResponse);
   const {handleEditProfile, loadingEditProfile} = useEditProfile();
   const navigation = useNavigation<NavigationProps>();
   const theme = useTheme();
@@ -83,7 +83,7 @@ export default function EditProfileScreen() {
       <Button
         title="Salvar Alterações"
         loading={loadingEditProfile}
-        onPress={handleSubmit(onSubmit)}
+        onPress={user && !loadingEditProfile ? handleSubmit(onSubmit) : undefined}
         style={
           styles
             .actionsContainer

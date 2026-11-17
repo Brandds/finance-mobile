@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { EditProfileFormData } from "../types/edit-profile.types";
 import { updateUser } from "../service/user.service";
 import { useToast } from "@/hooks/useToasts";
@@ -9,6 +9,7 @@ import { toastMessages, toastTitles } from "@/constants/toast.constants";
 
 export function useEditProfile() {
   const [loadingEditProfile, setLoadingEditProfile] = useState(false);
+  const submitting = useRef(false);
   const {showToast} = useToast();
   const updateUserStore =
     useAuthStore(
@@ -18,11 +19,17 @@ export function useEditProfile() {
   async function handleEditProfile(
     data: EditProfileFormData,
   ): Promise<ApiResponse<UserResponse> | undefined>{
+    const { token, userResponse } = useAuthStore.getState();
+    if (submitting.current || !token || !userResponse) return;
+
+    submitting.current = true;
     try {
       setLoadingEditProfile(true);
       
       const response = await updateUser(data);
+      if (useAuthStore.getState().token !== token) return;
       await updateUserStore(response.data);
+      if (useAuthStore.getState().token !== token) return;
 
 
       showToast({
@@ -40,6 +47,7 @@ export function useEditProfile() {
         message: toastMessages.ERRO_ATUALIZAR_PERFIL
       });
     } finally {
+      submitting.current = false;
       setLoadingEditProfile(false);
     }
   }
