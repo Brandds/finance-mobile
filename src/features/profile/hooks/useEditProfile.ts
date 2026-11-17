@@ -22,7 +22,7 @@ export function useEditProfile() {
       setLoadingEditProfile(true);
       
       const response = await updateUser(data);
-      updateUserStore(response.data);
+      await updateUserStore(response.data);
 
 
       showToast({

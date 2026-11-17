@@ -11,12 +11,20 @@ export function useProfile() {
   const { showToast } = useToast();
 
   async function handleLogout() {
-    await signOut();
-    showToast({
-      title: toastTitles.SUCESSO,
-      message: toastMessages.LOGOUT_REALIZADO,
-      type: "success",
-    });
+    try {
+      await signOut();
+      showToast({
+        title: toastTitles.SUCESSO,
+        message: toastMessages.LOGOUT_REALIZADO,
+        type: "success",
+      });
+    } catch {
+      showToast({
+        title: toastTitles.ERRO,
+        message: toastMessages.ERRO_LOGOUT,
+        type: "error",
+      });
+    }
   }
 
   return {
