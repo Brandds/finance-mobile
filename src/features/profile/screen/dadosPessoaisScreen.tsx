@@ -4,7 +4,10 @@ import PersonalInfoList from "../sections/DadosPessoais/PersonalInfoList";
 import { Button } from "@/components";
 import { dadosPessoaisStyle } from "../styles/dadosPessoais.styles";
 import { PersonalInfo } from "../sections/DadosPessoais/PersonalInfoList/types";
-import { useDadosPessoais } from "../hooks/useDadosPessoais";
+import { useNavigation } from "@react-navigation/native";
+import { NavigationProps } from "@/features/auth/form/types";
+import { ROUTES } from "@/navigation/routes";
+import { useAuthStore } from "@/store/auth/auth.store";
 import { useTheme } from "@/theme/ThemeProvider";
 import Typography from "@/components/Typography/Typography";
 import { View } from "react-native";
@@ -12,7 +15,8 @@ import { View } from "react-native";
 
 
 export default function DadosPessoaisScreen() {
-  const { user, loading } = useDadosPessoais();
+  const user = useAuthStore((state) => state.userResponse);
+  const navigation = useNavigation<NavigationProps>();
 
   const theme = useTheme();
   const style = dadosPessoaisStyle(theme);
@@ -51,11 +55,13 @@ export default function DadosPessoaisScreen() {
         items={personalInfo}
       />
 
-      <Button
-        title="Editar Dados"
-        onPress={() => { }}
-        style={style.button}
-      />
+      {user && (
+        <Button
+          title="Editar Dados"
+          onPress={() => navigation.navigate(ROUTES.EDIT_PROFILE)}
+          style={style.button}
+        />
+      )}
 
       <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: theme.spacing.lg }}>
         <Typography
