@@ -30,6 +30,19 @@ Registre:
 
 Use `rg` e leitura direcionada; não faça varredura completa do repositório sem necessidade. Reaproveite descobertas já obtidas durante a execução.
 
+### Dependências e implementações existentes
+
+- Identifique se a Issue depende de alterações em outros repositórios.
+  Caso exista dependência, registre os contratos necessários e informe
+  o usuário. Não altere outro repositório automaticamente.
+
+- Verifique se a funcionalidade já existe total ou parcialmente na
+  branch base ou em Pull Requests relacionados. Não duplique
+  implementações existentes.
+
+- Caso encontre sobreposição com outras Issues, registre o conflito
+  e proponha uma solução antes de implementar.
+
 ## 2. Planejar
 
 Classifique a complexidade e o risco como baixo, médio ou alto, considerando impacto em API, autenticação, persistência, navegação, múltiplas features e migrações.
@@ -38,6 +51,17 @@ Classifique a complexidade e o risco como baixo, médio ou alto, considerando im
 - Para médio risco, apresente arquivos, sequência de mudanças e validações antes de editar quando isso melhorar a segurança.
 - Para alto risco, mudança fora do escopo, contrato público ou impacto irreversível, pare e solicite aprovação explícita antes de implementar.
 - Priorize a menor alteração compatível com os critérios de aceite; não inclua refatorações oportunistas.
+- Quando a Issue exigir alterações em outro repositório,
+  separe as responsabilidades por projeto e identifique
+  a ordem de implementação.
+
+- Não considere a Issue concluída apenas porque o código
+  local foi implementado, caso existam critérios de aceite
+  dependentes de integrações ainda não validadas.
+
+- Se uma dependência externa bloquear um critério de aceite,
+  registre o status como parcial ou bloqueado e informe
+  o usuário antes de finalizar.
 
 ## 3. Preparar o Git
 
@@ -83,4 +107,7 @@ Entregue um resumo objetivo contendo:
 - riscos, pendências e limitações;
 - sugestão de mensagem de commit, sem executar o commit;
 - status final da Issue, sem fechá-la ou alterar o provedor sem autorização.
+- Dependências externas: contratos necessários, funcionalidades
+  pendentes em outros repositórios e compatibilidade com
+  consumidores existentes.
 
