@@ -82,72 +82,83 @@ Os comandos disponíveis são definidos nos scripts de `package.json`.
 
 ## Conectar à finance-api
 
-A URL central fica em `src/constants/url_base_constants.ts`. `EXPO_PUBLIC_API_URL`,
-quando preenchida, tem prioridade sobre os fallbacks. Configure-a na sessão do
-PowerShell ou em `.env.local` (ignorado pelo Git). Use `.env.example` como referência;
-nenhum token ou senha deve ser colocado nessa variável, pois ela é pública no bundle.
+A configuração central em `src/constants/url_base_constants.ts` exige
+`EXPO_PUBLIC_API_URL` em todas as plataformas. Não há URL padrão no código.
+Copie `.env.example` para `.env.local` (ignorado pelo Git) e preencha a URL completa,
+incluindo `/api/v1`. Nunca inclua credenciais: variáveis `EXPO_PUBLIC_*` ficam
+visíveis no bundle. Um valor ausente ou inválido impede a inicialização.
 
-| Ambiente | Sem variável | Configuração explícita |
-| --- | --- | --- |
-| Android | `http://10.0.2.2:8082/api/v1` (fallback para Android Emulator) | Obrigatória em aparelho físico |
-| Expo Web | `http://localhost:8082/api/v1` | Opcional |
-| iOS/outro ambiente | Erro de configuração | Obrigatória |
+### Desenvolvimento, homologação e produção
 
-Não há detecção de aparelho físico versus emulador nem descoberta automática do IP LAN.
-Sem variável, todo Android usa o fallback acima, que foi destinado ao Android Emulator.
-Em dispositivo físico, configure explicitamente `EXPO_PUBLIC_API_URL` com o IP LAN
-da máquina que executa a API; `10.0.2.2` e `localhost` não apontam para essa máquina.
-Uma URL configurada tem prioridade em qualquer plataforma.
-
-A URL deve usar `http://` ou `https://`, conter um hostname ou IPv4 válido e terminar
-em `/api/v1` (um prefixo de proxy antes de `/api/v1` é permitido). Credenciais, query
-e fragmentos são rejeitados. Barras repetidas no caminho e barras finais são removidas.
-O endereço configurado não é substituído com base no tipo de dispositivo.
-Depois de mudar a variável, encerre o Expo e inicie-o novamente.
-
-### Android Emulator no Windows
-
-Com a API acessível na porta `8082` do Windows, remova qualquer override da sessão
-e deixe a variável vazia/ausente em `.env.local` para manter o comportamento original:
+Selecione o ambiente fornecendo a URL correspondente antes de iniciar ou gerar o
+bundle. Não use `NODE_ENV` para selecionar arquivos de ambiente. Uma variável
+exportada na sessão tem prioridade sobre o arquivo `.env.local`.
 
 ```powershell
-Remove-Item Env:EXPO_PUBLIC_API_URL -ErrorAction SilentlyContinue
+# Desenvolvimento: confirme a porta publicada da API; os endereços são exemplos.
+$env:EXPO_PUBLIC_API_URL = "http://10.0.2.2:<PORTA_PUBLICADA>/api/v1"
 npm.cmd run android
-```
 
-### Expo Web no Windows
-
-Sem override, o navegador usa `http://localhost:8082/api/v1`:
-
-```powershell
-Remove-Item Env:EXPO_PUBLIC_API_URL -ErrorAction SilentlyContinue
-npm.cmd run web
-```
-
-A API deve permitir a origem exata exibida pelo Expo, incluindo a porta, na sua
-configuração `APP_CORS_ALLOWED_ORIGINS`. Por exemplo, para Expo em
-`http://localhost:8081`, essa é a origem permitida; não inclua `/api/v1` na origem CORS.
-Configurar a URL no mobile não altera o CORS da API.
-
-O projeto ainda não declara `react-dom`, `react-native-web` e `@expo/metro-runtime`
-para execução web. Se o Expo solicitar esses pacotes, a instalação das versões
-compatíveis com o SDK 54 precisa ser autorizada antes de validar o navegador.
-
-### Dispositivo físico com Expo Go
-
-Mantenha o aparelho e o Windows na mesma rede. Consulte o IPv4 da interface ativa
-com `ipconfig` e substitua o placeholder abaixo pelo IP LAN dessa máquina:
-
-```powershell
-$env:EXPO_PUBLIC_API_URL = "http://<IP_LAN_DO_COMPUTADOR>:8082/api/v1"
+# Aparelho físico: mesma rede, IP LAN do computador e porta acessível no firewall.
+$env:EXPO_PUBLIC_API_URL = "http://<IP_LAN>:<PORTA_PUBLICADA>/api/v1"
 npm.cmd start -- --lan
+
+# Homologação: substitua pelo endereço fornecido para esse ambiente.
+$env:EXPO_PUBLIC_API_URL = "https://<HOST_HOMOLOGACAO>/api/v1"
+npm.cmd start
+
+# Produção: forneça a URL real no ambiente de build/exportação.
+$env:EXPO_PUBLIC_API_URL = "https://<HOST_PRODUCAO>/api/v1"
 ```
 
-Abra o QR code no Expo Go. A porta `8082` precisa estar publicada pelo Docker e
-liberada pelo firewall do Windows, assim como o acesso ao servidor Expo. VPNs e
-isolamento de clientes Wi-Fi podem impedir a conexão. O modo tunnel do Expo não
-publica automaticamente a API; a URL da API continua precisando ser acessível pelo aparelho.
-Também é possível salvar a mesma variável em `.env.local`, mantendo esse arquivo fora do Git.
+Substitua os placeholders antes de executar; eles não são URLs válidas. Confirme
+porta e host no deploy da finance-api, sem presumir `8082` ou `8083`. No emulador
+iOS ou web local, use o endereço acessível à plataforma, por exemplo `localhost`
+com a porta publicada. No Android Emulator, `10.0.2.2` acessa o computador host;
+em aparelhos físicos é necessário IP LAN ou endereço público acessível.
+
+A URL deve usar HTTP/HTTPS, hostname ou IPv4 válido, e terminar em `/api/v1`.
+Credenciais, query e fragmento são rejeitados. Barras duplicadas no caminho e
+barras finais são normalizadas. Use HTTPS em homologação e produção.
+Reinicie o Expo e gere um novo bundle/update após mudar a variável; ela não é
+uma configuração remota em tempo de execução. Builds devem receber a variável
+pelo ambiente de CI/EAS utilizado, sem necessidade de editar arquivos TypeScript.
+
+Na web, configure `APP_CORS_ALLOWED_ORIGINS` na finance-api com a origem exata do
+Expo, incluindo a porta e sem `/api/v1`. O mobile não altera o CORS do backend.
+O projeto não declara as dependências web `react-dom`, `react-native-web` e
+`@expo/metro-runtime`; não foram adicionadas por esta mudança.
+
+### Sessão e armazenamento seguro — Issue #5
+
+No Android/iOS, o JWT fica no `expo-secure-store` (versão compatível com SDK 54),
+sem biometria obrigatória. AsyncStorage guarda somente metadados da sessão e
+perfil, sem token. A store Zustand mantém o token em memória para o interceptor
+Bearer existente. Atualização de perfil preserva o token seguro.
+
+A sessão legada `@finance:user` é validada e migrada na primeira restauração.
+Sua cópia antiga só é removida depois de persistir o token e os metadados novos.
+Como o formato legado não identifica o ambiente, a migração inicial associa essa
+sessão à API configurada: faça a primeira execução no ambiente original ou saia
+da conta antes de mudar a URL. Sessões novas só são restauradas na mesma URL;
+a mudança de host, porta ou caminho exige novo login.
+
+Logout limpa a memória imediatamente e tenta remover o token seguro e a sessão
+legada. Um marcador no AsyncStorage impede restauração se a exclusão segura falhar.
+Falhas são informadas pelo fluxo de logout. Se todos os mecanismos de armazenamento
+falharem simultaneamente, não é possível garantir a remoção persistente; tente o
+logout novamente antes de encerrar o aplicativo. Dados corrompidos não autenticam
+o usuário; falhas de leitura encerram o loading e mantêm a tela de login.
+
+Na web, a sessão existe somente em memória: recarregar a página exige novo login.
+Tokens legados são removidos do AsyncStorage; não há fallback para localStorage.
+Persistência web segura exigiria contrato próprio com a API (por exemplo cookies
+HttpOnly), fora desta implementação. O SecureStore não garante preservação após
+desinstalação; reinstalação não é critério de login persistente.
+
+A API continua retornando `{ data: { token, user }, message }` em `POST /auth/login`.
+Nenhum endpoint novo, refresh token ou revogação remota foi implementado. Erros
+`401` com códigos de autenticação mantêm o encerramento de sessão existente.
 
 ### Contratos usados pelos serviços
 

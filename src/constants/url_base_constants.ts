@@ -1,5 +1,3 @@
-import { Platform } from "react-native";
-
 function normalizeApiUrl(value: string) {
   // Validação explícita: o parser URL nativo não valida todos os formatos no React Native.
   const match = value.trim().match(/^(https?):\/\/([a-z0-9.-]+)(?::(\d{1,5}))?(\/[^\s?#\\]*)?$/i);
@@ -31,10 +29,7 @@ function resolveApiUrl() {
   // O acesso direto permite que o Expo substitua a variável no bundle.
   const configuredUrl = process.env.EXPO_PUBLIC_API_URL;
   if (configuredUrl?.trim()) return normalizeApiUrl(configuredUrl);
-  if (Platform.OS === "web") return "http://localhost:8083/api/v1";
-  if (Platform.OS === "android") return "http://10.0.2.2:8083/api/v1";
-
-  throw new Error(`EXPO_PUBLIC_API_URL é obrigatória no ambiente ${Platform.OS}. Configure a URL da API explicitamente.`);
+  throw new Error("EXPO_PUBLIC_API_URL é obrigatória. Configure a URL da API antes de iniciar o Expo.");
 }
 
 export const URL_BASE = resolveApiUrl();
