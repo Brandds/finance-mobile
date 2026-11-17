@@ -43,10 +43,6 @@ export default function ProfileScreen() {
     navigation.navigate(ROUTES.DAADOS_PESSOAIS);
   };
 
-  const handlePremium = () => {
-    console.log("Premium");
-  };
-
   const handleNotifications = () => {
     console.log("Notificações");
   };
@@ -95,7 +91,6 @@ export default function ProfileScreen() {
             onPersonalDataPress={
               handlePersonalData
             }
-            onPremiumPress={handlePremium}
           />
 
           <PreferencesSection
