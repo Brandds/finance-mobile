@@ -10,7 +10,6 @@ import { ROUTES } from "@/navigation/routes";
 import { useAuthStore } from "@/store/auth/auth.store";
 import { useTheme } from "@/theme/ThemeProvider";
 import Typography from "@/components/Typography/Typography";
-import { View } from "react-native";
 
 
 
@@ -38,6 +37,7 @@ export default function DadosPessoaisScreen() {
       icon: "assignment-ind",
     },
   ];
+  const availableInfo = personalInfo.filter(({ value }) => value.trim());
 
   return (
     <Screen
@@ -45,15 +45,20 @@ export default function DadosPessoaisScreen() {
       showBackButton
       scrollable
     >
-      <ProfileHeader
-        name={user?.name || ""}
-        subtitle="Cliente desde 2021"
-        imageUrl="https://i.pravatar.cc/300"
-      />
+      {user && (
+        <ProfileHeader
+          name={user.name?.trim() ?? ""}
+          imageUrl="https://i.pravatar.cc/300"
+        />
+      )}
 
-      <PersonalInfoList
-        items={personalInfo}
-      />
+      {availableInfo.length > 0 ? (
+        <PersonalInfoList items={availableInfo} />
+      ) : (
+        <Typography variant="body2" color={theme.colors.text}>
+          Dados pessoais indisponíveis.
+        </Typography>
+      )}
 
       {user && (
         <Button
@@ -62,16 +67,6 @@ export default function DadosPessoaisScreen() {
           style={style.button}
         />
       )}
-
-      <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: theme.spacing.lg }}>
-        <Typography
-          variant="body2"
-          color={theme.colors.text}
-        >
-          Ultima atualização em 20 de Outubro de 2026
-        </Typography>
-        <Typography variant="body2" color={theme.colors.text}>às 14:30</Typography>
-      </View>
     </Screen>
   );
 }

@@ -12,7 +12,6 @@ import { ProfileHeaderProps } from "./types";
 
 export default function ProfileHeader({
   name,
-  subtitle,
   imageUrl,
 }: ProfileHeaderProps) {
 
@@ -30,16 +29,7 @@ export default function ProfileHeader({
         />
       </View>
 
-      <Typography variant="h1">
-        {name}
-      </Typography>
-
-      <Typography
-        variant="body2"
-        color={theme.colors.textSecondary}
-      >
-        {subtitle}
-      </Typography>
+      {!!name && <Typography variant="h1">{name}</Typography>}
     </View>
   );
 }
