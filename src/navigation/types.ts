@@ -3,6 +3,7 @@ import { ROUTES } from "./routes";
 export type RootStackParamList = {
   [ROUTES.LOGIN]: undefined;
   [ROUTES.REGISTER]: undefined;
+  [ROUTES.VERIFY_EMAIL]: { email: string };
   [ROUTES.HOME]: undefined;
   [ROUTES.NOTIFICATIONS]: undefined;
   [ROUTES.PROFILE]: undefined;

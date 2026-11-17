@@ -24,7 +24,7 @@ export function useRegister() {
                     message: toastMessages.REGISTRO_SUCESSO,
                     type: "success",
                 });
-                navigation.navigate(ROUTES.LOGIN);
+                navigation.replace(ROUTES.VERIFY_EMAIL, { email: data.email });
             }
         } catch (error) {
             const message =
