@@ -19,6 +19,13 @@ import { styles } from "../styles/styles";
 export default function ProfileScreen() {
 
   const user = useAuthStore(state => state.userResponse);
+  const name = user?.name?.trim() ?? "";
+  const initials = name
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((part) => part.charAt(0))
+    .join("")
+    .toUpperCase();
   const navigation = useNavigation<NavigationProps>();
   const { theme, toggleTheme } = useThemeStore();
   
@@ -42,10 +49,6 @@ export default function ProfileScreen() {
 
   const handleNotifications = () => {
     console.log("Notificações");
-  };
-
-  const handleLanguage = () => {
-    console.log("Idioma");
   };
 
   const handleTheme = () => {
@@ -80,11 +83,11 @@ export default function ProfileScreen() {
         contentContainerStyle={styles.content}
       >
         <ProfileHeaderSection
-          name={user?.name || "Brandon Brown"}
-          email={user?.email || "brandon@email.com"}
-          initials={"BB"}
+          name={name || "Nome indisponível"}
+          email={user?.email?.trim() ?? ""}
+          initials={initials}
           onEditAvatar={handleEditAvatar}
-          onEditProfile={handleEditProfile}
+          onEditProfile={user ? handleEditProfile : undefined}
         />
 
         <View style={styles.sectionsContainer}>

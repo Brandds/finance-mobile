@@ -32,20 +32,24 @@ export default function ProfileHeaderSection({
                     {name}
                 </Typography>
 
-                <Typography
-                    variant="body2"
-                    color={theme.colors.textSecondary}
-                    style={styles.email}
-                >
-                    {email}
-                </Typography>
+                {!!email && (
+                    <Typography
+                        variant="body2"
+                        color={theme.colors.textSecondary}
+                        style={styles.email}
+                    >
+                        {email}
+                    </Typography>
+                )}
             </View>
 
-            <Button
-                title="Editar Perfil"
-                onPress={onEditProfile}
-                style={styles.editButton}
-            />
+            {onEditProfile && (
+                <Button
+                    title="Editar Perfil"
+                    onPress={onEditProfile}
+                    style={styles.editButton}
+                />
+            )}
         </View>
     );
 }
