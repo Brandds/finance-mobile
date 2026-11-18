@@ -6,6 +6,7 @@ export interface UserResponse {
   email: string;
   role: Role;
   cpf: string;
+  displayPicture?: string | null;
 }
 
 export interface AuthData {

@@ -1,6 +1,6 @@
 // ProfileAvatar.tsx
 
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Image,
@@ -8,7 +8,6 @@ import {
   View,
 } from "react-native";
 
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 import Typography from "@/components/Typography/Typography";
 import { ProfileAvatarProps } from "./types";
@@ -23,6 +22,8 @@ export default function ProfileAvatar({
   editable = false,
   onEditPress,
 }: ProfileAvatarProps) {
+  const [failed, setFailed] = useState(false);
+  React.useEffect(() => setFailed(false), [imageUrl]);
   return (
     <View style={styles.container}>
       <View
@@ -35,9 +36,10 @@ export default function ProfileAvatar({
           },
         ]}
       >
-        {imageUrl ? (
+        {imageUrl && !failed ? (
           <Image
             source={{ uri: imageUrl }}
+            onError={() => setFailed(true)}
             style={{
               width: size,
               height: size,
@@ -57,6 +59,9 @@ export default function ProfileAvatar({
         <Pressable
           style={styles.editButton}
           onPress={onEditPress}
+          hitSlop={8}
+          accessibilityRole="button"
+          accessibilityLabel="Alterar foto de perfil"
         >
           <Icon
             name="edit"
