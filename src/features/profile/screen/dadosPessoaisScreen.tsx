@@ -48,7 +48,7 @@ export default function DadosPessoaisScreen() {
       {user && (
         <ProfileHeader
           name={user.name?.trim() ?? ""}
-          imageUrl="https://i.pravatar.cc/300"
+          imageUrl={user.displayPicture ?? undefined}
         />
       )}
 

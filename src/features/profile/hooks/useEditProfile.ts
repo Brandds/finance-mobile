@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { EditProfileFormData } from "../types/edit-profile.types";
-import { updateUser } from "../service/user.service";
+import { getProfile, updateUser } from "../service/user.service";
 import { useToast } from "@/hooks/useToasts";
 import { ApiResponse } from "@/shared/types/apiResponse";
 import { UserResponse } from "@/features/auth/types/authType";
@@ -28,7 +28,11 @@ export function useEditProfile() {
       
       const response = await updateUser(data);
       if (useAuthStore.getState().token !== token) return;
-      await updateUserStore(response.data);
+      const profile = await getProfile().catch(() => ({
+        ...response.data,
+        displayPicture: response.data.displayPicture ?? userResponse.displayPicture,
+      }));
+      await updateUserStore(profile);
       if (useAuthStore.getState().token !== token) return;
 
 

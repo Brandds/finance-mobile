@@ -1,4 +1,5 @@
-import { Image, Pressable, View } from "react-native";
+import { Pressable, View } from "react-native";
+import ProfileAvatar from "@/features/profile/components/Profile/ProfileAvatar";
 
 
 import Typography from "@/components/Typography/Typography";
@@ -34,12 +35,7 @@ export default function AppHeader() {
 
       <View style={styles.left}>
 
-        <Image
-          source={{
-            uri: "https://i.pravatar.cc/150",
-          }}
-          style={styles.avatar}
-        />
+        <ProfileAvatar imageUrl={user?.displayPicture ?? undefined} initials={user?.name?.trim().split(/\s+/).slice(0, 2).map(part => part[0]).join("").toUpperCase()} size={40} />
 
         <Typography
           variant="h2"

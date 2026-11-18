@@ -1,4 +1,13 @@
-import { ScrollView, View } from "react-native";
+import { ActivityIndicator, Pressable, ScrollView, View } from "react-native";
+import { useEffect, useRef } from "react";
+import AppBottomSheet from "@/components/BottomSheet";
+import { AppBottomSheetRef } from "@/components/BottomSheet/types";
+import Typography from "@/components/Typography/Typography";
+import ProfileAvatar from "../components/Profile/ProfileAvatar";
+import { useTheme } from "@/theme/ThemeProvider";
+import { useAvatar } from "../hooks/useAvatar";
+import { avatarStyles } from "../styles/avatar.styles";
+import { getProfile } from "../service/user.service";
 
 import AppHeader from "@/components/AppHeader";
 import Screen from "@/components/Screen/Screen";
@@ -30,9 +39,23 @@ export default function ProfileScreen() {
   const { theme, toggleTheme } = useThemeStore();
   
   const { handleLogout } = useProfile();
+  const avatar = useAvatar();
+  const sheet = useRef<AppBottomSheetRef>(null);
+  const themeColors = useTheme();
+  const avatarStyle = avatarStyles(themeColors);
+  useEffect(() => {
+    const { token, userResponse } = useAuthStore.getState();
+    if (!token || !userResponse) return;
+    getProfile().then(profile => {
+      const current = useAuthStore.getState();
+      if (current.token === token && current.userResponse?.id === userResponse.id) {
+        void current.updateUser(profile);
+      }
+    }).catch(() => undefined);
+  }, []);
 
   const handleEditAvatar = () => {
-    console.log("Editar avatar");
+    sheet.current?.present();
   };
   
   const handleEditProfile = () => {
@@ -82,6 +105,7 @@ export default function ProfileScreen() {
           name={name || "Nome indisponível"}
           email={user?.email?.trim() ?? ""}
           initials={initials}
+          imageUrl={user?.displayPicture ?? undefined}
           onEditAvatar={handleEditAvatar}
           onEditProfile={user ? handleEditProfile : undefined}
         />
@@ -121,6 +145,32 @@ export default function ProfileScreen() {
           />
         </View>
       </ScrollView>
+      <AppBottomSheet ref={sheet} snapPoints={["42%"]}>
+        <View style={avatarStyle.sheetContent}>
+          {avatar.image ? (
+            <>
+              <ProfileAvatar imageUrl={avatar.image.uri} size={96} />
+              <Typography variant="body1">Usar esta foto?</Typography>
+              <Pressable style={avatarStyle.action} disabled={avatar.busy} onPress={async () => { if (await avatar.upload()) sheet.current?.dismiss(); }} accessibilityRole="button" accessibilityLabel="Usar foto">
+                <Typography variant="body1">Usar foto</Typography>
+              </Pressable>
+            </>
+          ) : (
+            <>
+              <Pressable style={avatarStyle.action} disabled={avatar.busy} onPress={avatar.chooseImage} accessibilityRole="button" accessibilityLabel="Escolher foto da galeria">
+                <Typography variant="body1">Escolher da galeria</Typography>
+              </Pressable>
+              {avatar.canRemove && <Pressable style={avatarStyle.action} disabled={avatar.busy} onPress={avatar.confirmRemove} accessibilityRole="button" accessibilityLabel="Remover foto de perfil">
+                <Typography variant="body1">Remover foto</Typography>
+              </Pressable>}
+            </>
+          )}
+          {avatar.busy && <ActivityIndicator color={themeColors.colors.primary} accessibilityLabel="Processando foto" />}
+          <Pressable style={avatarStyle.action} disabled={avatar.busy} onPress={() => { avatar.cancel(); sheet.current?.dismiss(); }} accessibilityRole="button" accessibilityLabel="Cancelar edição da foto">
+            <Typography variant="body1">Cancelar</Typography>
+          </Pressable>
+        </View>
+      </AppBottomSheet>
     </Screen>
 
   );

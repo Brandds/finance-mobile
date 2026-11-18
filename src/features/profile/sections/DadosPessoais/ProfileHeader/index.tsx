@@ -1,7 +1,5 @@
-import {
-  Image,
-  View,
-} from "react-native";
+import { View } from "react-native";
+import ProfileAvatar from "@/features/profile/components/Profile/ProfileAvatar";
 
 import Typography from "@/components/Typography/Typography";
 
@@ -20,14 +18,7 @@ export default function ProfileHeader({
   
   return (
     <View style={styles.container}>
-      <View style={styles.avatarContainer}>
-        <Image
-          source={{
-            uri: imageUrl,
-          }}
-          style={styles.avatar}
-        />
-      </View>
+      <ProfileAvatar imageUrl={imageUrl} initials={name.split(/\s+/).slice(0, 2).map(part => part[0]).join("").toUpperCase()} size={96} />
 
       {!!name && <Typography variant="h1">{name}</Typography>}
     </View>
